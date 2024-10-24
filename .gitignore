@@ -1,0 +1,28 @@
+# Ignorar archivos de configuración específicos del entorno de desarrollo
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Ignorar archivos de compilación de Maven
+/target/
+
+# Ignorar archivos de logs
+*.log
+
+# Ignorar archivos de configuración específicos de sistema operativo
+.DS_Store
+Thumbs.db
+
+# Ignorar archivos de Maven
+.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.properties
+
+# Ignorar archivos de salida y de empaquetado
+*.war
+*.ear
+*.jar
+
+# Ignorar archivos temporales del sistema operativo
+*.swp
+*~
