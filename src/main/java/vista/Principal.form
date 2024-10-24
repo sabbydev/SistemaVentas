@@ -45,7 +45,7 @@
         <Component class="javax.swing.JLabel" name="logo">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/media/logo.png"/>
+              <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\logo.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -364,7 +364,7 @@
                 <Component class="javax.swing.JButton" name="btnEliminarRegistrarVenta">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/media/eliminar.png"/>
+                      <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\eliminar.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Eliminar"/>
                   </Properties>
@@ -397,7 +397,7 @@
                 <Component class="javax.swing.JButton" name="btnAgregarRegistrarVenta">
                   <Properties>
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                      <Image iconType="3" name="/media/agregar.png"/>
+                      <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\agregar.png"/>
                     </Property>
                     <Property name="text" type="java.lang.String" value="Agregar"/>
                   </Properties>
@@ -603,7 +603,7 @@
             <Component class="javax.swing.JButton" name="btnRegistrarRegistrarVenta">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/registrar-venta.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\registrar-venta.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Registrar Venta"/>
               </Properties>
@@ -611,7 +611,7 @@
             <Component class="javax.swing.JButton" name="btnImprimirRegistrarVenta">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/imprimir.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\imprimir.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Imprimir"/>
               </Properties>
@@ -738,7 +738,7 @@
             <Component class="javax.swing.JButton" name="btnGuardarClientes">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/guardar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\guardar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -747,7 +747,7 @@
             <Component class="javax.swing.JButton" name="btnEditarClientes">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/editar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\editar-persona.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -756,7 +756,7 @@
             <Component class="javax.swing.JButton" name="btnEliminarClientes">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/eliminar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\eliminar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -947,7 +947,7 @@
             <Component class="javax.swing.JButton" name="btnPDFVentas">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/pdf.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\pdf.png"/>
                 </Property>
               </Properties>
             </Component>
@@ -1278,7 +1278,7 @@
             <Component class="javax.swing.JButton" name="btnGuardarProductos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/guardar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\guardar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1287,7 +1287,7 @@
             <Component class="javax.swing.JButton" name="btnEliminarProductos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/eliminar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\eliminar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1296,7 +1296,7 @@
             <Component class="javax.swing.JButton" name="btnEditarProductos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/editar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\editar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1305,7 +1305,7 @@
             <Component class="javax.swing.JButton" name="btnExcelProductos">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/excel.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\excel.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exportar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1508,7 +1508,7 @@
             <Component class="javax.swing.JButton" name="btnGuardarEmpleados">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/guardar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\guardar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1517,7 +1517,7 @@
             <Component class="javax.swing.JButton" name="btnEliminarEmpleados">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/eliminar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\eliminar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1526,7 +1526,7 @@
             <Component class="javax.swing.JButton" name="btnEditarEmpleados">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/editar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\editar-persona.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1535,7 +1535,7 @@
             <Component class="javax.swing.JButton" name="btnExcelEmpleados">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/excel.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\excel.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Exportar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
@@ -1692,7 +1692,7 @@
             <Component class="javax.swing.JButton" name="btnGuardarConfiguracion">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/media/guardar.png"/>
+                  <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\guardar.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
                 <Property name="horizontalAlignment" type="int" value="10"/>
