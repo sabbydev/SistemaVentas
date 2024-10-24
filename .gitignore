@@ -26,3 +26,4 @@ Thumbs.db
 # Ignorar archivos temporales del sistema operativo
 *.swp
 *~
+/nbproject/
