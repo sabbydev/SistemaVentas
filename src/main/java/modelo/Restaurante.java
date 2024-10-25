@@ -1,17 +1,19 @@
 package modelo;
-import java.util.LinkedList;
+
+import java.util.List;
+
 public class Restaurante {
     private String ruc;
     private String nombre;
     private String razonSocial;
     private String direccion;
     private String telefono;
-    private LinkedList<Cliente> clientes;
-    private LinkedList<Empleado> empleados;
-    private LinkedList<Producto> productos;
-    private LinkedList<Venta> ventas;
+    private final List<Cliente> clientes;
+    private final List<Empleado> empleados;
+    private final List<Producto> productos;
+    private final List<Venta> ventas;
 
-    public Restaurante(String ruc, String nombre, String razonSocial, String direccion, String telefono, LinkedList<Cliente> clientes, LinkedList<Empleado> empleados, LinkedList<Producto> productos, LinkedList<Venta> ventas) {
+    public Restaurante(String ruc, String nombre, String razonSocial, String direccion, String telefono, List<Cliente> clientes, List<Empleado> empleados, List<Producto> productos, List<Venta> ventas) {
         this.ruc = ruc;
         this.nombre = nombre;
         this.razonSocial = razonSocial;
@@ -43,19 +45,19 @@ public class Restaurante {
         return telefono;
     }
 
-    public LinkedList<Cliente> getClientes() {
+    public List<Cliente> getClientes() {
         return clientes;
     }
 
-    public LinkedList<Empleado> getEmpleados() {
+    public List<Empleado> getEmpleados() {
         return empleados;
     }
 
-    public LinkedList<Producto> getProductos() {
+    public List<Producto> getProductos() {
         return productos;
     }
 
-    public LinkedList<Venta> getVentas() {
+    public List<Venta> getVentas() {
         return ventas;
     }
 
@@ -77,21 +79,5 @@ public class Restaurante {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public void setClientes(LinkedList<Cliente> clientes) {
-        this.clientes = clientes;
-    }
-
-    public void setEmpleados(LinkedList<Empleado> empleados) {
-        this.empleados = empleados;
-    }
-
-    public void setProductos(LinkedList<Producto> productos) {
-        this.productos = productos;
-    }
-
-    public void setVentas(LinkedList<Venta> ventas) {
-        this.ventas = ventas;
-    }    
+    }  
 }

@@ -1,17 +1,17 @@
 package modelo;
 import java.time.LocalDateTime;
 public class Venta {
-    private final String id;
-    private String idCliente;
-    private String idEmpleado;
-    private String idProducto;
-    private double precioUnitario;
-    private int cantidad;
-    private double montoTotal;
-    private LocalDateTime fecha;
-    private String metodoPago;
+    private final int id;
+    private final String idCliente;
+    private final String idEmpleado;
+    private final int idProducto;
+    private final double precioUnitario;
+    private final int cantidad;
+    private final double montoTotal;
+    private final LocalDateTime fechaHora;
+    private final String metodoPago;
 
-    public Venta(String id, String idCliente, String idEmpleado, String idProducto, double precioUnitario, int cantidad, double montoTotal, LocalDateTime fecha, String metodoPago) {
+    public Venta(int id, String idCliente, String idEmpleado, int idProducto, double precioUnitario, int cantidad, double montoTotal, LocalDateTime fechaHora, String metodoPago) {
         this.id = id;
         this.idCliente = idCliente;
         this.idEmpleado = idEmpleado;
@@ -19,11 +19,11 @@ public class Venta {
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
         this.montoTotal = montoTotal;
-        this.fecha = fecha;
+        this.fechaHora = fechaHora;
         this.metodoPago = metodoPago;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
@@ -35,7 +35,7 @@ public class Venta {
         return idEmpleado;
     }
 
-    public String getIdProducto() {
+    public int getIdProducto() {
         return idProducto;
     }
 
@@ -51,43 +51,11 @@ public class Venta {
         return montoTotal;
     }
 
-    public LocalDateTime getFecha() {
-        return fecha;
+    public LocalDateTime getFechaHora() {
+        return fechaHora;
     }
 
     public String getMetodoPago() {
         return metodoPago;
-    }
-
-    public void setIdCliente(String idCliente) {
-        this.idCliente = idCliente;
-    }
-
-    public void setIdEmpleado(String idEmpleado) {
-        this.idEmpleado = idEmpleado;
-    }
-
-    public void setIdProducto(String idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public void setPrecioUnitario(double precioUnitario) {
-        this.precioUnitario = precioUnitario;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
-
-    public void setMontoTotal(double montoTotal) {
-        this.montoTotal = montoTotal;
-    }
-
-    public void setFecha(LocalDateTime fecha) {
-        this.fecha = fecha;
-    }
-
-    public void setMetodoPago(String metodoPago) {
-        this.metodoPago = metodoPago;
     }
 }

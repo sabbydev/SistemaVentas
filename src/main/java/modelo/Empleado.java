@@ -1,21 +1,22 @@
 package modelo;
 public class Empleado {
-    private final String id;
+    private final int id;
     private final String dni;
     private String nombre;
     private String correo;
     private String cargo;
     private double salario;
 
-    public Empleado(String id, String dni, String correo, String nombre, String cargo, double salario) {
+    public Empleado(int id, String dni, String nombre, String correo, String cargo, double salario) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
+        this.correo = correo;
         this.cargo = cargo;
         this.salario = salario;
     }
     
-    public String getId() {
+    public int getId() {
         return id;
     }
     
@@ -32,7 +33,7 @@ public class Empleado {
     }
     
     public String getCorreo() {
-        return nombre;
+        return correo;
     }
 
     public void setCorreo(String correo) {
@@ -53,7 +54,5 @@ public class Empleado {
 
     public void setSalario(double salario) {
         this.salario = salario;
-    }
-
-    
+    } 
 }
