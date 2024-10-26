@@ -36,7 +36,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlLogin.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         logoIniciarSesion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoIniciarSesion.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\iniciar-sesion-logo.png")); // NOI18N
+        logoIniciarSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iniciar-sesion-logo.png"))); // NOI18N
         pnlLogin.add(logoIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 20, 209, -1));
 
         lblIniciarSesion.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -92,7 +92,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlBackground.setBackground(new java.awt.Color(85, 28, 24));
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\login-logo.png")); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login-logo.png"))); // NOI18N
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
@@ -112,7 +112,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
         getContentPane().add(pnlBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 500));
 
-        background.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\login-back.jpg")); // NOI18N
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login-back.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 340, 500));
 
         setSize(new java.awt.Dimension(700, 500));

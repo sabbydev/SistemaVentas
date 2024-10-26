@@ -53,7 +53,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\iniciar-sesion-logo.png"/>
+              <Image iconType="3" name="/images/iniciar-sesion-logo.png"/>
             </Property>
           </Properties>
           <Constraints>
@@ -213,7 +213,7 @@
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\login-logo.png"/>
+              <Image iconType="3" name="/images/login-logo.png"/>
             </Property>
           </Properties>
         </Component>
@@ -222,7 +222,7 @@
     <Component class="javax.swing.JLabel" name="background">
       <Properties>
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="2" name="C:\Users\Usuario\Documents\NetBeansProjects\SistemaVentas\src\main\resources\images\login-back.jpg"/>
+          <Image iconType="3" name="/images/login-back.jpg"/>
         </Property>
       </Properties>
       <Constraints>

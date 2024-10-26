@@ -141,7 +141,7 @@ public class Principal extends javax.swing.JFrame {
         pnlNavBar.setBackground(new java.awt.Color(85, 28, 24));
         pnlNavBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logo.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\logo.png")); // NOI18N
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
         pnlNavBar.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         btnRegistrarVenta.setBackground(new java.awt.Color(250, 209, 94));
@@ -226,7 +226,7 @@ public class Principal extends javax.swing.JFrame {
         seccionProductoRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionProductoRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnEliminarRegistrarVenta.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\eliminar.png")); // NOI18N
+        btnEliminarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnEliminarRegistrarVenta.setText("Eliminar");
         seccionProductoRegistrarVenta.add(btnEliminarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 24, -1, 44));
 
@@ -241,7 +241,7 @@ public class Principal extends javax.swing.JFrame {
         seccionProductoRegistrarVenta.add(lblCantidadRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 24, 82, -1));
         seccionProductoRegistrarVenta.add(txtCantidadRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 44, 82, -1));
 
-        btnAgregarRegistrarVenta.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\agregar.png")); // NOI18N
+        btnAgregarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
         btnAgregarRegistrarVenta.setText("Agregar");
         seccionProductoRegistrarVenta.add(btnAgregarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 24, -1, 44));
 
@@ -309,11 +309,11 @@ public class Principal extends javax.swing.JFrame {
 
         pnlRegistrarVenta.add(seccionClienteRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 540, 190));
 
-        btnRegistrarRegistrarVenta.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\registrar-venta.png")); // NOI18N
+        btnRegistrarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/registrar-venta.png"))); // NOI18N
         btnRegistrarRegistrarVenta.setText("Registrar Venta");
         pnlRegistrarVenta.add(btnRegistrarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(742, 532, -1, 44));
 
-        btnImprimirRegistrarVenta.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\imprimir.png")); // NOI18N
+        btnImprimirRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imprimir.png"))); // NOI18N
         btnImprimirRegistrarVenta.setText("Imprimir");
         pnlRegistrarVenta.add(btnImprimirRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(905, 532, 145, 44));
 
@@ -334,17 +334,17 @@ public class Principal extends javax.swing.JFrame {
         pnlClientes.add(lblTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 610, 100, -1));
         pnlClientes.add(txtTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 250, -1));
 
-        btnGuardarClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\guardar.png")); // NOI18N
+        btnGuardarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
         btnGuardarClientes.setText("Guardar");
         btnGuardarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlClientes.add(btnGuardarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 530, -1, -1));
 
-        btnEditarClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\editar-persona.png")); // NOI18N
+        btnEditarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
         btnEditarClientes.setText("Editar");
         btnEditarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlClientes.add(btnEditarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 530, 108, -1));
 
-        btnEliminarClientes.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\eliminar.png")); // NOI18N
+        btnEliminarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnEliminarClientes.setText("Eliminar");
         btnEliminarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlClientes.add(btnEliminarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 530, -1, -1));
@@ -421,7 +421,7 @@ public class Principal extends javax.swing.JFrame {
 
         pnlVentas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 267, 1070, -1));
 
-        btnPDFVentas.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\pdf.png")); // NOI18N
+        btnPDFVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
         pnlVentas.add(btnPDFVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, -1, -1));
 
         seccionBusquedaVentas.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros de Búsqueda"));
@@ -552,22 +552,22 @@ public class Principal extends javax.swing.JFrame {
         pnlProductos.add(lblDescripcionProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 474, 250, -1));
         pnlProductos.add(txtDescripcionProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 496, 250, -1));
 
-        btnGuardarProductos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\guardar.png")); // NOI18N
-        btnGuardarProductos.setText("Guardar");
+        btnGuardarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
+        btnGuardarProductos.setText("Agregar");
         btnGuardarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlProductos.add(btnGuardarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 474, 114, -1));
 
-        btnEliminarProductos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\eliminar.png")); // NOI18N
+        btnEliminarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnEliminarProductos.setText("Eliminar");
         btnEliminarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlProductos.add(btnEliminarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 531, 114, -1));
 
-        btnEditarProductos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\editar.png")); // NOI18N
+        btnEditarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
         btnEditarProductos.setText("Editar");
         btnEditarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlProductos.add(btnEditarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(692, 474, 118, -1));
 
-        btnExcelProductos.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\excel.png")); // NOI18N
+        btnExcelProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel.png"))); // NOI18N
         btnExcelProductos.setText("Exportar");
         btnExcelProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlProductos.add(btnExcelProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(692, 531, 118, -1));
@@ -621,22 +621,22 @@ public class Principal extends javax.swing.JFrame {
         pnlEmpleados.add(lblSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 100, -1));
         pnlEmpleados.add(txtSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 100, -1));
 
-        btnGuardarEmpleados.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\agregar.png")); // NOI18N
+        btnGuardarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
         btnGuardarEmpleados.setText("Agregar");
         btnGuardarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlEmpleados.add(btnGuardarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 630, 114, -1));
 
-        btnEliminarEmpleados.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\eliminar.png")); // NOI18N
+        btnEliminarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnEliminarEmpleados.setText("Eliminar");
         btnEliminarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlEmpleados.add(btnEliminarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 480, 114, -1));
 
-        btnEditarEmpleados.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\editar-persona.png")); // NOI18N
+        btnEditarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-persona.png"))); // NOI18N
         btnEditarEmpleados.setText("Editar");
         btnEditarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlEmpleados.add(btnEditarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 480, 118, -1));
 
-        btnExcelEmpleados.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\excel.png")); // NOI18N
+        btnExcelEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel.png"))); // NOI18N
         btnExcelEmpleados.setText("Exportar");
         btnExcelEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlEmpleados.add(btnExcelEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 480, 118, -1));
@@ -693,7 +693,7 @@ public class Principal extends javax.swing.JFrame {
         pnlConfiguracion.setBackground(new java.awt.Color(245, 222, 179));
         pnlConfiguracion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnGuardarConfiguracion.setIcon(new javax.swing.ImageIcon("C:\\Users\\Usuario\\Documents\\NetBeansProjects\\SistemaVentas\\src\\main\\resources\\images\\guardar.png")); // NOI18N
+        btnGuardarConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/guardar.png"))); // NOI18N
         btnGuardarConfiguracion.setText("Guardar");
         btnGuardarConfiguracion.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlConfiguracion.add(btnGuardarConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 612, 114, -1));
