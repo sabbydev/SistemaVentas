@@ -52,6 +52,7 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
             while (resultado.next()) {
                 DetalleVenta dv = new DetalleVenta(
                     resultado.getInt("id_detalle_venta"),
+                    resultado.getInt("id_venta"),
                     resultado.getDouble("precio_unitario"),
                     resultado.getInt("cantidad"),
                     resultado.getObject("fecha_hora_venta", LocalDateTime.class),
@@ -100,7 +101,7 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("DELETE FROM ventas WHERE id_venta = ?");
+            declaracion = this.conexion.prepareStatement("DELETE FROM ventas WHERE id_detalle_venta = ?");
 
             for (DetalleVenta dv : detallesVenta) {
                 declaracion.setInt(1, dv.getId());

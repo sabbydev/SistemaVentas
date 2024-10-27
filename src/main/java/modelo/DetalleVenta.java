@@ -4,14 +4,16 @@ import java.time.LocalDateTime;
 
 public class DetalleVenta {
     private final int id;
+    private final int idVenta;
     private final double precioUnitario;
     private final int cantidad;
     private final double montoTotal;
     private final LocalDateTime fechaHora;
     private final String metodoPago;
 
-    public DetalleVenta(int id, double precioUnitario, int cantidad, LocalDateTime fechaHora, String metodoPago) {
+    public DetalleVenta(int id, int idVenta, double precioUnitario, int cantidad, LocalDateTime fechaHora, String metodoPago) {
         this.id = id;
+        this.idVenta = idVenta;
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
         this.montoTotal = precioUnitario * cantidad;
