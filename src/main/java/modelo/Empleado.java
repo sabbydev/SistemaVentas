@@ -4,15 +4,15 @@ public class Empleado {
     private final String dni;
     private String nombre;
     private String correo;
-    private String cargo;
+    private String rol;
     private double salario;
 
-    public Empleado(int id, String dni, String nombre, String correo, String cargo, double salario) {
+    public Empleado(int id, String dni, String nombre, String correo, String rol, double salario) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
         this.correo = correo;
-        this.cargo = cargo;
+        this.rol = rol;
         this.salario = salario;
     }
     
@@ -40,12 +40,12 @@ public class Empleado {
         this.correo = correo;
     }
 
-    public String getCargo() {
-        return cargo;
+    public String getRol() {
+        return rol;
     }
 
-    public void setCargo(String cargo) {
-        this.cargo = cargo;
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 
     public double getSalario() {
