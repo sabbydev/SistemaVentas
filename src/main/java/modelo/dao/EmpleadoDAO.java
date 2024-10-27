@@ -4,8 +4,8 @@ import java.util.List;
 import modelo.Empleado;
 
 public interface EmpleadoDAO {
-    public void create(Empleado e) throws Exception;
+    public void create(List<Empleado> e) throws Exception;
     public List<Empleado> read() throws Exception;
-    public void update(Empleado e) throws Exception;
-    public void delete(Empleado e) throws Exception;
+    public void update(List<Empleado> e) throws Exception;
+    public void delete(List<Empleado> e) throws Exception;
 }

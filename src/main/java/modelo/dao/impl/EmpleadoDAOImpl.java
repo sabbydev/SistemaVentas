@@ -11,21 +11,26 @@ import modelo.dao.EmpleadoDAO;
 public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
     
     @Override
-    public void create(Empleado em) throws Exception {
+    public void create(List<Empleado> empleados) throws Exception {
         PreparedStatement declaracion = null;
-        
+
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("INSERT INTO empleados(dni, nombre, correo, cargo, salario) VALUES(?, ?, ?, ?, ?)");
-            
-            declaracion.setString(1, em.getDni());
-            declaracion.setString(2, em.getNombre());
-            declaracion.setString(3, em.getCorreo());
-            declaracion.setString(4, em.getCargo());
-            declaracion.setDouble(5, em.getSalario());
-            
-            declaracion.executeUpdate();
+
+            for (Empleado em : empleados) {
+                declaracion.setString(1, em.getDni());
+                declaracion.setString(2, em.getNombre());
+                declaracion.setString(3, em.getCorreo());
+                declaracion.setString(4, em.getCargo());
+                declaracion.setDouble(5, em.getSalario());
+                
+                declaracion.addBatch();
+            }
+
+            int[] filasAfectadas = declaracion.executeBatch();
+            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -33,6 +38,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             this.desconectar();
         }
     }
+
     
     @Override
     public List<Empleado> read() throws Exception {
@@ -42,6 +48,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
         
         try {
             this.conectar();
+            
             declaracion = this.conexion.prepareStatement("SELECT * FROM empleados");
             resultado = declaracion.executeQuery();
             
@@ -71,20 +78,25 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
     }
 
     @Override
-    public void update(Empleado em) throws Exception {
+    public void update(List<Empleado> empleados) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("UPDATE empleados SET nombre = ?, correo = ?, cargo = ?, salario = ? WHERE id = ?");
-            
-            declaracion.setString(1, em.getNombre());
-            declaracion.setString(2, em.getCorreo());
-            declaracion.setString(3, em.getCargo());
-            declaracion.setDouble(4, em.getSalario());
-            declaracion.setInt(5, em.getId());
-            
-            declaracion.execute();
+
+            for (Empleado em : empleados) {
+                declaracion.setString(1, em.getNombre());
+                declaracion.setString(2, em.getCorreo());
+                declaracion.setString(3, em.getCargo());
+                declaracion.setDouble(4, em.getSalario());
+                declaracion.setInt(5, em.getId());
+                
+                declaracion.addBatch();
+            }
+
+            int[] filasAfectadas = declaracion.executeBatch();
+            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -93,17 +105,22 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
         }
     }
 
+
     @Override
-    public void delete(Empleado em) throws Exception {
+    public void delete(List<Empleado> empleados) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("DELETE FROM empleados WHERE id = ?");
-            
-            declaracion.setInt(1, em.getId());
-            
-            declaracion.execute();
+
+            for (Empleado em : empleados) {
+                declaracion.setInt(1, em.getId());
+                declaracion.addBatch();
+            }
+
+            int[] filasAfectadas = declaracion.executeBatch();
+            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {

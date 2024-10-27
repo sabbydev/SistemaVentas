@@ -10,21 +10,28 @@ import modelo.conexion.Conexion;
 import modelo.dao.ProductoDAO;
 
 public class ProductoDAOImpl extends Conexion implements ProductoDAO{
+    
     @Override
-    public void create(Producto p) throws Exception {
+    public void create(List<Producto> productos) throws Exception {
         PreparedStatement declaracion = null;
-        
+
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("INSERT INTO productos(nombre, categoria, precio, descripcion) VALUES(?, ?, ?, ?)");
-            
-            declaracion.setString(1, p.getNombre());
-            declaracion.setString(2, p.getCategoria());
-            declaracion.setDouble(3, p.getPrecio());
-            declaracion.setString(4, p.getDescripcion());
-            
-            declaracion.executeUpdate();
+
+            int filasTotales = 0;
+
+            for (Producto p : productos) {
+                declaracion.setString(1, p.getNombre());
+                declaracion.setString(2, p.getCategoria());
+                declaracion.setDouble(3, p.getPrecio());
+                declaracion.setString(4, p.getDescripcion());
+
+                filasTotales += declaracion.executeUpdate();
+            }
+
+            System.out.println(filasTotales + (filasTotales > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -32,6 +39,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
             this.desconectar();
         }
     }
+
     
     @Override
     public List<Producto> read() throws Exception {
@@ -41,7 +49,21 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
         
         try {
             this.conectar();
-            declaracion = this.conexion.prepareStatement("SELECT * FROM productos");
+            
+            declaracion = this.conexion.prepareStatement("""
+                                                         SELECT p1.*
+                                                         FROM productos p1
+                                                         INNER JOIN (
+                                                             SELECT nombre, MAX(fecha_creacion) AS max_date
+                                                             FROM productos
+                                                             GROUP BY nombre
+                                                         ) p2 ON p1.nombre = p2.nombre AND p1.fecha_creacion = p2.max_date
+                                                         WHERE p1.id = (
+                                                             SELECT MAX(p3.id)
+                                                             FROM productos p3
+                                                             WHERE p3.nombre = p1.nombre AND p3.fecha_creacion = p1.fecha_creacion
+                                                         );
+                                                         """);
             resultado = declaracion.executeQuery();
             
             lista = new LinkedList<>();
@@ -70,20 +92,25 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
     }
 
     @Override
-    public void update(Producto p) throws Exception {
+    public void update(List<Producto> productos) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("UPDATE productos SET nombre = ?, categoria = ?, precio = ?, descripcion = ? WHERE id = ?");
-            
-            declaracion.setString(1, p.getNombre());
-            declaracion.setString(2, p.getCategoria());
-            declaracion.setDouble(3, p.getPrecio());
-            declaracion.setString(4, p.getDescripcion());
-            declaracion.setInt(5, p.getId());
-            
-            declaracion.execute();
+            declaracion = this.conexion.prepareStatement("INSERT INTO productos(nombre, categoria, precio, descripcion) VALUES(?, ?, ?, ?)");
+
+            int filasTotales = 0;
+
+            for (Producto p : productos) {
+                declaracion.setString(1, p.getNombre());
+                declaracion.setString(2, p.getCategoria());
+                declaracion.setDouble(3, p.getPrecio());
+                declaracion.setString(4, p.getDescripcion());
+
+                filasTotales += declaracion.executeUpdate();
+            }
+
+            System.out.println(filasTotales + (filasTotales > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -92,17 +119,23 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
         }
     }
 
+
     @Override
-    public void delete(Producto p) throws Exception {
+    public void delete(List<Producto> productos) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("DELETE FROM productos WHERE id = ?");
-            
-            declaracion.setInt(1, p.getId());
-            
-            declaracion.execute();
+
+            int filasTotales = 0;
+
+            for (Producto p : productos) {
+                declaracion.setInt(1, p.getId());
+                filasTotales += declaracion.executeUpdate();
+            }
+
+            System.out.println(filasTotales + (filasTotales > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
