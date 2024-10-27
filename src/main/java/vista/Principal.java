@@ -60,8 +60,8 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
         txtTotalClientes = new javax.swing.JTextField();
-        txtDNIClientes = new javax.swing.JTextField();
-        lblDNIClientes = new javax.swing.JLabel();
+        txtDocumentoClientes = new javax.swing.JTextField();
+        lblDocumentoClientes = new javax.swing.JLabel();
         pnlVentas = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
@@ -380,10 +380,10 @@ public class Principal extends javax.swing.JFrame {
 
         pnlClientes.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1050, 406));
         pnlClientes.add(txtTotalClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 450, 100, -1));
-        pnlClientes.add(txtDNIClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 250, -1));
+        pnlClientes.add(txtDocumentoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 250, -1));
 
-        lblDNIClientes.setText("DNI:");
-        pnlClientes.add(lblDNIClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 100, -1));
+        lblDocumentoClientes.setText("DNI/RUC");
+        pnlClientes.add(lblDocumentoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 100, -1));
 
         tbdpnlSistema.addTab("Clientes", pnlClientes);
 
@@ -854,10 +854,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblCorreoClientes;
     private javax.swing.JLabel lblCorreoEmpleados;
     private javax.swing.JLabel lblCorreoRegistrarVenta;
-    private javax.swing.JLabel lblDNIClientes;
     private javax.swing.JLabel lblDescripcionProductos;
     private javax.swing.JLabel lblDireccionConfiguracion;
     private javax.swing.JLabel lblDniEmpleados;
+    private javax.swing.JLabel lblDocumentoClientes;
     private javax.swing.JLabel lblFechaVentas;
     private javax.swing.JLabel lblHoraVentas;
     private javax.swing.JLabel lblIdVentas;
@@ -908,10 +908,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtCorreoClientes;
     private javax.swing.JTextField txtCorreoEmpleados;
     private javax.swing.JTextField txtCorreoRegistrarVenta;
-    private javax.swing.JTextField txtDNIClientes;
     private javax.swing.JTextField txtDescripcionProductos;
     private javax.swing.JTextField txtDireccionConfiguracion;
     private javax.swing.JTextField txtDniEmpleados;
+    private javax.swing.JTextField txtDocumentoClientes;
     private javax.swing.JTextField txtIdVentas;
     private javax.swing.JTextField txtMontoVentas;
     private javax.swing.JTextField txtNombreClientes;

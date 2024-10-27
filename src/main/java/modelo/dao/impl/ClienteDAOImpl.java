@@ -17,9 +17,9 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO{
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("INSERT INTO clientes(dni, nombre, correo, telefono) VALUES(?, ?, ?, ?)");
+            declaracion = this.conexion.prepareStatement("INSERT INTO clientes(idDoc, nombre, correo, telefono) VALUES(?, ?, ?, ?)");
             
-            declaracion.setString(1, c.getDni());
+            declaracion.setString(1, c.getIdDoc());
             declaracion.setString(2, c.getNombre());
             declaracion.setString(3, c.getCorreo());
             declaracion.setString(4, c.getTelefono());
@@ -47,7 +47,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO{
             lista = new LinkedList<>();
             
             while(resultado.next()) {
-                Cliente c = new Cliente(resultado.getInt("id"), resultado.getString("dni"));
+                Cliente c = new Cliente(resultado.getInt("id"), resultado.getString("idDoc"));
                 c.setNombre(resultado.getString("nombre"));
                 c.setCorreo(resultado.getString("correo"));
                 c.setTelefono(resultado.getString("telefono"));

@@ -1,22 +1,22 @@
 package modelo;
 public class Cliente {
     private final int id;
-    private final String dni;
+    private final String idDoc;
     private String nombre;
     private String correo;
     private String telefono;
 
     public Cliente(int id, String dni) {
         this.id = id;
-        this.dni = dni;
+        this.idDoc = dni;
     }
     
     public int getId() {
         return id;
     }
     
-    public String getDni() {
-        return dni;
+    public String getIdDoc() {
+        return idDoc;
     }
 
     public String getNombre() {
