@@ -3,7 +3,7 @@ package modelo.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import modelo.Producto;
 import modelo.conexion.Conexion;
@@ -44,7 +44,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
             declaracion = this.conexion.prepareStatement("SELECT * FROM productos");
             resultado = declaracion.executeQuery();
             
-            lista = new ArrayList<>();
+            lista = new LinkedList<>();
             
             while(resultado.next()) {
                 Producto p = new Producto(resultado.getInt("id"),
