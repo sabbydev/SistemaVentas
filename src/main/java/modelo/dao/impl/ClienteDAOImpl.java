@@ -17,7 +17,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("INSERT INTO clientes(idDoc, nombre, correo, telefono) VALUES(?, ?, ?, ?)");
+            declaracion = this.conexion.prepareStatement("INSERT INTO clientes(id_doc, nombre, correo, telefono) VALUES(?, ?, ?, ?)");
 
             for (Cliente c : clientes) {
                 declaracion.setString(1, c.getIdDoc());
@@ -53,7 +53,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
             lista = new LinkedList<>();
 
             while (resultado.next()) {
-                Cliente c = new Cliente(resultado.getInt("id"), resultado.getString("idDoc"));
+                Cliente c = new Cliente(resultado.getInt("id_cliente"), resultado.getString("id_doc"));
                 c.setNombre(resultado.getString("nombre"));
                 c.setCorreo(resultado.getString("correo"));
                 c.setTelefono(resultado.getString("telefono"));
@@ -80,7 +80,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("UPDATE clientes SET nombre = ?, correo = ?, telefono = ? WHERE id = ?");
+            declaracion = this.conexion.prepareStatement("UPDATE clientes SET nombre = ?, correo = ?, telefono = ? WHERE id_cliente = ?");
 
             for (Cliente c : clientes) {
                 declaracion.setString(1, c.getNombre());
@@ -108,7 +108,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("DELETE FROM clientes WHERE id = ?");
+            declaracion = this.conexion.prepareStatement("DELETE FROM clientes WHERE id_cliente = ?");
 
             for (Cliente c : clientes) {
                 declaracion.setInt(1, c.getId());

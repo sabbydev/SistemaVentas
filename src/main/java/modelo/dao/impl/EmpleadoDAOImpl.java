@@ -55,7 +55,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             lista = new LinkedList<>();
             
             while(resultado.next()) {
-                Empleado em = new Empleado(resultado.getInt("id"),
+                Empleado em = new Empleado(resultado.getInt("id_empleado"),
                                             resultado.getString("dni"),
                                             resultado.getString("nombre"),
                                             resultado.getString("correo"),
@@ -83,7 +83,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("UPDATE empleados SET nombre = ?, correo = ?, cargo = ?, salario = ? WHERE id = ?");
+            declaracion = this.conexion.prepareStatement("UPDATE empleados SET nombre = ?, correo = ?, cargo = ?, salario = ? WHERE id_empleado = ?");
 
             for (Empleado em : empleados) {
                 declaracion.setString(1, em.getNombre());
@@ -112,7 +112,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("DELETE FROM empleados WHERE id = ?");
+            declaracion = this.conexion.prepareStatement("DELETE FROM empleados WHERE id_empleado = ?");
 
             for (Empleado em : empleados) {
                 declaracion.setInt(1, em.getId());
