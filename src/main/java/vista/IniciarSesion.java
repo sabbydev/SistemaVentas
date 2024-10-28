@@ -8,6 +8,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     public IniciarSesion() {
         initComponents();
+        this.OCULTAR.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -20,6 +21,8 @@ public class IniciarSesion extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         pfPassword = new javax.swing.JPasswordField();
         btnIngresar = new javax.swing.JButton();
+        OCULTAR = new javax.swing.JLabel();
+        VER = new javax.swing.JLabel();
         pnlBackground = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         btnMinimizar = new javax.swing.JButton();
@@ -48,10 +51,15 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlLogin.add(lblIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 106, 209, -1));
 
         txtCorreo.setBackground(new java.awt.Color(245, 222, 179));
+        txtCorreo.setForeground(new java.awt.Color(199, 166, 75));
+        txtCorreo.setText("Ingrese su correo de usuario");
         txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
         txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtCorreoMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtCorreoMousePressed(evt);
             }
         });
         txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -62,10 +70,15 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlLogin.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 156, 209, -1));
 
         pfPassword.setBackground(new java.awt.Color(245, 222, 179));
+        pfPassword.setForeground(new java.awt.Color(199, 166, 75));
+        pfPassword.setText("********");
         pfPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
         pfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pfPasswordMouseClicked(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pfPasswordMousePressed(evt);
             }
         });
         pfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -89,6 +102,22 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
         pnlLogin.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 310, 210, 40));
 
+        OCULTAR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ojo_tachado.png"))); // NOI18N
+        OCULTAR.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                OCULTARMouseClicked(evt);
+            }
+        });
+        pnlLogin.add(OCULTAR, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 30, 30));
+
+        VER.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/ojo_visible.png"))); // NOI18N
+        VER.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                VERMouseClicked(evt);
+            }
+        });
+        pnlLogin.add(VER, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 30, 30));
+
         getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 280, 390));
 
         pnlBackground.setBackground(new java.awt.Color(85, 28, 24));
@@ -103,7 +132,6 @@ public class IniciarSesion extends javax.swing.JFrame {
             }
         });
 
-        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconCerrar.png"))); // NOI18N
@@ -187,7 +215,15 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMinimizarActionPerformed
 
     private void txtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMouseClicked
-         if (txtCorreo.getText().equals("Ingrese su correo de usuario")) {
+         
+    }//GEN-LAST:event_txtCorreoMouseClicked
+
+    private void pfPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pfPasswordMouseClicked
+       
+    }//GEN-LAST:event_pfPasswordMouseClicked
+
+    private void txtCorreoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMousePressed
+       if (txtCorreo.getText().equals("Ingrese su correo de usuario")) {
             txtCorreo.setText("");
             txtCorreo.setForeground(Color.BLACK);
         }
@@ -195,10 +231,10 @@ public class IniciarSesion extends javax.swing.JFrame {
             pfPassword.setText("********");
             pfPassword.setForeground(new Color(199, 166, 75));
         }
-    }//GEN-LAST:event_txtCorreoMouseClicked
+    }//GEN-LAST:event_txtCorreoMousePressed
 
-    private void pfPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pfPasswordMouseClicked
-        if (String.valueOf(pfPassword.getPassword()).equals("********")) {
+    private void pfPasswordMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pfPasswordMousePressed
+         if (String.valueOf(pfPassword.getPassword()).equals("********")) {
             pfPassword.setText("");
             pfPassword.setForeground(Color.BLACK);
         }
@@ -206,7 +242,19 @@ public class IniciarSesion extends javax.swing.JFrame {
             txtCorreo.setText("Ingrese su correo de usuario");
             txtCorreo.setForeground(new Color(199, 166, 75));
         }
-    }//GEN-LAST:event_pfPasswordMouseClicked
+    }//GEN-LAST:event_pfPasswordMousePressed
+
+    private void OCULTARMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OCULTARMouseClicked
+        VER.setVisible(true);
+        OCULTAR.setVisible(false);
+        pfPassword.setEchoChar('●');
+    }//GEN-LAST:event_OCULTARMouseClicked
+
+    private void VERMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_VERMouseClicked
+        VER.setVisible(false);
+        OCULTAR.setVisible(true);
+        pfPassword.setEchoChar((char)0);
+    }//GEN-LAST:event_VERMouseClicked
 
     public static void main(String args[]) {
         try {
@@ -234,6 +282,8 @@ public class IniciarSesion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel OCULTAR;
+    private javax.swing.JLabel VER;
     private javax.swing.JLabel background;
     private javax.swing.JButton btnIngresar;
     private javax.swing.JButton btnMinimizar;
