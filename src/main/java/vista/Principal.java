@@ -4,11 +4,14 @@ import java.awt.Color;
 import javax.swing.JButton;
 
 public class Principal extends javax.swing.JFrame {
-    Color btnBgColor = Color.decode("#FAD15E");
-    Color btnBgColorFocused = Color.decode("#F14737");
-    public Principal() {
+    private Color btnBgColor = Color.decode("#FAD15E");
+    private Color btnBgColorFocused = Color.decode("#F14737");
+    private final String sesion;
+    public Principal(String sesion) {
         initComponents();
         initMethods();
+        this.sesion = sesion;
+        initSession(sesion);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -223,7 +226,7 @@ public class Principal extends javax.swing.JFrame {
         pnlRegistrarVenta.setBackground(new java.awt.Color(245, 222, 179));
         pnlRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        seccionProductoRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        seccionProductoRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionProductoRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEliminarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
@@ -234,7 +237,6 @@ public class Principal extends javax.swing.JFrame {
         seccionProductoRegistrarVenta.add(lblProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 24, 214, -1));
 
         cbProductoRegistrarVenta.setEditable(true);
-        cbProductoRegistrarVenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
         seccionProductoRegistrarVenta.add(cbProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 44, 214, -1));
 
         lblCantidadRegistrarVenta.setText("Cantidad:");
@@ -280,7 +282,7 @@ public class Principal extends javax.swing.JFrame {
         pnlRegistrarVenta.add(lblTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 480, -1, 22));
         pnlRegistrarVenta.add(txtTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 480, 114, -1));
 
-        seccionClienteRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        seccionClienteRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionClienteRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNombreRegistrarVenta.setText("Nombre del Cliente:");
@@ -767,12 +769,7 @@ public class Principal extends javax.swing.JFrame {
         enfocarBotonNavegacion(btnConfiguracion);
     }//GEN-LAST:event_btnConfiguracionActionPerformed
 
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
+    private void initMethods() {
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -789,17 +786,6 @@ public class Principal extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Principal().setVisible(true);
-            }
-        });
-    }
-    
-    private void initMethods() {
         tbdpnlSistema.setUI(null);
         enfocarBotonNavegacion(btnRegistrarVenta);
     }
@@ -815,6 +801,28 @@ public class Principal extends javax.swing.JFrame {
     
     private void enfocarBotonNavegacion(JButton jb){
         jb.setBackground(btnBgColorFocused);
+    }
+    
+    private void initSession(String sesion) {
+        switch (sesion) {
+            case "Administración" -> {
+            }
+            case "Vendedor" -> {
+                initVendedor();
+            }
+            default -> throw new AssertionError();
+        }
+    }
+    
+    private void initVendedor() {
+        btnClientes.setVisible(false);
+        btnVentas.setVisible(false);
+        btnProductos.setVisible(false);
+        btnEmpleados.setVisible(false);
+        btnConfiguracion.setVisible(false);
+    }
+    
+    private void cargarProductos() {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
