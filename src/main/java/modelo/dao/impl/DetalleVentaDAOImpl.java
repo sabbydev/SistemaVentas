@@ -117,6 +117,4 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
             this.desconectar();
         }
     }
-    
 }
-

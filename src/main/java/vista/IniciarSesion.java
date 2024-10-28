@@ -48,7 +48,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlLogin.add(lblIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 106, 209, -1));
 
         txtCorreo.setBackground(new java.awt.Color(245, 222, 179));
-        txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
+        txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
         txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txtCorreoMouseClicked(evt);
@@ -62,7 +62,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlLogin.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 156, 209, -1));
 
         pfPassword.setBackground(new java.awt.Color(245, 222, 179));
-        pfPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
+        pfPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
         pfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pfPasswordMouseClicked(evt);
@@ -89,7 +89,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
         pnlLogin.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 310, 210, 40));
 
-        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 280, 390));
+        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 50, 280, 390));
 
         pnlBackground.setBackground(new java.awt.Color(85, 28, 24));
 
@@ -119,7 +119,7 @@ public class IniciarSesion extends javax.swing.JFrame {
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 90, Short.MAX_VALUE))
+                .addGap(0, 130, Short.MAX_VALUE))
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -139,7 +139,7 @@ public class IniciarSesion extends javax.swing.JFrame {
                 .addGap(96, 96, 96))
         );
 
-        getContentPane().add(pnlBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 500));
+        getContentPane().add(pnlBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 500));
 
         background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo_polleria.jpg"))); // NOI18N
         getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 340, 500));
@@ -149,7 +149,13 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        if(txtCorreo.getText().equals("admin@email.com") && pfPassword.getText().equals("admin")) new Principal().setVisible(true); 
+        try {
+            new Principal(controlador.ControladorSesion.auntenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()))).setVisible(true);
+        } catch (Exception e) {
+            System.out.println(e);
+        } finally {
+            if(txtCorreo.getText().equals("admin@email.com") && new String(pfPassword.getPassword()).equals("admin")) new Principal("Administración").setVisible(true); 
+        }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
