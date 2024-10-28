@@ -1,5 +1,6 @@
 package vista;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
@@ -19,9 +20,10 @@ public class IniciarSesion extends javax.swing.JFrame {
         txtCorreo = new javax.swing.JTextField();
         pfPassword = new javax.swing.JPasswordField();
         btnIngresar = new javax.swing.JButton();
-        btnSalir = new javax.swing.JButton();
         pnlBackground = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
+        btnMinimizar = new javax.swing.JButton();
+        btnSalir = new javax.swing.JButton();
         background = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,8 +48,12 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlLogin.add(lblIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 106, 209, -1));
 
         txtCorreo.setBackground(new java.awt.Color(245, 222, 179));
-        txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
-        txtCorreo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        txtCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Correo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
+        txtCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCorreoMouseClicked(evt);
+            }
+        });
         txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCorreoKeyPressed(evt);
@@ -56,8 +62,12 @@ public class IniciarSesion extends javax.swing.JFrame {
         pnlLogin.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 156, 209, -1));
 
         pfPassword.setBackground(new java.awt.Color(245, 222, 179));
-        pfPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
-        pfPassword.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        pfPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
+        pfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pfPasswordMouseClicked(evt);
+            }
+        });
         pfPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 pfPasswordKeyPressed(evt);
@@ -65,34 +75,43 @@ public class IniciarSesion extends javax.swing.JFrame {
         });
         pnlLogin.add(pfPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 217, 209, -1));
 
-        btnIngresar.setBackground(new java.awt.Color(85, 28, 24));
+        btnIngresar.setBackground(new java.awt.Color(139, 0, 0));
         btnIngresar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnIngresar.setForeground(new java.awt.Color(255, 255, 255));
         btnIngresar.setText("Ingresar");
+        btnIngresar.setMaximumSize(new java.awt.Dimension(209, 51));
+        btnIngresar.setMinimumSize(new java.awt.Dimension(209, 51));
+        btnIngresar.setPreferredSize(new java.awt.Dimension(209, 51));
         btnIngresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIngresarActionPerformed(evt);
             }
         });
-        pnlLogin.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 310, 90, 40));
+        pnlLogin.add(btnIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(37, 310, 210, 40));
 
-        btnSalir.setBackground(new java.awt.Color(255, 51, 51));
-        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
-        btnSalir.setText("Salir");
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
-            }
-        });
-        pnlLogin.add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 310, 90, 40));
-
-        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 280, 390));
+        getContentPane().add(pnlLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, 280, 390));
 
         pnlBackground.setBackground(new java.awt.Color(85, 28, 24));
 
         logo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login-logo.png"))); // NOI18N
+
+        btnMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconMinimizar.png"))); // NOI18N
+        btnMinimizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinimizarActionPerformed(evt);
+            }
+        });
+
+        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
+        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iconCerrar.png"))); // NOI18N
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlBackgroundLayout = new javax.swing.GroupLayout(pnlBackground);
         pnlBackground.setLayout(pnlBackgroundLayout);
@@ -100,20 +119,30 @@ public class IniciarSesion extends javax.swing.JFrame {
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBackgroundLayout.createSequentialGroup()
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 180, Short.MAX_VALUE))
+                .addGap(0, 90, Short.MAX_VALUE))
+            .addGroup(pnlBackgroundLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pnlBackgroundLayout.setVerticalGroup(
             pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBackgroundLayout.createSequentialGroup()
-                .addContainerGap(104, Short.MAX_VALUE)
+                .addContainerGap()
+                .addGroup(pnlBackgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnSalir, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnMinimizar, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
                 .addComponent(logo, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(96, 96, 96))
         );
 
-        getContentPane().add(pnlBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 500));
+        getContentPane().add(pnlBackground, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 500));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/login-back.jpg"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 0, 340, 500));
+        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/fondo_polleria.jpg"))); // NOI18N
+        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 0, 340, 500));
 
         setSize(new java.awt.Dimension(700, 500));
         setLocationRelativeTo(null);
@@ -134,6 +163,9 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            
+            pfPassword.setText("");
+            pfPassword.setForeground(Color.BLACK);
             pfPassword.requestFocus();
         }
     }//GEN-LAST:event_txtCorreoKeyPressed
@@ -143,6 +175,32 @@ public class IniciarSesion extends javax.swing.JFrame {
             btnIngresarActionPerformed(null);
         }
     }//GEN-LAST:event_pfPasswordKeyPressed
+
+    private void btnMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizarActionPerformed
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizarActionPerformed
+
+    private void txtCorreoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMouseClicked
+         if (txtCorreo.getText().equals("Ingrese su correo de usuario")) {
+            txtCorreo.setText("");
+            txtCorreo.setForeground(Color.BLACK);
+        }
+        if (String.valueOf(pfPassword.getPassword()).isEmpty()) {
+            pfPassword.setText("********");
+            pfPassword.setForeground(new Color(199, 166, 75));
+        }
+    }//GEN-LAST:event_txtCorreoMouseClicked
+
+    private void pfPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pfPasswordMouseClicked
+        if (String.valueOf(pfPassword.getPassword()).equals("********")) {
+            pfPassword.setText("");
+            pfPassword.setForeground(Color.BLACK);
+        }
+        if (txtCorreo.getText().isEmpty()) {
+            txtCorreo.setText("Ingrese su correo de usuario");
+            txtCorreo.setForeground(new Color(199, 166, 75));
+        }
+    }//GEN-LAST:event_pfPasswordMouseClicked
 
     public static void main(String args[]) {
         try {
@@ -172,6 +230,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel background;
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JButton btnMinimizar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JLabel lblIniciarSesion;
     private javax.swing.JLabel logo;

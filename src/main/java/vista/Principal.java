@@ -65,7 +65,6 @@ public class Principal extends javax.swing.JFrame {
         pnlVentas = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblVentas = new javax.swing.JTable();
-        btnPDFVentas = new javax.swing.JButton();
         seccionBusquedaVentas = new javax.swing.JPanel();
         lblIdVentas = new javax.swing.JLabel();
         lblClienteVentas = new javax.swing.JLabel();
@@ -85,6 +84,7 @@ public class Principal extends javax.swing.JFrame {
         cbMetodoPagoVentas = new javax.swing.JComboBox<>();
         jDateChooserVentas = new com.toedter.calendar.JDateChooser();
         spnHoraVentas = new javax.swing.JSpinner();
+        btnPDFVentas = new javax.swing.JButton();
         pnlProductos = new javax.swing.JPanel();
         lblNombreProductos = new javax.swing.JLabel();
         txtNombreProductos = new javax.swing.JTextField();
@@ -223,7 +223,7 @@ public class Principal extends javax.swing.JFrame {
         pnlRegistrarVenta.setBackground(new java.awt.Color(245, 222, 179));
         pnlRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        seccionProductoRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        seccionProductoRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionProductoRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEliminarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
@@ -245,7 +245,7 @@ public class Principal extends javax.swing.JFrame {
         btnAgregarRegistrarVenta.setText("Agregar");
         seccionProductoRegistrarVenta.add(btnAgregarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 24, -1, 44));
 
-        pnlRegistrarVenta.add(seccionProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 600, 90));
+        pnlRegistrarVenta.add(seccionProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 600, 90));
 
         tblRegistrarVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -274,13 +274,13 @@ public class Principal extends javax.swing.JFrame {
             tblRegistrarVenta.getColumnModel().getColumn(6).setPreferredWidth(50);
         }
 
-        pnlRegistrarVenta.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 129, 1020, 300));
+        pnlRegistrarVenta.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 1020, 300));
 
         lblTotalRegistrarVenta.setText("Total a Pagar:");
-        pnlRegistrarVenta.add(lblTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(856, 447, -1, 22));
-        pnlRegistrarVenta.add(txtTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(936, 447, 114, -1));
+        pnlRegistrarVenta.add(lblTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 480, -1, 22));
+        pnlRegistrarVenta.add(txtTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 480, 114, -1));
 
-        seccionClienteRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
+        seccionClienteRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionClienteRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNombreRegistrarVenta.setText("Nombre del Cliente:");
@@ -307,15 +307,15 @@ public class Principal extends javax.swing.JFrame {
         cbMetodoPagoRegistrarVenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--", "Efectivo", "Tarjeta de Débito", "Tarjeta de Crédito", "Transferencia Bancaria" }));
         seccionClienteRegistrarVenta.add(cbMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 96, 250, -1));
 
-        pnlRegistrarVenta.add(seccionClienteRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 540, 190));
+        pnlRegistrarVenta.add(seccionClienteRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 540, 190));
 
         btnRegistrarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/registrar-venta.png"))); // NOI18N
         btnRegistrarRegistrarVenta.setText("Registrar Venta");
-        pnlRegistrarVenta.add(btnRegistrarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(742, 532, -1, 44));
+        pnlRegistrarVenta.add(btnRegistrarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 580, -1, 44));
 
         btnImprimirRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imprimir.png"))); // NOI18N
         btnImprimirRegistrarVenta.setText("Imprimir");
-        pnlRegistrarVenta.add(btnImprimirRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(905, 532, 145, 44));
+        pnlRegistrarVenta.add(btnImprimirRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 580, 145, 44));
 
         tbdpnlSistema.addTab("Registrar Venta", pnlRegistrarVenta);
 
@@ -323,34 +323,34 @@ public class Principal extends javax.swing.JFrame {
         pnlClientes.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNombreClientes.setText("Nombre:");
-        pnlClientes.add(lblNombreClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 100, -1));
-        pnlClientes.add(txtNombreClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 250, -1));
+        pnlClientes.add(lblNombreClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 100, -1));
+        pnlClientes.add(txtNombreClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 560, 250, -1));
 
         lblCorreoClientes.setText("Correo:");
-        pnlClientes.add(lblCorreoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 550, 100, -1));
-        pnlClientes.add(txtCorreoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 250, -1));
+        pnlClientes.add(lblCorreoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 100, -1));
+        pnlClientes.add(txtCorreoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 610, 250, -1));
 
         lblTelefonoClientes.setText("Teléfono");
-        pnlClientes.add(lblTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 610, 100, -1));
-        pnlClientes.add(txtTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 630, 250, -1));
+        pnlClientes.add(lblTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 100, -1));
+        pnlClientes.add(txtTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, 250, -1));
 
         btnGuardarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
         btnGuardarClientes.setText("Guardar");
         btnGuardarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlClientes.add(btnGuardarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 530, -1, -1));
+        pnlClientes.add(btnGuardarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 590, -1, -1));
 
         btnEditarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
         btnEditarClientes.setText("Editar");
         btnEditarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlClientes.add(btnEditarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 530, 108, -1));
+        pnlClientes.add(btnEditarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 590, 108, -1));
 
         btnEliminarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
         btnEliminarClientes.setText("Eliminar");
         btnEliminarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlClientes.add(btnEliminarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 530, -1, -1));
+        pnlClientes.add(btnEliminarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 590, -1, -1));
 
         lblTotalClientes.setText("Total de Clientes:");
-        pnlClientes.add(lblTotalClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 450, -1, 20));
+        pnlClientes.add(lblTotalClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 500, -1, 20));
 
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -378,12 +378,12 @@ public class Principal extends javax.swing.JFrame {
             tblClientes.getColumnModel().getColumn(5).setPreferredWidth(100);
         }
 
-        pnlClientes.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1050, 406));
-        pnlClientes.add(txtTotalClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 450, 100, -1));
-        pnlClientes.add(txtDocumentoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 250, -1));
+        pnlClientes.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 1050, 406));
+        pnlClientes.add(txtTotalClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 500, 100, -1));
+        pnlClientes.add(txtDocumentoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 250, -1));
 
         lblDocumentoClientes.setText("DNI/RUC");
-        pnlClientes.add(lblDocumentoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 100, -1));
+        pnlClientes.add(lblDocumentoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 100, -1));
 
         tbdpnlSistema.addTab("Clientes", pnlClientes);
 
@@ -419,10 +419,7 @@ public class Principal extends javax.swing.JFrame {
             tblVentas.getColumnModel().getColumn(8).setPreferredWidth(100);
         }
 
-        pnlVentas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 267, 1070, -1));
-
-        btnPDFVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
-        pnlVentas.add(btnPDFVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 210, -1, -1));
+        pnlVentas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 1070, -1));
 
         seccionBusquedaVentas.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros de Búsqueda"));
 
@@ -450,6 +447,8 @@ public class Principal extends javax.swing.JFrame {
 
         spnHoraVentas.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1729746000000L), null, null, java.util.Calendar.DAY_OF_MONTH));
         spnHoraVentas.setEditor(new javax.swing.JSpinner.DateEditor(spnHoraVentas, "HH:mm:ss"));
+
+        btnPDFVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
 
         javax.swing.GroupLayout seccionBusquedaVentasLayout = new javax.swing.GroupLayout(seccionBusquedaVentas);
         seccionBusquedaVentas.setLayout(seccionBusquedaVentasLayout);
@@ -480,15 +479,20 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(lblPrecioVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtPrecioVentas, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblHoraVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblCantidadVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCantidadVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblMontoVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtMontoVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblCantidadVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtCantidadVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lblMontoVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtMontoVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(btnPDFVentas)))
+                .addContainerGap(167, Short.MAX_VALUE))
         );
         seccionBusquedaVentasLayout.setVerticalGroup(
             seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -516,12 +520,12 @@ public class Principal extends javax.swing.JFrame {
                             .addComponent(txtIdVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtProductoVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
+                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionBusquedaVentasLayout.createSequentialGroup()
                         .addComponent(lblFechaVentas)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooserVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionBusquedaVentasLayout.createSequentialGroup()
                             .addComponent(lblMetodoPagoVentas)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -529,11 +533,12 @@ public class Principal extends javax.swing.JFrame {
                         .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
                             .addComponent(lblHoraVentas)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnHoraVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(spnHoraVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(btnPDFVentas, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(34, 34, 34))
         );
 
-        pnlVentas.add(seccionBusquedaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 1070, -1));
+        pnlVentas.add(seccionBusquedaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 1070, -1));
 
         tbdpnlSistema.addTab("Ventas", pnlVentas);
 
