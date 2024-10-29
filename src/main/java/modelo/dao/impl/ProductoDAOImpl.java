@@ -174,7 +174,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
     public List<String> obtenerNombresProductosOrdenados() throws Exception {
         PreparedStatement declaracion = null;
         ResultSet resultado = null;
-        List<String> nombres = new ArrayList<>();
+        List<String> nombres = null;
 
         try {
             this.conectar();
@@ -182,6 +182,8 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
             declaracion = this.conexion.prepareStatement("SELECT nombre FROM productos ORDER BY nombre");
             
             resultado = declaracion.executeQuery();
+            
+            nombres = new ArrayList<>();
             
             while (resultado.next()) {
                 nombres.add(resultado.getString("nombre"));
