@@ -8,8 +8,8 @@ import modelo.dto.ProductoDTO;
 
 public class ControladorProducto {
     
-    public static void agregarProducto(ProductoDTO pDTO) {
-        Producto p = new Producto(0, pDTO.getNombre(), pDTO.getCategoria(), pDTO.getPrecio(), pDTO.getDescripcion(), null);
+    public static void agregarProducto(String nombre, String categoria, double precio, String descripcion) {
+        Producto p = new Producto(0, nombre, categoria, precio, descripcion, null);
         try {
             new ProductoDAOImpl().create(p);
         } catch (Exception ex) {
@@ -26,8 +26,8 @@ public class ControladorProducto {
         return new ArrayList<>();
     }
 
-    public static void modificarProducto(ProductoDTO pDTO) {
-        Producto p = new Producto(0, pDTO.getNombre(), pDTO.getCategoria(), pDTO.getPrecio(), pDTO.getDescripcion(), null);
+    public static void modificarProducto(String nombre, String categoria, double precio, String descripcion) {
+        Producto p = new Producto(0, nombre, categoria, precio, descripcion, null);
         try {
             new ProductoDAOImpl().update(p);
         } catch (Exception ex) {
@@ -49,6 +49,16 @@ public class ControladorProducto {
         } catch (Exception ex) {
             System.out.println(ex);
             return new ArrayList<>();
+        }
+    }
+    
+    public static ProductoDTO buscarPorNombre(String nombre) {
+        try {
+            Producto p = new ProductoDAOImpl().buscarPorNombre(nombre);
+           return new ProductoDTO(p.getId(), p.getNombre(), p.getCategoria(), p.getPrecio(), p.getDescripcion(), p.getFechaHoraCreacion());
+        } catch (Exception ex) {
+            System.out.println(ex);
+            return null;
         }
     }
 }

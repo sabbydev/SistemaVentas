@@ -11,7 +11,7 @@ import modelo.dao.EmpleadoDAO;
 public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
     
     @Override
-    public void create(List<Empleado> empleados) throws Exception {
+    public void create(Empleado e) throws Exception {
         PreparedStatement declaracion = null;
 
         try {
@@ -19,27 +19,21 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             
             declaracion = this.conexion.prepareStatement("INSERT INTO empleados(dni, nombre, correo, rol, salario) VALUES(?, ?, ?, ?, ?)");
 
-            for (Empleado em : empleados) {
-                declaracion.setString(1, em.getDni());
-                declaracion.setString(2, em.getNombre());
-                declaracion.setString(3, em.getCorreo());
-                declaracion.setString(4, em.getRol());
-                declaracion.setDouble(5, em.getSalario());
+            declaracion.setString(1, e.getDni());
+            declaracion.setString(2, e.getNombre());
+            declaracion.setString(3, e.getCorreo());
+            declaracion.setString(4, e.getRol());
+            declaracion.setDouble(5, e.getSalario());
                 
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
-        } catch (Exception e) {
-            throw e;
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
     }
-
-    
     @Override
     public List<Empleado> read() throws Exception {
         PreparedStatement declaracion = null;
@@ -76,68 +70,94 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
         
         return lista;
     }
-
     @Override
-    public void update(List<Empleado> empleados) throws Exception {
+    public void update(Empleado e) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("UPDATE empleados SET nombre = ?, correo = ?, rol = ?, salario = ? WHERE id_empleado = ?");
 
-            for (Empleado em : empleados) {
-                declaracion.setString(1, em.getNombre());
-                declaracion.setString(2, em.getCorreo());
-                declaracion.setString(3, em.getRol());
-                declaracion.setDouble(4, em.getSalario());
-                declaracion.setInt(5, em.getId());
-                
-                declaracion.addBatch();
-            }
+            declaracion.setString(1, e.getNombre());
+            declaracion.setString(2, e.getCorreo());
+            declaracion.setString(3, e.getRol());
+            declaracion.setDouble(4, e.getSalario());
+            declaracion.setInt(5, e.getId());
 
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
-        } catch (Exception e) {
-            throw e;
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
     }
-
-
     @Override
-    public void delete(List<Empleado> empleados) throws Exception {
+    public void delete(Empleado e) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("DELETE FROM empleados WHERE id_empleado = ?");
 
-            for (Empleado em : empleados) {
-                declaracion.setInt(1, em.getId());
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
-        } catch (Exception e) {
-            throw e;
+            declaracion.setInt(1, e.getId());
+            declaracion.addBatch();
+            
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));        
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
     }
-    
-    public String getRol(String correo, String dni) throws Exception {
-        String rol = null;
+    public Empleado obtenerEmpleado(int id) throws Exception {
         PreparedStatement declaracion = null;
         ResultSet resultado = null;
+        Empleado e = null;
 
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("SELECT rol FROM empleados WHERE correo = ? AND dni = ?");
+            declaracion = this.conexion.prepareStatement("SELECT id, rol, nombre, apellido, correo, dni FROM empleados WHERE id = ?");
+            declaracion.setInt(1, id);
+
+            resultado = declaracion.executeQuery();
+
+            if (resultado.next()) {
+                e = new Empleado(
+                    resultado.getInt("id"),
+                    resultado.getString("dni"),
+                    resultado.getString("nombre"),
+                    resultado.getString("correo"),
+                    resultado.getString("rol"),
+                    resultado.getDouble("salario")
+                );
+            } else {
+                System.out.println("Empleado no encontrado con el ID proporcionado.");
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+
+        return e;
+    }
+    
+    public Empleado obtenerEmpleado(String correo, String dni) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        Empleado e = null;
+
+        try {
+            this.conectar();
+
+            declaracion = this.conexion.prepareStatement("SELECT id_empleado, rol FROM empleados WHERE correo = ? AND dni = ?");
             
             declaracion.setString(1, correo);
             declaracion.setString(2, dni);
@@ -145,18 +165,21 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             resultado = declaracion.executeQuery();
 
             if (resultado.next()) {
-                rol = resultado.getString("rol");
+                int idEmpleado = resultado.getInt("id_empleado");
+                String rol = resultado.getString("rol");
+                
+                e = new Empleado(idEmpleado, dni, null, correo, rol, 0);
             } else {
                 System.out.println("Empleado no encontrado con el correo y DNI proporcionados.");
             }
-        } catch (Exception e) {
-            throw e;
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (resultado != null) resultado.close();
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
 
-        return rol;
+        return e;
     }
 }

@@ -11,4 +11,5 @@ public interface ProductoDAO {
     
     public Producto obtenerPorNombre(String nombre) throws Exception;
     public List<String> obtenerNombresProductosOrdenados() throws Exception;
+    public Producto buscarPorNombre(String nombre) throws Exception;
 }

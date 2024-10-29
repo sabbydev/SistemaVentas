@@ -178,9 +178,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
 
         try {
             this.conectar();
-            
             declaracion = this.conexion.prepareStatement("SELECT nombre FROM productos ORDER BY nombre");
-            
             resultado = declaracion.executeQuery();
             
             nombres = new ArrayList<>();
@@ -195,7 +193,38 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
-        
+
         return nombres;
+    }
+    
+    public Producto buscarPorNombre(String nombre) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        
+        try {
+            this.conectar();
+            
+            declaracion = this.conexion.prepareStatement("SELECT * FROM productos WHERE nombre = ?");
+            resultado = declaracion.executeQuery();
+            
+            if (resultado.next()) {
+                return new Producto(
+                    resultado.getInt("id_producto"),
+                    resultado.getString("nombre"),
+                    resultado.getString("categoria"),
+                    resultado.getDouble("precio"),
+                    resultado.getString("descripcion"),
+                    resultado.getObject("fecha_creacion", LocalDateTime.class)
+                );
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        
+        return null;
     }
 }

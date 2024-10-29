@@ -6,9 +6,12 @@ public class Cliente {
     private String correo;
     private String telefono;
 
-    public Cliente(int id, String dni) {
+    public Cliente(int id, String idDoc, String nombre, String correo, String telefono) {
         this.id = id;
-        this.idDoc = dni;
+        this.idDoc = idDoc;
+        this.nombre = nombre;
+        this.correo = correo;
+        this.telefono = telefono;
     }
     
     public int getId() {

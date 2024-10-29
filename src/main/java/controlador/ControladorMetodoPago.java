@@ -1,14 +1,14 @@
 package controlador;
 
+import java.util.ArrayList;
 import java.util.List;
 import modelo.MetodoPago;
 import modelo.dao.impl.MetodoPagoDAOImpl;
-import modelo.dto.MetodoPagoDTO;
 
 public class ControladorMetodoPago {
     
-    public static void agregarMetodoPago(MetodoPagoDTO mpDTO) {
-        MetodoPago mp = new MetodoPago(0, mpDTO.getNombre().name(), mpDTO.getDescripcion(), mpDTO.getEstado().name());
+    public static void agregarMetodoPago(String nombre, String descripcion, String estado) {
+        MetodoPago mp = new MetodoPago(0, nombre, descripcion, estado);
         try {
             new MetodoPagoDAOImpl().create(mp);
         } catch (Exception ex) {
@@ -25,8 +25,8 @@ public class ControladorMetodoPago {
         return null;
     }
 
-    public static void modificarMetodosPago(MetodoPagoDTO mpDTO) {
-        MetodoPago mp = new MetodoPago(0, mpDTO.getNombre().name(), mpDTO.getDescripcion(), mpDTO.getEstado().name());
+    public static void modificarMetodosPago(String nombre, String descripcion, String estado) {
+        MetodoPago mp = new MetodoPago(0, nombre, descripcion, estado);
         try {
             new MetodoPagoDAOImpl().update(mp);
         } catch (Exception ex) {
@@ -47,7 +47,7 @@ public class ControladorMetodoPago {
             return new MetodoPagoDAOImpl().obtenerNombresMetodosPago();
         } catch (Exception ex) {
             System.out.println(ex);
+            return new ArrayList<>();
         }
-        return null;
     }
 }

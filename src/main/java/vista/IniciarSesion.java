@@ -3,14 +3,13 @@ package vista;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import modelo.dto.EmpleadoDTO;
 
 public class IniciarSesion extends javax.swing.JFrame {
 
     public IniciarSesion() {
         initComponents();
-        this.lblOcultar.setVisible(false);
-        this.lblMostrar.setVisible(false);
-        this.pfPassword.setEchoChar((char)0);
+        initMethod();
     }
 
     @SuppressWarnings("unchecked")
@@ -160,12 +159,13 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        try {
-            new Principal(controlador.ControladorSesion.auntenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()))).setVisible(true);
-        } catch (Exception e) {
-            System.out.println(e);
-        } finally {
-            if(txtCorreo.getText().equals("admin@email.com") && new String(pfPassword.getPassword()).equals("admin")) new Principal("Administración").setVisible(true); 
+        EmpleadoDTO eDTO = controlador.ControladorSesion.auntenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()));
+        if(eDTO != null) {
+            new Principal(eDTO).setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
+            
+            if (txtCorreo.getText().equals("admin@email.com") && new String(pfPassword.getPassword()).equals("admin")) new Principal(new EmpleadoDTO(0,"","","","Administrador",0)).setVisible(true);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
@@ -179,7 +179,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB) {
             pfPassword.setText("");
             pfPassword.setForeground(Color.BLACK);
             pfPassword.requestFocus();
@@ -187,7 +187,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoKeyPressed
 
     private void pfPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfPasswordKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB) {
             btnIngresarActionPerformed(null);
         }
     }//GEN-LAST:event_pfPasswordKeyPressed
@@ -231,28 +231,26 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoMousePressed
 
     public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(() -> {
+            new IniciarSesion().setVisible(true);
+        });
+    }
+    
+    private void initMethod() {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (var info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new IniciarSesion().setVisible(true);
-            }
-        });
+        
+        lblOcultar.setVisible(false);
+        lblMostrar.setVisible(false);
+        pfPassword.setEchoChar((char)0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

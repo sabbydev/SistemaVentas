@@ -17,7 +17,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("INSERT INTO metodos_pago(metodo, descripcion, estado) VALUES(?, ?, ?)");
+            declaracion = this.conexion.prepareStatement("INSERT INTO metodos_pago(nombre, descripcion, estado) VALUES(?, ?, ?)");
 
             declaracion.setString(1, mp.getNombre());
             declaracion.setString(2, mp.getDescripcion());
@@ -49,7 +49,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
             while (resultado.next()) {
                 MetodoPago mp = new MetodoPago(
                     resultado.getInt("id_metodo_pago"),
-                    resultado.getString("metodo"),
+                    resultado.getString("nombre"),
                     resultado.getString("descripcion"),
                     resultado.getString("estado")
                 );

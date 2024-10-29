@@ -6,19 +6,19 @@ import modelo.dao.impl.EmpleadoDAOImpl;
 
 public class ControladorEmpleado {
     
-    public static void agregarEmpleado(List<Empleado> empleados) throws Exception {
-        new EmpleadoDAOImpl().create(empleados);
+    public static void agregarEmpleado(Empleado e) throws Exception {
+        new EmpleadoDAOImpl().create(e);
     }
 
     public static List<Empleado> obtenerEmpleados() throws Exception {
         return new EmpleadoDAOImpl().read();
     }
 
-    public static void modificarEmpleados(List<Empleado> empleados) throws Exception {
-        new EmpleadoDAOImpl().update(empleados);
+    public static void modificarEmpleados(Empleado e) throws Exception {
+        new EmpleadoDAOImpl().update(e);
     }
 
-    public static void eliminarEmpleados(List<Empleado> empleados) throws Exception {
-        new EmpleadoDAOImpl().delete(empleados);
+    public static void eliminarEmpleados(Empleado e) throws Exception {
+        new EmpleadoDAOImpl().delete(e);
     }
 }

@@ -1,16 +1,26 @@
 package vista;
 
 import java.awt.Color;
-import java.util.Collections;
+import java.awt.HeadlessException;
+import java.text.DecimalFormat;
+import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.dto.EmpleadoDTO;
+import modelo.dto.ProductoDTO;
 
 public class Principal extends javax.swing.JFrame {
     private final Color btnBgColor = Color.decode("#FAD15E");
     private final Color btnBgColorFocused = Color.decode("#F14737");
-    public Principal(String sesion) {
+    DecimalFormat df = new DecimalFormat("#,###.00");
+    private final int idEmpleadoSesion;
+    private final String rolSesion;
+    
+    public Principal(EmpleadoDTO eDTO) {
+        this.idEmpleadoSesion = eDTO.getId();
+        this.rolSesion = eDTO.getRol();
         initComponents();
         initMethods();
-        initSession(sesion);
+        initSession(rolSesion);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -29,16 +39,15 @@ public class Principal extends javax.swing.JFrame {
         tbdpnlSistema = new javax.swing.JTabbedPane();
         pnlRegistrarVenta = new javax.swing.JPanel();
         seccionProductoRegistrarVenta = new javax.swing.JPanel();
-        btnEliminarRegistrarVenta = new javax.swing.JButton();
         lblProductoRegistrarVenta = new javax.swing.JLabel();
         cbProductoRegistrarVenta = new javax.swing.JComboBox<>();
         lblCantidadRegistrarVenta = new javax.swing.JLabel();
         txtCantidadRegistrarVenta = new javax.swing.JTextField();
         btnAgregarRegistrarVenta = new javax.swing.JButton();
+        btnEliminarTodoRegistrarVenta = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRegistrarVenta = new javax.swing.JTable();
         lblTotalRegistrarVenta = new javax.swing.JLabel();
-        txtTotalRegistrarVenta = new javax.swing.JTextField();
         seccionClienteRegistrarVenta = new javax.swing.JPanel();
         lblNombreRegistrarVenta = new javax.swing.JLabel();
         txtNombreRegistrarVenta = new javax.swing.JTextField();
@@ -145,10 +154,9 @@ public class Principal extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
         btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cerrar.png"))); // NOI18N
+        btnSalir.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
@@ -157,6 +165,7 @@ public class Principal extends javax.swing.JFrame {
         getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 10, 20, 20));
 
         btnMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimizar.png"))); // NOI18N
+        btnMinimizar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnMinimizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnMinimizarActionPerformed(evt);
@@ -252,10 +261,6 @@ public class Principal extends javax.swing.JFrame {
         seccionProductoRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionProductoRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnEliminarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
-        btnEliminarRegistrarVenta.setText("Eliminar");
-        seccionProductoRegistrarVenta.add(btnEliminarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 24, -1, 44));
-
         lblProductoRegistrarVenta.setText("Producto:");
         seccionProductoRegistrarVenta.add(lblProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 24, 214, -1));
 
@@ -268,9 +273,23 @@ public class Principal extends javax.swing.JFrame {
 
         btnAgregarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar.png"))); // NOI18N
         btnAgregarRegistrarVenta.setText("Agregar");
-        seccionProductoRegistrarVenta.add(btnAgregarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 24, -1, 44));
+        btnAgregarRegistrarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarRegistrarVentaActionPerformed(evt);
+            }
+        });
+        seccionProductoRegistrarVenta.add(btnAgregarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(345, 30, -1, 45));
 
-        pnlRegistrarVenta.add(seccionProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 600, 90));
+        btnEliminarTodoRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
+        btnEliminarTodoRegistrarVenta.setText("EliminarTodo");
+        btnEliminarTodoRegistrarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarTodoRegistrarVentaActionPerformed(evt);
+            }
+        });
+        seccionProductoRegistrarVenta.add(btnEliminarTodoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, -1, 45));
+
+        pnlRegistrarVenta.add(seccionProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 620, 90));
 
         tblRegistrarVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -288,6 +307,11 @@ public class Principal extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblRegistrarVenta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblRegistrarVentaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblRegistrarVenta);
         if (tblRegistrarVenta.getColumnModel().getColumnCount() > 0) {
             tblRegistrarVenta.getColumnModel().getColumn(0).setPreferredWidth(1);
@@ -302,8 +326,7 @@ public class Principal extends javax.swing.JFrame {
         pnlRegistrarVenta.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 1020, 300));
 
         lblTotalRegistrarVenta.setText("Total a Pagar:");
-        pnlRegistrarVenta.add(lblTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 480, -1, 22));
-        pnlRegistrarVenta.add(txtTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 480, 114, -1));
+        pnlRegistrarVenta.add(lblTotalRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 480, 190, 22));
 
         seccionClienteRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Cliente", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionClienteRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -315,10 +338,10 @@ public class Principal extends javax.swing.JFrame {
         seccionClienteRegistrarVenta.add(txtNombreRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 250, -1));
 
         lblCorreoRegistrarVenta.setText("Correo:");
-        seccionClienteRegistrarVenta.add(lblCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 24, 250, -1));
+        seccionClienteRegistrarVenta.add(lblCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 250, -1));
 
         txtCorreoRegistrarVenta.setEditable(false);
-        seccionClienteRegistrarVenta.add(txtCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 46, 250, -1));
+        seccionClienteRegistrarVenta.add(txtCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 250, -1));
 
         lblTelefonoRegistrarVenta.setText("Telefono");
         seccionClienteRegistrarVenta.add(lblTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 250, -1));
@@ -327,8 +350,8 @@ public class Principal extends javax.swing.JFrame {
         seccionClienteRegistrarVenta.add(txtTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 250, -1));
 
         lblMetodoPagoRegistrarVenta.setText("Método de Pago:");
-        seccionClienteRegistrarVenta.add(lblMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 250, -1));
-        seccionClienteRegistrarVenta.add(cbMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 250, -1));
+        seccionClienteRegistrarVenta.add(lblMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 250, -1));
+        seccionClienteRegistrarVenta.add(cbMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 250, -1));
 
         txtIdDocRegistrarVenta.setEditable(false);
         seccionClienteRegistrarVenta.add(txtIdDocRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 250, -1));
@@ -340,6 +363,11 @@ public class Principal extends javax.swing.JFrame {
 
         btnRegistrarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/registrar-venta.png"))); // NOI18N
         btnRegistrarRegistrarVenta.setText("Registrar Venta");
+        btnRegistrarRegistrarVenta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarRegistrarVentaActionPerformed(evt);
+            }
+        });
         pnlRegistrarVenta.add(btnRegistrarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 580, -1, 44));
 
         btnImprimirRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/imprimir.png"))); // NOI18N
@@ -809,9 +837,65 @@ public class Principal extends javax.swing.JFrame {
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_btnMinimizarActionPerformed
 
+    private void btnAgregarRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarRegistrarVentaActionPerformed
+        if(datosProductoRegistrarVentaValidos()) {
+            ProductoDTO pDTO = controlador.ControladorProducto.buscarPorNombre(cbProductoRegistrarVenta.getSelectedItem().toString());
+            
+            double precio = pDTO.getPrecio();
+            Integer cantidad = Integer.valueOf(txtCantidadRegistrarVenta.getText());
+            
+            vista.utilidadesVista.GestorTablas.insertarFila(tblRegistrarVenta, new Object[]{
+                tblRegistrarVenta.getRowCount() + 1,
+                pDTO.getId(),
+                pDTO.getNombre(),
+                pDTO.getCategoria(),
+                precio,
+                cantidad,
+                precio * cantidad
+            });
+            
+            lblTotalRegistrarVenta.setText("Total a Pagar: " + df.format(vista.utilidadesVista.GestorTablas.calcularSumaColumna(tblRegistrarVenta, 6)));
+        }
+    }//GEN-LAST:event_btnAgregarRegistrarVentaActionPerformed
+
+    private void tblRegistrarVentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblRegistrarVentaMouseClicked
+        if (evt.getClickCount() == 2) {
+            vista.utilidadesVista.GestorTablas.eliminarFilaConConfirmacion(tblRegistrarVenta);
+        }
+    }//GEN-LAST:event_tblRegistrarVentaMouseClicked
+
+    private void btnEliminarTodoRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarTodoRegistrarVentaActionPerformed
+        vista.utilidadesVista.GestorTablas.vaciarTabla(tblRegistrarVenta);
+    }//GEN-LAST:event_btnEliminarTodoRegistrarVentaActionPerformed
+
+    private void btnRegistrarRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarRegistrarVentaActionPerformed
+        if(datosClienteRegistrarVentaValidos()) {
+            try {
+                int idCliente = controlador.ControladorCliente.obtenerOInsertarClienteId(
+                        txtIdDocRegistrarVenta.getText(),
+                        txtNombreRegistrarVenta.getText(),
+                        txtCorreoRegistrarVenta.getText(),
+                        txtTelefonoRegistrarVenta.getText()
+                );
+                List<Integer> columna = vista.utilidadesVista.GestorTablas.obtenerColumna(tblRegistrarVenta, 1);
+                for (int idProducto : columna) {
+                    controlador.ControladorVenta.agregarVenta(idEmpleadoSesion, idCliente, idProducto);
+                }
+                
+                JOptionPane.showMessageDialog(null, "Todas las ventas se han registrado con éxito para el cliente ID: " + idCliente, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            } catch (HeadlessException headlessEx) {
+                System.err.println("No se puede mostrar la interfaz gráfica: " + headlessEx.getMessage());
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, "Error al registrar la venta: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Los datos del cliente no son válidos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_btnRegistrarRegistrarVentaActionPerformed
+
     private void initMethods() {
         try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+            for (var info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
@@ -822,6 +906,9 @@ public class Principal extends javax.swing.JFrame {
         }
         tbdpnlSistema.setUI(null);
         enfocarBotonNavegacion(btnRegistrarVenta);
+        vista.utilidadesVista.GestorTablas.deshabilitarEdicion(tblRegistrarVenta);
+        cargarProductos(cbProductoRegistrarVenta);
+        cargarMetodosPago(cbMetodoPagoRegistrarVenta);
     }
     
     private void desenfocarBotonesNavegacion() {
@@ -837,21 +924,21 @@ public class Principal extends javax.swing.JFrame {
         jb.setBackground(btnBgColorFocused);
     }
     
-    private void initSession(String sesion) {
-        switch (sesion) {
-            case "Administración" -> {
+    private void initSession(String rol) {
+        switch (rol) {
+            case "Administrador" -> {
                 initAdmin();
             }
             case "Vendedor" -> {
                 initVendedor();
             }
-            default -> throw new AssertionError();
+            default -> {
+                System.out.println("Rol no reconocido: " + rol);
+            }
         }
     }
     
     private void initAdmin() {
-        cargarProductos(cbProductoRegistrarVenta);
-        cargarMetodosPago(cbMetodoPagoRegistrarVenta);
     }
     
     private void initVendedor() {
@@ -860,21 +947,18 @@ public class Principal extends javax.swing.JFrame {
         btnProductos.setVisible(false);
         btnEmpleados.setVisible(false);
         btnConfiguracion.setVisible(false);
-        
-        cargarProductos(cbProductoRegistrarVenta);
-        cargarMetodosPago(cbMetodoPagoRegistrarVenta);
     }
     
     private void cargarProductos(javax.swing.JComboBox<String> cb) {
         javax.swing.DefaultComboBoxModel<String> modelo = new javax.swing.DefaultComboBoxModel<>();
         modelo.addElement("--Seleccionar--");
         
-        var productos = controlador.ControladorProducto.obtenerNombres();
-        Collections.sort(productos);
+        List<String> productos = controlador.ControladorProducto.obtenerNombresProductosOrdenados();
         
         for (String e : productos) {
             modelo.addElement(e);
         }
+        
         cb.setModel(modelo);
     }
     
@@ -882,13 +966,26 @@ public class Principal extends javax.swing.JFrame {
         javax.swing.DefaultComboBoxModel<String> modelo = new javax.swing.DefaultComboBoxModel<>();
         modelo.addElement("--Seleccionar--");
         
-        var metodosPago = controlador.ControladorMetodoPago.obtenerNombres();
-        Collections.sort(metodosPago);
-        
+        List<String> metodosPago = controlador.ControladorMetodoPago.obtenerNombresMetodosPago();
+
         for (String e : metodosPago) {
             modelo.addElement(e);
         }
+        
         cb.setModel(modelo);
+    }
+    
+    private boolean datosProductoRegistrarVentaValidos() {
+        return vista.utilidadesVista.ValidadorEntradasUsuario.seleccionCbEsValida(cbProductoRegistrarVenta,"Producto") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.campoCantidadEsValido(txtCantidadRegistrarVenta, "Cantidad");
+    }
+    
+    private boolean datosClienteRegistrarVentaValidos() {
+        return vista.utilidadesVista.ValidadorEntradasUsuario.campoDniRucEsValido(txtIdDocRegistrarVenta, "DNI/RUC") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.campoNombrePersonaEsValida(txtNombreRegistrarVenta, "Nombre del Cliente") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.campoCorreoEsValido(txtCorreoRegistrarVenta, "Correo") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.campoTelefonoEsValido(txtTelefonoRegistrarVenta, "Teléfono") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.seleccionCbEsValida(cbMetodoPagoRegistrarVenta, "Método de Pago");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -901,7 +998,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminarClientes;
     private javax.swing.JButton btnEliminarEmpleados;
     private javax.swing.JButton btnEliminarProductos;
-    private javax.swing.JButton btnEliminarRegistrarVenta;
+    private javax.swing.JButton btnEliminarTodoRegistrarVenta;
     private javax.swing.JButton btnEmpleados;
     private javax.swing.JButton btnExcelEmpleados;
     private javax.swing.JButton btnExcelProductos;
@@ -1014,6 +1111,5 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtTotalClientes;
     private javax.swing.JTextField txtTotalEmpleados;
     private javax.swing.JTextField txtTotalProductos;
-    private javax.swing.JTextField txtTotalRegistrarVenta;
     // End of variables declaration//GEN-END:variables
 }
