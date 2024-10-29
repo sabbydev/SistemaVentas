@@ -23,7 +23,7 @@ public class ControladorProducto {
         } catch (Exception ex) {
             System.out.println(ex);
         }
-        return null;
+        return new ArrayList<>();
     }
 
     public static void modificarProducto(ProductoDTO pDTO) {
