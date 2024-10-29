@@ -5,24 +5,32 @@ import java.time.LocalDateTime;
 public class DetalleVenta {
     private final int id;
     private final int idVenta;
+    private final int idMetodoPago;
     private final double precioUnitario;
     private final int cantidad;
     private final double montoTotal;
     private final LocalDateTime fechaHora;
-    private final String metodoPago;
 
-    public DetalleVenta(int id, int idVenta, double precioUnitario, int cantidad, LocalDateTime fechaHora, String metodoPago) {
+    public DetalleVenta(int id, int idVenta, int idMetodoPago, double precioUnitario, int cantidad, LocalDateTime fechaHora) {
         this.id = id;
         this.idVenta = idVenta;
+        this.idMetodoPago = idMetodoPago;
         this.precioUnitario = precioUnitario;
         this.cantidad = cantidad;
         this.montoTotal = precioUnitario * cantidad;
         this.fechaHora = fechaHora;
-        this.metodoPago = metodoPago;
     }
 
     public int getId() {
         return id;
+    }
+
+    public int getIdVenta() {
+        return idVenta;
+    }
+    
+    public int getIdMetodoPago() {
+        return idMetodoPago;
     }
 
     public double getPrecioUnitario() {
@@ -39,9 +47,5 @@ public class DetalleVenta {
 
     public LocalDateTime getFechaHora() {
         return fechaHora;
-    }
-
-    public String getMetodoPago() {
-        return metodoPago;
     }
 }
