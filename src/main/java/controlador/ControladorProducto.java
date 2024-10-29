@@ -4,12 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 import modelo.Producto;
 import modelo.dao.impl.ProductoDAOImpl;
+import modelo.dto.ProductoDTO;
 
 public class ControladorProducto {
     
-    //Métodos hacia la base de datos
-    public static void agregarProducto(List<Producto> productos) throws Exception {
-        new ProductoDAOImpl().create(productos);
+    public static void agregarProducto(ProductoDTO pDTO) {
+        Producto p = new Producto(0, pDTO.getNombre(), pDTO.getCategoria(), pDTO.getPrecio(), pDTO.getDescripcion(), null);
+        try {
+            new ProductoDAOImpl().create(p);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     public static List<Producto> obtenerProductos() {
@@ -21,25 +26,29 @@ public class ControladorProducto {
         return null;
     }
 
-    public static void modificarProducto(List<Producto> productos) throws Exception {
-        new ProductoDAOImpl().update(productos);
+    public static void modificarProducto(ProductoDTO pDTO) {
+        Producto p = new Producto(0, pDTO.getNombre(), pDTO.getCategoria(), pDTO.getPrecio(), pDTO.getDescripcion(), null);
+        try {
+            new ProductoDAOImpl().update(p);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
-    public static void eliminarProducto(List<Producto> productos) throws Exception {
-        new ProductoDAOImpl().delete(productos);
+    public static void eliminarProducto(int id) {
+        try {
+            new ProductoDAOImpl().delete(id);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
     
-    //Métodos hacia la interfaz gráfica
-    public static List<String> obtenerNombres() {
-        List<Producto> productos = obtenerProductos();
-        if (productos == null) {
+    public static List<String> obtenerNombresProductosOrdenados() {
+        try {
+            return new ProductoDAOImpl().obtenerNombresProductosOrdenados();
+        } catch (Exception ex) {
+            System.out.println(ex);
             return new ArrayList<>();
         }
-
-        List<String> nombresProductos = new ArrayList<>(productos.size());
-        for (Producto producto : productos) {
-            nombresProductos.add(producto.getNombre());
-        }
-        return nombresProductos;
     }
 }
