@@ -109,14 +109,14 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(long id) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("DELETE FROM productos WHERE id_producto = ?");
 
-            declaracion.setInt(1, id);
+            declaracion.setLong(1, id);
             
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));

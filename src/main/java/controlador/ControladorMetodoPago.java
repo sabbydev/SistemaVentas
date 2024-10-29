@@ -34,7 +34,7 @@ public class ControladorMetodoPago {
         }
     }
 
-    public static void eliminarMetodosPago(int id) {
+    public static void eliminarMetodosPago(long id) {
         try {            
             new MetodoPagoDAOImpl().delete(id);
         } catch (Exception ex) {

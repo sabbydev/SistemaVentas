@@ -82,7 +82,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             declaracion.setString(2, e.getCorreo());
             declaracion.setString(3, e.getRol());
             declaracion.setDouble(4, e.getSalario());
-            declaracion.setInt(5, e.getId());
+            declaracion.setLong(5, e.getId());
 
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -94,18 +94,17 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
         }
     }
     @Override
-    public void delete(Empleado e) throws Exception {
+    public void delete(long id) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("DELETE FROM empleados WHERE id_empleado = ?");
 
-            declaracion.setInt(1, e.getId());
-            declaracion.addBatch();
+            declaracion.setLong(1, id);
             
             int filasAfectadas = declaracion.executeUpdate();
-            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));        
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada")); 
         } catch (Exception ex) {
             throw ex;
         } finally {
@@ -113,7 +112,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             this.desconectar();
         }
     }
-    public Empleado obtenerEmpleado(int id) throws Exception {
+    public Empleado obtenerEmpleado(long id) throws Exception {
         PreparedStatement declaracion = null;
         ResultSet resultado = null;
         Empleado e = null;
@@ -122,7 +121,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("SELECT id, rol, nombre, apellido, correo, dni FROM empleados WHERE id = ?");
-            declaracion.setInt(1, id);
+            declaracion.setLong(1, id);
 
             resultado = declaracion.executeQuery();
 
@@ -165,10 +164,12 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
             resultado = declaracion.executeQuery();
 
             if (resultado.next()) {
-                int idEmpleado = resultado.getInt("id_empleado");
+                long idEmpleado = resultado.getLong("id_empleado");
+                String nombre = resultado.getString("nombre");
                 String rol = resultado.getString("rol");
+                double salario = resultado.getDouble("salario");
                 
-                e = new Empleado(idEmpleado, dni, null, correo, rol, 0);
+                e = new Empleado(idEmpleado, dni, nombre, correo, rol, salario);
             } else {
                 System.out.println("Empleado no encontrado con el correo y DNI proporcionados.");
             }

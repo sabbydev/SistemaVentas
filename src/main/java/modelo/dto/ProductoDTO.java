@@ -3,14 +3,14 @@ package modelo.dto;
 import java.time.LocalDateTime;
 
 public class ProductoDTO {
-    private final int id;
+    private final long id;
     private final String nombre;
     private final String categoria;
     private final double precio;
     private final String descripcion;
     private final LocalDateTime fechaHora;
 
-    public ProductoDTO(int id, String nombre, String categoria, double precio, String descripcion, LocalDateTime fechaHora) {
+    public ProductoDTO(long id, String nombre, String categoria, double precio, String descripcion, LocalDateTime fechaHora) {
         this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
@@ -19,7 +19,7 @@ public class ProductoDTO {
         this.fechaHora = fechaHora;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

@@ -12,21 +12,22 @@ import modelo.dao.DetalleVentaDAO;
 public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
 
     @Override
-    public void create(List<DetalleVenta> detallesVenta) throws Exception {
+    public void create(DetalleVenta dv) throws Exception {
         PreparedStatement declaracion = null;
 
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("INSERT INTO detalles_venta() VALUES()");
+            declaracion = this.conexion.prepareStatement("INSERT INTO detalles_venta(id_venta, id_metodo_pago, precio_unitario, cantidad, monto_total) VALUES()");
 
-            for (DetalleVenta dv : detallesVenta) {
+            declaracion.setLong(1, dv.getIdVenta());
+            declaracion.setLong(2, dv.getIdMetodoPago());
+            declaracion.setDouble(3, dv.getPrecioUnitario());
+            declaracion.setInt(4, dv.getCantidad());
+            declaracion.setDouble(5, dv.getMontoTotal());
                 
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -73,20 +74,17 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
     }
 
     @Override
-    public void update(List<DetalleVenta> detallesVenta) throws Exception {
+    public void update(DetalleVenta dv) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("INSERT INTO detalles_venta() VALUES()");
 
-            for (DetalleVenta dv : detallesVenta) {
+         
                 
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -96,20 +94,17 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
     }
 
     @Override
-    public void delete(List<DetalleVenta> detallesVenta) throws Exception {
+    public void delete(long id) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("DELETE FROM ventas WHERE id_detalle_venta = ?");
 
-            for (DetalleVenta dv : detallesVenta) {
-                declaracion.setInt(1, dv.getId());
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
+            declaracion.setLong(1, id);
+            
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {

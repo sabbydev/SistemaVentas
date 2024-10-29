@@ -10,15 +10,15 @@ public class ControladorEmpleado {
         new EmpleadoDAOImpl().create(e);
     }
 
-    public static List<Empleado> obtenerEmpleados() throws Exception {
+    public static List<Empleado> obtenerEmpleado() throws Exception {
         return new EmpleadoDAOImpl().read();
     }
 
-    public static void modificarEmpleados(Empleado e) throws Exception {
+    public static void modificarEmpleado(Empleado e) throws Exception {
         new EmpleadoDAOImpl().update(e);
     }
 
-    public static void eliminarEmpleados(Empleado e) throws Exception {
-        new EmpleadoDAOImpl().delete(e);
+    public static void eliminarEmpleado(long id) throws Exception {
+        new EmpleadoDAOImpl().delete(id);
     }
 }

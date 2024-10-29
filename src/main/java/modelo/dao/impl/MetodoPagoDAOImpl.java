@@ -76,7 +76,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
             declaracion = this.conexion.prepareStatement("UPDATE metodos_pago SET estado = ? WHERE id_metodo_pago = ?");
 
             declaracion.setString(1, mp.getEstado());
-            declaracion.setInt(2, mp.getId());
+            declaracion.setLong(2, mp.getId());
 
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -89,7 +89,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
     }
 
     @Override
-    public void delete(int id) throws Exception {
+    public void delete(long id) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
@@ -97,7 +97,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
             declaracion = this.conexion.prepareStatement("DELETE FROM metodos_pago WHERE id_metodo_pago = ?");
 
             
-            declaracion.setInt(1, id);
+            declaracion.setLong(1, id);
             
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));

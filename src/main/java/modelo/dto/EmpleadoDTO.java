@@ -1,13 +1,13 @@
 package modelo.dto;
 public class EmpleadoDTO {
-    private final int id;
+    private final long id;
     private final String dni;
     private String nombre;
     private String correo;
     private String rol;
     private double salario;
 
-    public EmpleadoDTO(int id, String dni, String nombre, String correo, String rol, double salario) {
+    public EmpleadoDTO(long id, String dni, String nombre, String correo, String rol, double salario) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -16,7 +16,7 @@ public class EmpleadoDTO {
         this.salario = salario;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

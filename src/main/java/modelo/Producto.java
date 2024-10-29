@@ -3,14 +3,14 @@ package modelo;
 import java.time.LocalDateTime;
 
 public class Producto {
-    private final int id;
+    private final long id;
     private final String nombre;
     private final String categoria;
     private final double precio;
     private final String descripcion;
     private final LocalDateTime fechaHoraCreacion;
 
-    public Producto(int id, String nombre, String categoria, double precio, String descripcion, LocalDateTime fechaHoraCreacion) {
+    public Producto(long id, String nombre, String categoria, double precio, String descripcion, LocalDateTime fechaHoraCreacion) {
         this.id = id;
         this.nombre = nombre;
         this.categoria = categoria;
@@ -19,7 +19,7 @@ public class Producto {
         this.fechaHoraCreacion = fechaHoraCreacion;
     }
     
-    public int getId() {
+    public long getId() {
         return id;
     }
 

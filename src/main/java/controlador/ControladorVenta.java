@@ -2,14 +2,12 @@ package controlador;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Venta;
 import modelo.dao.impl.VentaDAOImpl;
 
 public class ControladorVenta {
     
-    public static void agregarVenta(int c, int e, int p) {
+    public static void agregarVenta(long c, long e, long p) {
         Venta v = new Venta(0, c, e, p);
         try {
             new VentaDAOImpl().create(v);
@@ -36,7 +34,7 @@ public class ControladorVenta {
         }
     }
 
-    public static void eliminarVentas(int id) {
+    public static void eliminarVentas(long id) {
         Venta v = new Venta(id, 0, 0, 0);
         try {
             new VentaDAOImpl().delete(v);

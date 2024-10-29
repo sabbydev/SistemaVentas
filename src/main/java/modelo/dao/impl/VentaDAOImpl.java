@@ -11,26 +11,36 @@ import modelo.dao.VentaDAO;
 public class VentaDAOImpl extends Conexion implements VentaDAO{
     
     @Override
-    public void create(Venta v) throws Exception {
+    public long create(Venta v) throws Exception {
         PreparedStatement declaracion = null;
+        ResultSet generatedKeys = null;
 
         try {
             this.conectar();
-            
-            declaracion = this.conexion.prepareStatement("INSERT INTO ventas(id_cliente, id_empleado, id_producto) VALUES(?, ?, ?)");
 
-            declaracion.setInt(1, v.getIdCliente());
-            declaracion.setInt(2, v.getIdEmpleado());
-            declaracion.setInt(3, v.getIdProducto());
+            declaracion = this.conexion.prepareStatement("INSERT INTO ventas(id_cliente, id_empleado, id_producto) VALUES(?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+            declaracion.setLong(1, v.getIdCliente());
+            declaracion.setLong(2, v.getIdEmpleado());
+            declaracion.setLong(3, v.getIdProducto());
 
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+
+            if (filasAfectadas > 0) {
+                generatedKeys = declaracion.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                }
+            }
         } catch (Exception ex) {
             throw ex;
         } finally {
+            if (generatedKeys != null) generatedKeys.close();
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
+        return -1;
     }
 
     @Override
@@ -76,9 +86,9 @@ public class VentaDAOImpl extends Conexion implements VentaDAO{
 
             declaracion = this.conexion.prepareStatement("UPDATE ventas SET id_cliente = ?, id_empleado = ?, id_producto = ? WHERE id_venta = ?");
 
-            declaracion.setInt(1, v.getIdCliente());
-            declaracion.setInt(2, v.getIdEmpleado());
-            declaracion.setInt(3, v.getIdProducto());
+            declaracion.setLong(1, v.getIdCliente());
+            declaracion.setLong(2, v.getIdEmpleado());
+            declaracion.setLong(3, v.getIdProducto());
 
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -98,7 +108,7 @@ public class VentaDAOImpl extends Conexion implements VentaDAO{
 
             declaracion = this.conexion.prepareStatement("DELETE FROM ventas WHERE id_venta = ?");
 
-            declaracion.setInt(1, v.getId());
+            declaracion.setLong(1, v.getId());
             
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));

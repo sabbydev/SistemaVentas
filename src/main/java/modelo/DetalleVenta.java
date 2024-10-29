@@ -3,15 +3,15 @@ package modelo;
 import java.time.LocalDateTime;
 
 public class DetalleVenta {
-    private final int id;
-    private final int idVenta;
-    private final int idMetodoPago;
+    private final long id;
+    private final long idVenta;
+    private final long idMetodoPago;
     private final double precioUnitario;
     private final int cantidad;
     private final double montoTotal;
     private final LocalDateTime fechaHora;
 
-    public DetalleVenta(int id, int idVenta, int idMetodoPago, double precioUnitario, int cantidad, LocalDateTime fechaHora) {
+    public DetalleVenta(long id, long idVenta, long idMetodoPago, double precioUnitario, int cantidad, LocalDateTime fechaHora) {
         this.id = id;
         this.idVenta = idVenta;
         this.idMetodoPago = idMetodoPago;
@@ -21,15 +21,15 @@ public class DetalleVenta {
         this.fechaHora = fechaHora;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public int getIdVenta() {
+    public long getIdVenta() {
         return idVenta;
     }
     
-    public int getIdMetodoPago() {
+    public long getIdMetodoPago() {
         return idMetodoPago;
     }
 

@@ -84,7 +84,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
             declaracion.setString(1, c.getNombre());
             declaracion.setString(2, c.getCorreo());
             declaracion.setString(3, c.getTelefono());
-            declaracion.setInt(4, c.getId());
+            declaracion.setLong(4, c.getId());
 
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -97,7 +97,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
     }
 
     @Override
-    public void delete(Cliente c) throws Exception {
+    public void delete(long id) throws Exception {
         PreparedStatement declaracion = null;
 
         try {
@@ -105,7 +105,7 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
             
             declaracion = this.conexion.prepareStatement("DELETE FROM clientes WHERE id_cliente = ?");
 
-            declaracion.setInt(1, c.getId());
+            declaracion.setLong(1, id);
             
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -141,41 +141,44 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
         }
     }
     
-    public int obtenerOInsertarClienteId(String idDoc, String nombre, String correo, String telefono) throws Exception {
+    @Override
+    public long obtenerOInsertarClienteId(Cliente c) throws Exception {
         PreparedStatement declaracion = null;
         ResultSet resultado = null;
-        int idCliente = -1;
+        long idCliente;
 
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("SELECT id_cliente FROM clientes WHERE id_doc = ?");
-            declaracion.setString(1, idDoc);
+            declaracion.setString(1, c.getIdDoc());
             
             resultado = declaracion.executeQuery();
 
             if (resultado.next()) {
-                idCliente = resultado.getInt("id_cliente");
+                idCliente = resultado.getLong("id_cliente");
                 
                 declaracion = this.conexion.prepareStatement("UPDATE clientes SET nombre = ?, correo = ?, telefono = ? WHERE id_cliente = ?");
-                declaracion.setString(1, nombre);
-                declaracion.setString(2, correo);
-                declaracion.setString(3, telefono);
-                declaracion.setInt(4, idCliente);
+                declaracion.setString(1, c.getNombre());
+                declaracion.setString(2, c.getCorreo());
+                declaracion.setString(3, c.getTelefono());
+                declaracion.setLong(4, idCliente);
                 
                 declaracion.executeUpdate();
+                
+                return idCliente;
             } else {
                 declaracion = this.conexion.prepareStatement("INSERT INTO clientes(id_doc, nombre, correo, telefono) VALUES(?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-                declaracion.setString(1, idDoc);
-                declaracion.setString(2, nombre);
-                declaracion.setString(3, correo);
-                declaracion.setString(4, telefono);
+                declaracion.setString(1, c.getIdDoc());
+                declaracion.setString(2, c.getNombre());
+                declaracion.setString(3, c.getCorreo());
+                declaracion.setString(4, c.getTelefono());
                 
                 int filasAfectadas = declaracion.executeUpdate();
                 if (filasAfectadas > 0) {
                     resultado = declaracion.getGeneratedKeys();
                     if (resultado.next()) {
-                        idCliente = resultado.getInt(1);
+                        return resultado.getLong(1);
                     }
                 }
             }
@@ -187,6 +190,6 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
             this.desconectar();
         }
 
-        return idCliente;
+        return -1;
     }
 }

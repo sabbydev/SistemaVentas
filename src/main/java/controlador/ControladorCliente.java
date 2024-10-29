@@ -3,10 +3,9 @@ package controlador;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import modelo.Cliente;
 import modelo.dao.impl.ClienteDAOImpl;
+import modelo.dto.ClienteDTO;
 
 public class ControladorCliente {
     
@@ -26,18 +25,17 @@ public class ControladorCliente {
             return new ArrayList<>();
         }
     }
-    public static void modificarCliente(String idDoc, String nombre, String correo, String telefono) {
-        Cliente c = new Cliente(0, idDoc, nombre, correo, telefono);
+    public static void modificarCliente(ClienteDTO cDTO) {
+        Cliente c = new Cliente(0, cDTO.getIdDoc(), cDTO.getNombre(), cDTO.getCorreo(), cDTO.getTelefono());
         try {
             new ClienteDAOImpl().update(c);
         } catch (Exception ex) {
             System.out.println(ex);
         }
     }
-    public static void eliminarCliente(String idDoc, String nombre, String correo, String telefono) {
-        Cliente c = new Cliente(0, idDoc, nombre, correo, telefono);
+    public static void eliminarCliente(long id) {
         try {
-            new ClienteDAOImpl().delete(c);
+            new ClienteDAOImpl().delete(id);
         } catch (Exception ex) {
             System.out.println(ex);
         }
@@ -55,9 +53,10 @@ public class ControladorCliente {
         }
     }
     
-    public static int obtenerOInsertarClienteId(String idDoc, String nombre, String correo, String telefono) {
+    public static long obtenerOInsertarClienteId(ClienteDTO cDTO) {
+        Cliente c = new Cliente(0, cDTO.getIdDoc(), cDTO.getNombre(), cDTO.getCorreo(), cDTO.getTelefono());
         try {
-            return new ClienteDAOImpl().obtenerOInsertarClienteId(idDoc, nombre, correo, telefono);
+            return new ClienteDAOImpl().obtenerOInsertarClienteId(c);
         } catch (SQLException sqlEx) {
             System.err.println(sqlEx.getMessage());
             return 0;

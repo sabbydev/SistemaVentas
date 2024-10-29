@@ -35,7 +35,7 @@ public class ControladorProducto {
         }
     }
 
-    public static void eliminarProducto(int id) {
+    public static void eliminarProducto(long id) {
         try {
             new ProductoDAOImpl().delete(id);
         } catch (Exception ex) {

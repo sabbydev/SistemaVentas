@@ -1,30 +1,30 @@
 package modelo;
 public class Venta {
-    private final int id;
-    private final int idCliente;
-    private final int idEmpleado;
-    private final int idProducto;
+    private final long id;
+    private final long idCliente;
+    private final long idEmpleado;
+    private final long idProducto;
 
-    public Venta(int id, int idCliente, int idEmpleado, int idProducto) {
+    public Venta(long id, long idCliente, long idEmpleado, long idProducto) {
         this.id = id;
         this.idCliente = idCliente;
         this.idEmpleado = idEmpleado;
         this.idProducto = idProducto;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public int getIdCliente() {
+    public long getIdCliente() {
         return idCliente;
     }
 
-    public int getIdEmpleado() {
+    public long getIdEmpleado() {
         return idEmpleado;
     }
 
-    public int getIdProducto() {
+    public long getIdProducto() {
         return idProducto;
     }
 }

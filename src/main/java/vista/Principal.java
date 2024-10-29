@@ -5,6 +5,7 @@ import java.awt.HeadlessException;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
+import modelo.dto.ClienteDTO;
 import modelo.dto.EmpleadoDTO;
 import modelo.dto.ProductoDTO;
 
@@ -12,7 +13,7 @@ public class Principal extends javax.swing.JFrame {
     private final Color btnBgColor = Color.decode("#FAD15E");
     private final Color btnBgColorFocused = Color.decode("#F14737");
     DecimalFormat df = new DecimalFormat("#,###.00");
-    private final int idEmpleadoSesion;
+    private final long idEmpleadoSesion;
     private final String rolSesion;
     
     public Principal(EmpleadoDTO eDTO) {
@@ -300,7 +301,7 @@ public class Principal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -418,7 +419,7 @@ public class Principal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -488,7 +489,7 @@ public class Principal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -557,7 +558,7 @@ public class Principal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -609,7 +610,7 @@ public class Principal extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -871,18 +872,21 @@ public class Principal extends javax.swing.JFrame {
     private void btnRegistrarRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarRegistrarVentaActionPerformed
         if(datosClienteRegistrarVentaValidos()) {
             try {
-                int idCliente = controlador.ControladorCliente.obtenerOInsertarClienteId(
-                        txtIdDocRegistrarVenta.getText(),
-                        txtNombreRegistrarVenta.getText(),
-                        txtCorreoRegistrarVenta.getText(),
-                        txtTelefonoRegistrarVenta.getText()
+                long idCliente = controlador.ControladorCliente.obtenerOInsertarClienteId(
+                        new ClienteDTO(
+                            txtIdDocRegistrarVenta.getText(),
+                            txtNombreRegistrarVenta.getText(),
+                            txtCorreoRegistrarVenta.getText(),
+                            txtTelefonoRegistrarVenta.getText()
+                        )
                 );
                 List<Integer> columna = vista.utilidadesVista.GestorTablas.obtenerColumna(tblRegistrarVenta, 1);
-                for (int idProducto : columna) {
+                for (long idProducto : columna) {
                     controlador.ControladorVenta.agregarVenta(idEmpleadoSesion, idCliente, idProducto);
                 }
                 
                 JOptionPane.showMessageDialog(null, "Todas las ventas se han registrado con éxito para el cliente ID: " + idCliente, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+                vista.utilidadesVista.GestorTablas.vaciarTabla(tblRegistrarVenta);
             } catch (HeadlessException headlessEx) {
                 System.err.println("No se puede mostrar la interfaz gráfica: " + headlessEx.getMessage());
             } catch (Exception ex) {

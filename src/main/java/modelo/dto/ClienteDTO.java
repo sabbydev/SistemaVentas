@@ -1,21 +1,16 @@
-package modelo;
-public class Cliente {
-    private final long id;
+package modelo.dto;
+
+public class ClienteDTO {
     private final String idDoc;
     private String nombre;
     private String correo;
     private String telefono;
 
-    public Cliente(long id, String idDoc, String nombre, String correo, String telefono) {
-        this.id = id;
+    public ClienteDTO(String idDoc, String nombre, String correo, String telefono) {
         this.idDoc = idDoc;
         this.nombre = nombre;
         this.correo = correo;
         this.telefono = telefono;
-    }
-    
-    public long getId() {
-        return id;
     }
     
     public String getIdDoc() {

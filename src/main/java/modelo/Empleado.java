@@ -1,13 +1,13 @@
 package modelo;
 public class Empleado {
-    private final int id;
+    private final long id;
     private final String dni;
     private String nombre;
     private String correo;
     private String rol;
     private double salario;
 
-    public Empleado(int id, String dni, String nombre, String correo, String rol, double salario) {
+    public Empleado(long id, String dni, String nombre, String correo, String rol, double salario) {
         this.id = id;
         this.dni = dni;
         this.nombre = nombre;
@@ -16,7 +16,7 @@ public class Empleado {
         this.salario = salario;
     }
     
-    public int getId() {
+    public long getId() {
         return id;
     }
     
