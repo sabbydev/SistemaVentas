@@ -3,7 +3,7 @@ package modelo.dao.impl;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.Producto;
 import modelo.conexion.Conexion;
@@ -12,25 +12,21 @@ import modelo.dao.ProductoDAO;
 public class ProductoDAOImpl extends Conexion implements ProductoDAO{
     
     @Override
-    public void create(List<Producto> productos) throws Exception {
+    public void create(Producto p) throws Exception {
         PreparedStatement declaracion = null;
 
         try {
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("INSERT INTO productos(nombre, categoria, precio, descripcion) VALUES(?, ?, ?, ?)");
-
-            for (Producto p : productos) {
-                declaracion.setString(1, p.getNombre());
-                declaracion.setString(2, p.getCategoria());
-                declaracion.setDouble(3, p.getPrecio());
-                declaracion.setString(4, p.getDescripcion());
+            
+            declaracion.setString(1, p.getNombre());
+            declaracion.setString(2, p.getCategoria());
+            declaracion.setDouble(3, p.getPrecio());
+            declaracion.setString(4, p.getDescripcion());
                 
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -64,7 +60,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
             """);
 
             resultado = declaracion.executeQuery();
-            lista = new LinkedList<>();
+            lista = new ArrayList<>();
 
             while (resultado.next()) {
                 Producto p = new Producto(
@@ -90,24 +86,20 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
     }
 
     @Override
-    public void update(List<Producto> productos) throws Exception {
+    public void update(Producto p) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("INSERT INTO productos(nombre, categoria, precio, descripcion) VALUES(?, ?, ?, ?)");
 
-            for (Producto p : productos) {
-                declaracion.setString(1, p.getNombre());
-                declaracion.setString(2, p.getCategoria());
-                declaracion.setDouble(3, p.getPrecio());
-                declaracion.setString(4, p.getDescripcion());
-                
-                declaracion.addBatch();
-            }
+            declaracion.setString(1, p.getNombre());
+            declaracion.setString(2, p.getCategoria());
+            declaracion.setDouble(3, p.getPrecio());
+            declaracion.setString(4, p.getDescripcion());
 
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
@@ -117,25 +109,91 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
     }
 
     @Override
-    public void delete(List<Producto> productos) throws Exception {
+    public void delete(int id) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("DELETE FROM productos WHERE id_producto = ?");
 
-            for (Producto p : productos) {
-                declaracion.setInt(1, p.getId());
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
+            declaracion.setInt(1, id);
+            
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
         } catch (Exception e) {
             throw e;
         } finally {
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
+    }
+    
+    
+    @Override
+    public Producto obtenerPorNombre(String nombre) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        Producto producto = null;
+
+        try {
+            this.conectar();
+
+            declaracion = this.conexion.prepareStatement("""
+                SELECT p1.* 
+                FROM productos p1 
+                WHERE p1.nombre = ? 
+                ORDER BY p1.fecha_hora_creacion DESC, p1.id_producto DESC 
+                LIMIT 1
+            """);
+            declaracion.setString(1, nombre);
+
+            resultado = declaracion.executeQuery();
+
+            if (resultado.next()) {
+                producto = new Producto(
+                    resultado.getInt("id_producto"),
+                    resultado.getString("nombre"),
+                    resultado.getString("categoria"),
+                    resultado.getDouble("precio"),
+                    resultado.getString("descripcion"),
+                    resultado.getObject("fecha_hora_creacion", LocalDateTime.class)
+                );
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+
+        return producto;
+    }
+    
+    @Override
+    public List<String> obtenerNombresProductosOrdenados() throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        List<String> nombres = new ArrayList<>();
+
+        try {
+            this.conectar();
+            
+            declaracion = this.conexion.prepareStatement("SELECT nombre FROM productos ORDER BY nombre");
+            
+            resultado = declaracion.executeQuery();
+            
+            while (resultado.next()) {
+                nombres.add(resultado.getString("nombre"));
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        
+        return nombres;
     }
 }
