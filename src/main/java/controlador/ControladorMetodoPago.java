@@ -1,15 +1,19 @@
 package controlador;
 
-import java.util.ArrayList;
 import java.util.List;
 import modelo.MetodoPago;
 import modelo.dao.impl.MetodoPagoDAOImpl;
+import modelo.dto.MetodoPagoDTO;
 
 public class ControladorMetodoPago {
     
-    //Métodos hacia la base de datos
-    public static void agregarMetodosPago(List<MetodoPago> metodosPago) throws Exception {
-        new MetodoPagoDAOImpl().create(metodosPago);
+    public static void agregarMetodoPago(MetodoPagoDTO mpDTO) {
+        MetodoPago mp = new MetodoPago(0, mpDTO.getNombre().name(), mpDTO.getDescripcion(), mpDTO.getEstado().name());
+        try {
+            new MetodoPagoDAOImpl().create(mp);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
     public static List<MetodoPago> obtenerMetodosPago() {
@@ -21,25 +25,29 @@ public class ControladorMetodoPago {
         return null;
     }
 
-    public static void modificarMetodosPago(List<MetodoPago> metodosPago) throws Exception {
-        new MetodoPagoDAOImpl().update(metodosPago);
+    public static void modificarMetodosPago(MetodoPagoDTO mpDTO) {
+        MetodoPago mp = new MetodoPago(0, mpDTO.getNombre().name(), mpDTO.getDescripcion(), mpDTO.getEstado().name());
+        try {
+            new MetodoPagoDAOImpl().update(mp);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
 
-    public static void eliminarMetodosPago(List<MetodoPago> metodosPago) throws Exception {
-        new MetodoPagoDAOImpl().delete(metodosPago);
+    public static void eliminarMetodosPago(int id) {
+        try {            
+            new MetodoPagoDAOImpl().delete(id);
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
     }
     
-    //Métodos hacia la interfaz gráfica
-    public static List<String> obtenerNombres() {
-        List<MetodoPago> metodosPago = obtenerMetodosPago();
-        if (metodosPago == null) {
-            return new ArrayList<>();
+    public static List<String> obtenerNombresMetodosPago() {
+        try {
+            return new MetodoPagoDAOImpl().obtenerNombresMetodosPago();
+        } catch (Exception ex) {
+            System.out.println(ex);
         }
-
-        List<String> nombresMetodosPago = new ArrayList<>(metodosPago.size());
-        for (MetodoPago mp : metodosPago) {
-            nombresMetodosPago.add(mp.getNombre());
-        }
-        return nombresMetodosPago;
+        return null;
     }
 }

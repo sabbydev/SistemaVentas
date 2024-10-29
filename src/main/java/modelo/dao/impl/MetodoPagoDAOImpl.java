@@ -2,7 +2,7 @@ package modelo.dao.impl;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import modelo.MetodoPago;
 import modelo.conexion.Conexion;
@@ -11,26 +11,22 @@ import modelo.dao.MetodoPagoDAO;
 public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
 
     @Override
-    public void create(List<MetodoPago> metodosPago) throws Exception {
-    PreparedStatement declaracion = null;
+    public void create(MetodoPago mp) throws Exception {
+        PreparedStatement declaracion = null;
 
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("INSERT INTO metodos_pago(metodo, descripcion, estado) VALUES(?, ?, ?)");
 
-            for (MetodoPago mp : metodosPago) {
-                declaracion.setString(1, mp.getNombre());
-                declaracion.setString(2, mp.getDescripcion());
-                declaracion.setString(3, mp.getEstado());
+            declaracion.setString(1, mp.getNombre());
+            declaracion.setString(2, mp.getDescripcion());
+            declaracion.setString(3, mp.getEstado());
                 
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
-        } catch (Exception e) {
-            throw e;
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (declaracion != null) declaracion.close();
             this.desconectar();
@@ -48,7 +44,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
             
             declaracion = this.conexion.prepareStatement("SELECT * FROM metodos_pago");
             resultado = declaracion.executeQuery();
-            lista = new LinkedList<>();
+            lista = new ArrayList<>();
             
             while (resultado.next()) {
                 MetodoPago mp = new MetodoPago(
@@ -60,8 +56,8 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
                 lista.add(mp);
             }
             
-        } catch (Exception e) {
-            throw e;
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (declaracion != null) declaracion.close();
             if (resultado != null) resultado.close();
@@ -72,24 +68,20 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
     }
 
     @Override
-    public void update(List<MetodoPago> metodosPago) throws Exception {
+    public void update(MetodoPago mp) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("UPDATE metodos_pago SET estado = ? WHERE id_metodo_pago = ?");
 
-            for (MetodoPago mp : metodosPago) {
-                declaracion.setString(1, mp.getEstado());
-                declaracion.setInt(2, mp.getId());
-                
-                declaracion.addBatch();
-            }
+            declaracion.setString(1, mp.getEstado());
+            declaracion.setInt(2, mp.getId());
 
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
-        } catch (Exception e) {
-            throw e;
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (declaracion != null) declaracion.close();
             this.desconectar();
@@ -97,25 +89,52 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
     }
 
     @Override
-    public void delete(List<MetodoPago> metodosPago) throws Exception {
+    public void delete(int id) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
 
             declaracion = this.conexion.prepareStatement("DELETE FROM metodos_pago WHERE id_metodo_pago = ?");
 
-            for (MetodoPago mp : metodosPago) {
-                declaracion.setInt(1, mp.getId());
-                declaracion.addBatch();
-            }
-
-            int[] filasAfectadas = declaracion.executeBatch();
-            System.out.println(filasAfectadas.length + (filasAfectadas.length > 1 ? " filas afectadas" : " fila afectada"));
-        } catch (Exception e) {
-            throw e;
+            
+            declaracion.setInt(1, id);
+            
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+        } catch (Exception ex) {
+            throw ex;
         } finally {
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
-    }   
+    }
+    
+    @Override
+    public List<String> obtenerNombresMetodosPago() throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        List<String> nombres = null;
+
+        try {
+            this.conectar();
+            
+            declaracion = this.conexion.prepareStatement("SELECT nombre FROM metodos_pago");
+            
+            resultado = declaracion.executeQuery();
+            
+            nombres = new ArrayList<>();
+            
+            while (resultado.next()) {
+                nombres.add(resultado.getString("nombre"));
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        
+        return nombres;
+    }
 }
