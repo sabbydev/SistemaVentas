@@ -1,29 +1,30 @@
 package vista;
 
 import java.awt.Color;
-import javax.swing.JButton;
+import java.util.Collections;
+import javax.swing.JOptionPane;
 
 public class Principal extends javax.swing.JFrame {
-    private Color btnBgColor = Color.decode("#FAD15E");
-    private Color btnBgColorFocused = Color.decode("#F14737");
-    private final String sesion;
+    private final Color btnBgColor = Color.decode("#FAD15E");
+    private final Color btnBgColorFocused = Color.decode("#F14737");
     public Principal(String sesion) {
         initComponents();
         initMethods();
-        this.sesion = sesion;
         initSession(sesion);
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnSalir = new javax.swing.JButton();
+        btnMinimizar = new javax.swing.JButton();
         pnlNavBar = new javax.swing.JPanel();
         logo = new javax.swing.JLabel();
         btnRegistrarVenta = new javax.swing.JButton();
         btnClientes = new javax.swing.JButton();
-        btnVentas = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
         btnEmpleados = new javax.swing.JButton();
+        btnInformacion = new javax.swing.JButton();
         btnConfiguracion = new javax.swing.JButton();
         tbdpnlSistema = new javax.swing.JTabbedPane();
         pnlRegistrarVenta = new javax.swing.JPanel();
@@ -47,6 +48,8 @@ public class Principal extends javax.swing.JFrame {
         txtTelefonoRegistrarVenta = new javax.swing.JTextField();
         lblMetodoPagoRegistrarVenta = new javax.swing.JLabel();
         cbMetodoPagoRegistrarVenta = new javax.swing.JComboBox<>();
+        txtIdDocRegistrarVenta = new javax.swing.JTextField();
+        lblIdDocRegistrarVenta = new javax.swing.JLabel();
         btnRegistrarRegistrarVenta = new javax.swing.JButton();
         btnImprimirRegistrarVenta = new javax.swing.JButton();
         pnlClientes = new javax.swing.JPanel();
@@ -65,29 +68,6 @@ public class Principal extends javax.swing.JFrame {
         txtTotalClientes = new javax.swing.JTextField();
         txtDocumentoClientes = new javax.swing.JTextField();
         lblDocumentoClientes = new javax.swing.JLabel();
-        pnlVentas = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblVentas = new javax.swing.JTable();
-        seccionBusquedaVentas = new javax.swing.JPanel();
-        lblIdVentas = new javax.swing.JLabel();
-        lblClienteVentas = new javax.swing.JLabel();
-        lblProductoVentas = new javax.swing.JLabel();
-        lblPrecioVentas = new javax.swing.JLabel();
-        lblCantidadVentas = new javax.swing.JLabel();
-        lblMontoVentas = new javax.swing.JLabel();
-        lblMetodoPagoVentas = new javax.swing.JLabel();
-        lblFechaVentas = new javax.swing.JLabel();
-        lblHoraVentas = new javax.swing.JLabel();
-        txtClienteVentas = new javax.swing.JTextField();
-        txtIdVentas = new javax.swing.JTextField();
-        txtProductoVentas = new javax.swing.JTextField();
-        txtPrecioVentas = new javax.swing.JTextField();
-        txtCantidadVentas = new javax.swing.JTextField();
-        txtMontoVentas = new javax.swing.JTextField();
-        cbMetodoPagoVentas = new javax.swing.JComboBox<>();
-        jDateChooserVentas = new com.toedter.calendar.JDateChooser();
-        spnHoraVentas = new javax.swing.JSpinner();
-        btnPDFVentas = new javax.swing.JButton();
         pnlProductos = new javax.swing.JPanel();
         lblNombreProductos = new javax.swing.JLabel();
         txtNombreProductos = new javax.swing.JTextField();
@@ -124,6 +104,29 @@ public class Principal extends javax.swing.JFrame {
         txtCorreoEmpleados = new javax.swing.JTextField();
         lblCorreoEmpleados = new javax.swing.JLabel();
         cbCargoEmpleados = new javax.swing.JComboBox<>();
+        pnlInformacion = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblVentas = new javax.swing.JTable();
+        seccionBusquedaVentas = new javax.swing.JPanel();
+        lblIdVentas = new javax.swing.JLabel();
+        lblClienteVentas = new javax.swing.JLabel();
+        lblProductoVentas = new javax.swing.JLabel();
+        lblPrecioVentas = new javax.swing.JLabel();
+        lblCantidadVentas = new javax.swing.JLabel();
+        lblMontoVentas = new javax.swing.JLabel();
+        lblMetodoPagoVentas = new javax.swing.JLabel();
+        lblFechaVentas = new javax.swing.JLabel();
+        lblHoraVentas = new javax.swing.JLabel();
+        txtClienteVentas = new javax.swing.JTextField();
+        txtIdVentas = new javax.swing.JTextField();
+        txtProductoVentas = new javax.swing.JTextField();
+        txtPrecioVentas = new javax.swing.JTextField();
+        txtCantidadVentas = new javax.swing.JTextField();
+        txtMontoVentas = new javax.swing.JTextField();
+        cbMetodoPagoVentas = new javax.swing.JComboBox<>();
+        jDateChooserVentas = new com.toedter.calendar.JDateChooser();
+        spnHoraVentas = new javax.swing.JSpinner();
+        btnPDFVentas = new javax.swing.JButton();
         pnlConfiguracion = new javax.swing.JPanel();
         btnGuardarConfiguracion = new javax.swing.JButton();
         lblRucConfiguracion = new javax.swing.JLabel();
@@ -138,14 +141,34 @@ public class Principal extends javax.swing.JFrame {
         txtTelefonoConfiguracion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnSalir.setBackground(new java.awt.Color(255, 255, 255));
+        btnSalir.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSalir.setForeground(new java.awt.Color(255, 255, 255));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/cerrar.png"))); // NOI18N
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1250, 10, 20, 20));
+
+        btnMinimizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/minimizar.png"))); // NOI18N
+        btnMinimizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMinimizarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnMinimizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1225, 10, 20, 20));
 
         pnlNavBar.setBackground(new java.awt.Color(85, 28, 24));
         pnlNavBar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))); // NOI18N
-        pnlNavBar.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        logo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/main-view-logo.png"))); // NOI18N
+        pnlNavBar.add(logo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, -1));
 
         btnRegistrarVenta.setBackground(new java.awt.Color(250, 209, 94));
         btnRegistrarVenta.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
@@ -171,18 +194,6 @@ public class Principal extends javax.swing.JFrame {
         });
         pnlNavBar.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 298, 188, 62));
 
-        btnVentas.setBackground(new java.awt.Color(250, 209, 94));
-        btnVentas.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
-        btnVentas.setForeground(new java.awt.Color(0, 0, 0));
-        btnVentas.setText("Ventas");
-        btnVentas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVentas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVentasActionPerformed(evt);
-            }
-        });
-        pnlNavBar.add(btnVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 378, 188, 62));
-
         btnProductos.setBackground(new java.awt.Color(250, 209, 94));
         btnProductos.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
         btnProductos.setForeground(new java.awt.Color(0, 0, 0));
@@ -193,7 +204,7 @@ public class Principal extends javax.swing.JFrame {
                 btnProductosActionPerformed(evt);
             }
         });
-        pnlNavBar.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 458, 188, 62));
+        pnlNavBar.add(btnProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 378, 188, 62));
 
         btnEmpleados.setBackground(new java.awt.Color(250, 209, 94));
         btnEmpleados.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
@@ -205,7 +216,19 @@ public class Principal extends javax.swing.JFrame {
                 btnEmpleadosActionPerformed(evt);
             }
         });
-        pnlNavBar.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 538, 188, 62));
+        pnlNavBar.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 458, 188, 62));
+
+        btnInformacion.setBackground(new java.awt.Color(250, 209, 94));
+        btnInformacion.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
+        btnInformacion.setForeground(new java.awt.Color(0, 0, 0));
+        btnInformacion.setText("Información");
+        btnInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnInformacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformacionActionPerformed(evt);
+            }
+        });
+        pnlNavBar.add(btnInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 538, 188, 62));
 
         btnConfiguracion.setBackground(new java.awt.Color(250, 209, 94));
         btnConfiguracion.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
@@ -229,7 +252,7 @@ public class Principal extends javax.swing.JFrame {
         seccionProductoRegistrarVenta.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos del Producto", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 12))); // NOI18N
         seccionProductoRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnEliminarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
+        btnEliminarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
         btnEliminarRegistrarVenta.setText("Eliminar");
         seccionProductoRegistrarVenta.add(btnEliminarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(469, 24, -1, 44));
 
@@ -243,7 +266,7 @@ public class Principal extends javax.swing.JFrame {
         seccionProductoRegistrarVenta.add(lblCantidadRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 24, 82, -1));
         seccionProductoRegistrarVenta.add(txtCantidadRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 44, 82, -1));
 
-        btnAgregarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
+        btnAgregarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar.png"))); // NOI18N
         btnAgregarRegistrarVenta.setText("Agregar");
         seccionProductoRegistrarVenta.add(btnAgregarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(343, 24, -1, 44));
 
@@ -286,10 +309,10 @@ public class Principal extends javax.swing.JFrame {
         seccionClienteRegistrarVenta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblNombreRegistrarVenta.setText("Nombre del Cliente:");
-        seccionClienteRegistrarVenta.add(lblNombreRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 24, 250, -1));
+        seccionClienteRegistrarVenta.add(lblNombreRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 250, -1));
 
         txtNombreRegistrarVenta.setEditable(false);
-        seccionClienteRegistrarVenta.add(txtNombreRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 46, 250, -1));
+        seccionClienteRegistrarVenta.add(txtNombreRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 250, -1));
 
         lblCorreoRegistrarVenta.setText("Correo:");
         seccionClienteRegistrarVenta.add(lblCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 24, 250, -1));
@@ -298,24 +321,28 @@ public class Principal extends javax.swing.JFrame {
         seccionClienteRegistrarVenta.add(txtCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 46, 250, -1));
 
         lblTelefonoRegistrarVenta.setText("Telefono");
-        seccionClienteRegistrarVenta.add(lblTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 124, 250, -1));
+        seccionClienteRegistrarVenta.add(lblTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 250, -1));
 
         txtTelefonoRegistrarVenta.setEditable(false);
-        seccionClienteRegistrarVenta.add(txtTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 146, 250, -1));
+        seccionClienteRegistrarVenta.add(txtTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 250, -1));
 
         lblMetodoPagoRegistrarVenta.setText("Método de Pago:");
-        seccionClienteRegistrarVenta.add(lblMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 74, 250, -1));
+        seccionClienteRegistrarVenta.add(lblMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 250, -1));
+        seccionClienteRegistrarVenta.add(cbMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 150, 250, -1));
 
-        cbMetodoPagoRegistrarVenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--", "Efectivo", "Tarjeta de Débito", "Tarjeta de Crédito", "Transferencia Bancaria" }));
-        seccionClienteRegistrarVenta.add(cbMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(279, 96, 250, -1));
+        txtIdDocRegistrarVenta.setEditable(false);
+        seccionClienteRegistrarVenta.add(txtIdDocRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 250, -1));
+
+        lblIdDocRegistrarVenta.setText("DNI/RUC:");
+        seccionClienteRegistrarVenta.add(lblIdDocRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 250, -1));
 
         pnlRegistrarVenta.add(seccionClienteRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 540, 190));
 
-        btnRegistrarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/registrar-venta.png"))); // NOI18N
+        btnRegistrarRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/registrar-venta.png"))); // NOI18N
         btnRegistrarRegistrarVenta.setText("Registrar Venta");
         pnlRegistrarVenta.add(btnRegistrarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 580, -1, 44));
 
-        btnImprimirRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imprimir.png"))); // NOI18N
+        btnImprimirRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/imprimir.png"))); // NOI18N
         btnImprimirRegistrarVenta.setText("Imprimir");
         pnlRegistrarVenta.add(btnImprimirRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 580, 145, 44));
 
@@ -336,17 +363,17 @@ public class Principal extends javax.swing.JFrame {
         pnlClientes.add(lblTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 100, -1));
         pnlClientes.add(txtTelefonoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, 250, -1));
 
-        btnGuardarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
+        btnGuardarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar.png"))); // NOI18N
         btnGuardarClientes.setText("Guardar");
         btnGuardarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlClientes.add(btnGuardarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 590, -1, -1));
 
-        btnEditarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
+        btnEditarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar.png"))); // NOI18N
         btnEditarClientes.setText("Editar");
         btnEditarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlClientes.add(btnEditarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 590, 108, -1));
 
-        btnEliminarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
+        btnEliminarClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
         btnEliminarClientes.setText("Eliminar");
         btnEliminarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlClientes.add(btnEliminarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 590, -1, -1));
@@ -389,8 +416,161 @@ public class Principal extends javax.swing.JFrame {
 
         tbdpnlSistema.addTab("Clientes", pnlClientes);
 
-        pnlVentas.setBackground(new java.awt.Color(245, 222, 179));
-        pnlVentas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlProductos.setBackground(new java.awt.Color(245, 222, 179));
+        pnlProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNombreProductos.setText("Nombre del Producto:");
+        pnlProductos.add(lblNombreProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 424, 250, -1));
+        pnlProductos.add(txtNombreProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 446, 250, -1));
+
+        lblPrecioProductos.setText("Precio Unitario:");
+        pnlProductos.add(lblPrecioProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 576, 100, -1));
+        pnlProductos.add(txtPrecioProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 598, 100, -1));
+
+        lblDescripcionProductos.setText("Descripción del Producto:");
+        pnlProductos.add(lblDescripcionProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 474, 250, -1));
+        pnlProductos.add(txtDescripcionProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 496, 250, -1));
+
+        btnGuardarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar.png"))); // NOI18N
+        btnGuardarProductos.setText("Agregar");
+        btnGuardarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlProductos.add(btnGuardarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 474, 114, -1));
+
+        btnEliminarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
+        btnEliminarProductos.setText("Eliminar");
+        btnEliminarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlProductos.add(btnEliminarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 531, 114, -1));
+
+        btnEditarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar.png"))); // NOI18N
+        btnEditarProductos.setText("Editar");
+        btnEditarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlProductos.add(btnEditarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(692, 474, 118, -1));
+
+        btnExcelProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel.png"))); // NOI18N
+        btnExcelProductos.setText("Exportar");
+        btnExcelProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlProductos.add(btnExcelProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(692, 531, 118, -1));
+
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N°", "ID_Producto", "Nombre del Producto", "Categoría", "Precio Unitario", "Descripción"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblProductos);
+        if (tblProductos.getColumnModel().getColumnCount() > 0) {
+            tblProductos.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblProductos.getColumnModel().getColumn(1).setPreferredWidth(5);
+            tblProductos.getColumnModel().getColumn(2).setPreferredWidth(200);
+            tblProductos.getColumnModel().getColumn(3).setPreferredWidth(100);
+            tblProductos.getColumnModel().getColumn(4).setPreferredWidth(50);
+            tblProductos.getColumnModel().getColumn(5).setPreferredWidth(300);
+        }
+
+        pnlProductos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, 1061, 344));
+        pnlProductos.add(txtCategoriaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 548, 250, -1));
+
+        lblTotalProductos.setText("Total de Productos:");
+        pnlProductos.add(lblTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 371, -1, -1));
+
+        lblCategoriaProductos.setText("Categoría:");
+        pnlProductos.add(lblCategoriaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 526, 250, -1));
+        pnlProductos.add(txtTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 368, 100, -1));
+
+        tbdpnlSistema.addTab("Productos", pnlProductos);
+
+        pnlEmpleados.setBackground(new java.awt.Color(245, 222, 179));
+        pnlEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblNombreEmpleados.setText("Nombre del Empleado:");
+        pnlEmpleados.add(lblNombreEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 250, -1));
+        pnlEmpleados.add(txtNombreEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 250, -1));
+
+        lblSalarioEmpleados.setText("Salario:");
+        pnlEmpleados.add(lblSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 100, -1));
+        pnlEmpleados.add(txtSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 100, -1));
+
+        btnGuardarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar.png"))); // NOI18N
+        btnGuardarEmpleados.setText("Agregar");
+        btnGuardarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlEmpleados.add(btnGuardarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 630, 114, -1));
+
+        btnEliminarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
+        btnEliminarEmpleados.setText("Eliminar");
+        btnEliminarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlEmpleados.add(btnEliminarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 480, 114, -1));
+
+        btnEditarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/editar-persona.png"))); // NOI18N
+        btnEditarEmpleados.setText("Editar");
+        btnEditarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlEmpleados.add(btnEditarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 480, 118, -1));
+
+        btnExcelEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel.png"))); // NOI18N
+        btnExcelEmpleados.setText("Exportar");
+        btnExcelEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        pnlEmpleados.add(btnExcelEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 480, 118, -1));
+
+        tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "N°", "ID_Cliente", "DNI", "Nombre", "Correo", "Cargo", "Salario"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tblEmpleados);
+        if (tblEmpleados.getColumnModel().getColumnCount() > 0) {
+            tblEmpleados.getColumnModel().getColumn(0).setPreferredWidth(1);
+            tblEmpleados.getColumnModel().getColumn(1).setPreferredWidth(2);
+            tblEmpleados.getColumnModel().getColumn(2).setPreferredWidth(10);
+            tblEmpleados.getColumnModel().getColumn(3).setPreferredWidth(200);
+            tblEmpleados.getColumnModel().getColumn(4).setPreferredWidth(200);
+            tblEmpleados.getColumnModel().getColumn(5).setPreferredWidth(50);
+            tblEmpleados.getColumnModel().getColumn(6).setPreferredWidth(10);
+        }
+
+        pnlEmpleados.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 1070, 344));
+
+        lblTotalEmpleados.setText("Total de Empleados:");
+        pnlEmpleados.add(lblTotalEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(834, 371, -1, -1));
+
+        lblCargoEmpleados.setText("Cargo:");
+        pnlEmpleados.add(lblCargoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 140, -1));
+        pnlEmpleados.add(txtTotalEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 368, 100, -1));
+
+        lblDniEmpleados.setText("DNI:");
+        pnlEmpleados.add(lblDniEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 100, -1));
+        pnlEmpleados.add(txtDniEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 100, -1));
+        pnlEmpleados.add(txtCorreoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 250, -1));
+
+        lblCorreoEmpleados.setText("Correo:");
+        pnlEmpleados.add(lblCorreoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 250, -1));
+
+        cbCargoEmpleados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
+        pnlEmpleados.add(cbCargoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 140, -1));
+
+        tbdpnlSistema.addTab("Proveedores", pnlEmpleados);
+
+        pnlInformacion.setBackground(new java.awt.Color(245, 222, 179));
+        pnlInformacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblVentas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -421,7 +601,7 @@ public class Principal extends javax.swing.JFrame {
             tblVentas.getColumnModel().getColumn(8).setPreferredWidth(100);
         }
 
-        pnlVentas.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 1070, -1));
+        pnlInformacion.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 1070, -1));
 
         seccionBusquedaVentas.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros de Búsqueda"));
 
@@ -450,7 +630,7 @@ public class Principal extends javax.swing.JFrame {
         spnHoraVentas.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1729746000000L), null, null, java.util.Calendar.DAY_OF_MONTH));
         spnHoraVentas.setEditor(new javax.swing.JSpinner.DateEditor(spnHoraVentas, "HH:mm:ss"));
 
-        btnPDFVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/pdf.png"))); // NOI18N
+        btnPDFVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pdf.png"))); // NOI18N
 
         javax.swing.GroupLayout seccionBusquedaVentasLayout = new javax.swing.GroupLayout(seccionBusquedaVentas);
         seccionBusquedaVentas.setLayout(seccionBusquedaVentasLayout);
@@ -540,167 +720,14 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(34, 34, 34))
         );
 
-        pnlVentas.add(seccionBusquedaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 1070, -1));
+        pnlInformacion.add(seccionBusquedaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 1070, -1));
 
-        tbdpnlSistema.addTab("Ventas", pnlVentas);
-
-        pnlProductos.setBackground(new java.awt.Color(245, 222, 179));
-        pnlProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblNombreProductos.setText("Nombre del Producto:");
-        pnlProductos.add(lblNombreProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 424, 250, -1));
-        pnlProductos.add(txtNombreProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 446, 250, -1));
-
-        lblPrecioProductos.setText("Precio Unitario:");
-        pnlProductos.add(lblPrecioProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 576, 100, -1));
-        pnlProductos.add(txtPrecioProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 598, 100, -1));
-
-        lblDescripcionProductos.setText("Descripción del Producto:");
-        pnlProductos.add(lblDescripcionProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 474, 250, -1));
-        pnlProductos.add(txtDescripcionProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 496, 250, -1));
-
-        btnGuardarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
-        btnGuardarProductos.setText("Agregar");
-        btnGuardarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlProductos.add(btnGuardarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 474, 114, -1));
-
-        btnEliminarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
-        btnEliminarProductos.setText("Eliminar");
-        btnEliminarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlProductos.add(btnEliminarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 531, 114, -1));
-
-        btnEditarProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar.png"))); // NOI18N
-        btnEditarProductos.setText("Editar");
-        btnEditarProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlProductos.add(btnEditarProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(692, 474, 118, -1));
-
-        btnExcelProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel.png"))); // NOI18N
-        btnExcelProductos.setText("Exportar");
-        btnExcelProductos.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlProductos.add(btnExcelProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(692, 531, 118, -1));
-
-        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "N°", "ID_Producto", "Nombre del Producto", "Categoría", "Precio Unitario", "Descripción"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tblProductos);
-        if (tblProductos.getColumnModel().getColumnCount() > 0) {
-            tblProductos.getColumnModel().getColumn(0).setPreferredWidth(1);
-            tblProductos.getColumnModel().getColumn(1).setPreferredWidth(5);
-            tblProductos.getColumnModel().getColumn(2).setPreferredWidth(200);
-            tblProductos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblProductos.getColumnModel().getColumn(4).setPreferredWidth(50);
-            tblProductos.getColumnModel().getColumn(5).setPreferredWidth(300);
-        }
-
-        pnlProductos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, 1061, 344));
-        pnlProductos.add(txtCategoriaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 548, 250, -1));
-
-        lblTotalProductos.setText("Total de Productos:");
-        pnlProductos.add(lblTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 371, -1, -1));
-
-        lblCategoriaProductos.setText("Categoría:");
-        pnlProductos.add(lblCategoriaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 526, 250, -1));
-        pnlProductos.add(txtTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 368, 100, -1));
-
-        tbdpnlSistema.addTab("Productos", pnlProductos);
-
-        pnlEmpleados.setBackground(new java.awt.Color(245, 222, 179));
-        pnlEmpleados.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        lblNombreEmpleados.setText("Nombre del Empleado:");
-        pnlEmpleados.add(lblNombreEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 470, 250, -1));
-        pnlEmpleados.add(txtNombreEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 490, 250, -1));
-
-        lblSalarioEmpleados.setText("Salario:");
-        pnlEmpleados.add(lblSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 100, -1));
-        pnlEmpleados.add(txtSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 100, -1));
-
-        btnGuardarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/agregar.png"))); // NOI18N
-        btnGuardarEmpleados.setText("Agregar");
-        btnGuardarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlEmpleados.add(btnGuardarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 630, 114, -1));
-
-        btnEliminarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/eliminar.png"))); // NOI18N
-        btnEliminarEmpleados.setText("Eliminar");
-        btnEliminarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlEmpleados.add(btnEliminarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(820, 480, 114, -1));
-
-        btnEditarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/editar-persona.png"))); // NOI18N
-        btnEditarEmpleados.setText("Editar");
-        btnEditarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlEmpleados.add(btnEditarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 480, 118, -1));
-
-        btnExcelEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/excel.png"))); // NOI18N
-        btnExcelEmpleados.setText("Exportar");
-        btnExcelEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlEmpleados.add(btnExcelEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 480, 118, -1));
-
-        tblEmpleados.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "N°", "ID_Cliente", "DNI", "Nombre", "Correo", "Cargo", "Salario"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Double.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane5.setViewportView(tblEmpleados);
-        if (tblEmpleados.getColumnModel().getColumnCount() > 0) {
-            tblEmpleados.getColumnModel().getColumn(0).setPreferredWidth(1);
-            tblEmpleados.getColumnModel().getColumn(1).setPreferredWidth(2);
-            tblEmpleados.getColumnModel().getColumn(2).setPreferredWidth(10);
-            tblEmpleados.getColumnModel().getColumn(3).setPreferredWidth(200);
-            tblEmpleados.getColumnModel().getColumn(4).setPreferredWidth(200);
-            tblEmpleados.getColumnModel().getColumn(5).setPreferredWidth(50);
-            tblEmpleados.getColumnModel().getColumn(6).setPreferredWidth(10);
-        }
-
-        pnlEmpleados.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 1070, 344));
-
-        lblTotalEmpleados.setText("Total de Empleados:");
-        pnlEmpleados.add(lblTotalEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(834, 371, -1, -1));
-
-        lblCargoEmpleados.setText("Cargo:");
-        pnlEmpleados.add(lblCargoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 140, -1));
-        pnlEmpleados.add(txtTotalEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 368, 100, -1));
-
-        lblDniEmpleados.setText("DNI:");
-        pnlEmpleados.add(lblDniEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 100, -1));
-        pnlEmpleados.add(txtDniEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 100, -1));
-        pnlEmpleados.add(txtCorreoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 250, -1));
-
-        lblCorreoEmpleados.setText("Correo:");
-        pnlEmpleados.add(lblCorreoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 520, 250, -1));
-
-        cbCargoEmpleados.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--" }));
-        pnlEmpleados.add(cbCargoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 140, -1));
-
-        tbdpnlSistema.addTab("Proveedores", pnlEmpleados);
+        tbdpnlSistema.addTab("Ventas", pnlInformacion);
 
         pnlConfiguracion.setBackground(new java.awt.Color(245, 222, 179));
         pnlConfiguracion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnGuardarConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/guardar.png"))); // NOI18N
+        btnGuardarConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/guardar.png"))); // NOI18N
         btnGuardarConfiguracion.setText("Guardar");
         btnGuardarConfiguracion.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlConfiguracion.add(btnGuardarConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 612, 114, -1));
@@ -745,29 +772,42 @@ public class Principal extends javax.swing.JFrame {
         enfocarBotonNavegacion(btnClientes);
     }//GEN-LAST:event_btnClientesActionPerformed
 
-    private void btnVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVentasActionPerformed
-        tbdpnlSistema.setSelectedIndex(2);
-        desenfocarBotonesNavegacion();
-        enfocarBotonNavegacion(btnVentas);
-    }//GEN-LAST:event_btnVentasActionPerformed
-
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        tbdpnlSistema.setSelectedIndex(3);
+        tbdpnlSistema.setSelectedIndex(2);
         desenfocarBotonesNavegacion();
         enfocarBotonNavegacion(btnProductos);
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmpleadosActionPerformed
-        tbdpnlSistema.setSelectedIndex(4);
+        tbdpnlSistema.setSelectedIndex(3);
         desenfocarBotonesNavegacion();
         enfocarBotonNavegacion(btnEmpleados);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
+
+     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
+        tbdpnlSistema.setSelectedIndex(4);
+        desenfocarBotonesNavegacion();
+        enfocarBotonNavegacion(btnInformacion);
+    }//GEN-LAST:event_btnInformacionActionPerformed
     
     private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
         tbdpnlSistema.setSelectedIndex(5);
         desenfocarBotonesNavegacion();
         enfocarBotonNavegacion(btnConfiguracion);
     }//GEN-LAST:event_btnConfiguracionActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        int opcionSeleccionada = JOptionPane.showOptionDialog(this, "¿Estas seguro de salir?",
+            "Mensaje de Confirmación",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null, null, null);
+        if (opcionSeleccionada == 0) System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnMinimizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMinimizarActionPerformed
+        this.setExtendedState(ICONIFIED);
+    }//GEN-LAST:event_btnMinimizarActionPerformed
 
     private void initMethods() {
         try {
@@ -777,13 +817,7 @@ public class Principal extends javax.swing.JFrame {
                     break;
                 }
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         tbdpnlSistema.setUI(null);
@@ -793,19 +827,20 @@ public class Principal extends javax.swing.JFrame {
     private void desenfocarBotonesNavegacion() {
         btnRegistrarVenta.setBackground(btnBgColor);
         btnClientes.setBackground(btnBgColor);
-        btnVentas.setBackground(btnBgColor);
+        btnInformacion.setBackground(btnBgColor);
         btnProductos.setBackground(btnBgColor);
         btnEmpleados.setBackground(btnBgColor);
         btnConfiguracion.setBackground(btnBgColor);
     }
     
-    private void enfocarBotonNavegacion(JButton jb){
+    private void enfocarBotonNavegacion(javax.swing.JButton jb){
         jb.setBackground(btnBgColorFocused);
     }
     
     private void initSession(String sesion) {
         switch (sesion) {
             case "Administración" -> {
+                initAdmin();
             }
             case "Vendedor" -> {
                 initVendedor();
@@ -814,15 +849,46 @@ public class Principal extends javax.swing.JFrame {
         }
     }
     
+    private void initAdmin() {
+        cargarProductos(cbProductoRegistrarVenta);
+        cargarMetodosPago(cbMetodoPagoRegistrarVenta);
+    }
+    
     private void initVendedor() {
         btnClientes.setVisible(false);
-        btnVentas.setVisible(false);
+        btnInformacion.setVisible(false);
         btnProductos.setVisible(false);
         btnEmpleados.setVisible(false);
         btnConfiguracion.setVisible(false);
+        
+        cargarProductos(cbProductoRegistrarVenta);
+        cargarMetodosPago(cbMetodoPagoRegistrarVenta);
     }
     
-    private void cargarProductos() {
+    private void cargarProductos(javax.swing.JComboBox<String> cb) {
+        javax.swing.DefaultComboBoxModel<String> modelo = new javax.swing.DefaultComboBoxModel<>();
+        modelo.addElement("--Seleccionar--");
+        
+        var productos = controlador.ControladorProducto.obtenerNombres();
+        Collections.sort(productos);
+        
+        for (String e : productos) {
+            modelo.addElement(e);
+        }
+        cb.setModel(modelo);
+    }
+    
+    private void cargarMetodosPago(javax.swing.JComboBox<String> cb) {
+        javax.swing.DefaultComboBoxModel<String> modelo = new javax.swing.DefaultComboBoxModel<>();
+        modelo.addElement("--Seleccionar--");
+        
+        var metodosPago = controlador.ControladorMetodoPago.obtenerNombres();
+        Collections.sort(metodosPago);
+        
+        for (String e : metodosPago) {
+            modelo.addElement(e);
+        }
+        cb.setModel(modelo);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -844,11 +910,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnGuardarEmpleados;
     private javax.swing.JButton btnGuardarProductos;
     private javax.swing.JButton btnImprimirRegistrarVenta;
+    private javax.swing.JButton btnInformacion;
+    private javax.swing.JButton btnMinimizar;
     private javax.swing.JButton btnPDFVentas;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnRegistrarRegistrarVenta;
     private javax.swing.JButton btnRegistrarVenta;
-    private javax.swing.JButton btnVentas;
+    private javax.swing.JButton btnSalir;
     private javax.swing.JComboBox<String> cbCargoEmpleados;
     private javax.swing.JComboBox<String> cbMetodoPagoRegistrarVenta;
     private javax.swing.JComboBox<String> cbMetodoPagoVentas;
@@ -873,6 +941,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblDocumentoClientes;
     private javax.swing.JLabel lblFechaVentas;
     private javax.swing.JLabel lblHoraVentas;
+    private javax.swing.JLabel lblIdDocRegistrarVenta;
     private javax.swing.JLabel lblIdVentas;
     private javax.swing.JLabel lblMetodoPagoRegistrarVenta;
     private javax.swing.JLabel lblMetodoPagoVentas;
@@ -900,10 +969,10 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlClientes;
     private javax.swing.JPanel pnlConfiguracion;
     private javax.swing.JPanel pnlEmpleados;
+    private javax.swing.JPanel pnlInformacion;
     private javax.swing.JPanel pnlNavBar;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlRegistrarVenta;
-    private javax.swing.JPanel pnlVentas;
     private javax.swing.JPanel seccionBusquedaVentas;
     private javax.swing.JPanel seccionClienteRegistrarVenta;
     private javax.swing.JPanel seccionProductoRegistrarVenta;
@@ -925,6 +994,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccionConfiguracion;
     private javax.swing.JTextField txtDniEmpleados;
     private javax.swing.JTextField txtDocumentoClientes;
+    private javax.swing.JTextField txtIdDocRegistrarVenta;
     private javax.swing.JTextField txtIdVentas;
     private javax.swing.JTextField txtMontoVentas;
     private javax.swing.JTextField txtNombreClientes;
