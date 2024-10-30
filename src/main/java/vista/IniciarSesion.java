@@ -10,6 +10,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     public IniciarSesion() {
         initComponents();
         initMethod();
+        this.lblOcultar.setVisible(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -111,6 +112,11 @@ public class IniciarSesion extends javax.swing.JFrame {
         pfPassword.setText("Ingrese su contraseña");
         pfPassword.setToolTipText("");
         pfPassword.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 1, 14), new java.awt.Color(85, 28, 24))); // NOI18N
+        pfPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                pfPasswordFocusGained(evt);
+            }
+        });
         pfPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 pfPasswordMousePressed(evt);
@@ -160,13 +166,16 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         EmpleadoDTO eDTO = controlador.ControladorSesion.auntenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()));
-        if(eDTO != null) {
+        if (eDTO != null) {
             new Principal(eDTO).setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
-            
-            if (txtCorreo.getText().equals("admin@email.com") && new String(pfPassword.getPassword()).equals("admin")) new Principal(new EmpleadoDTO(0,"","","","Administrador",0)).setVisible(true);
+
+            if (txtCorreo.getText().equals("admin@email.com") && new String(pfPassword.getPassword()).equals("admin")) {
+                new Principal(new EmpleadoDTO(0, "", "", "", "Administrador", 0)).setVisible(true);
+            }
         }
+        
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
@@ -175,14 +184,21 @@ public class IniciarSesion extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null, null, null);
-        if (opcionSeleccionada == 0) System.exit(0);
+        if (opcionSeleccionada == 0)
+            System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB) {
-            pfPassword.setText("");
-            pfPassword.setForeground(Color.BLACK);
-            pfPassword.requestFocus();
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            pfPassword.requestFocus(); // Cambia el foco al campo de contraseña
+            lblMostrar.setVisible(true); // Muestra el label para mostrar contraseña
+
+            // Si el campo de contraseña tiene el placeholder, lo limpia
+            if (String.valueOf(pfPassword.getPassword()).equals("Ingrese su contraseña")) {
+                pfPassword.setText("");
+                pfPassword.setForeground(Color.BLACK);
+                pfPassword.setEchoChar('●'); // Asegura que la contraseña esté oculta
+            }
         }
     }//GEN-LAST:event_txtCorreoKeyPressed
 
@@ -200,6 +216,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         if (String.valueOf(pfPassword.getPassword()).equals("Ingrese su contraseña")) {
             pfPassword.setText("");
             pfPassword.setForeground(Color.BLACK);
+            pfPassword.setEchoChar('●'); // Asegura que la contraseña esté oculta al comenzar a escribir
         }
         if (txtCorreo.getText().isEmpty()) {
             txtCorreo.setText("Ingrese su correo");
@@ -211,12 +228,13 @@ public class IniciarSesion extends javax.swing.JFrame {
     private void lblOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOcultarMouseClicked
         lblOcultar.setVisible(false);
         lblMostrar.setVisible(true);
+        pfPassword.setEchoChar('●');
     }//GEN-LAST:event_lblOcultarMouseClicked
 
     private void lblMostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMostrarMouseClicked
         lblMostrar.setVisible(false);
         lblOcultar.setVisible(true);
-        pfPassword.setEchoChar((char)0);
+        pfPassword.setEchoChar((char) 0);
     }//GEN-LAST:event_lblMostrarMouseClicked
 
     private void txtCorreoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCorreoMousePressed
@@ -227,15 +245,25 @@ public class IniciarSesion extends javax.swing.JFrame {
         if (new String(pfPassword.getPassword()).isEmpty()) {
             pfPassword.setText("Ingrese su contraseña");
             pfPassword.setForeground(new Color(199, 166, 75));
+            pfPassword.setEchoChar((char) 0);
         }
     }//GEN-LAST:event_txtCorreoMousePressed
+
+    private void pfPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pfPasswordFocusGained
+        if (String.valueOf(pfPassword.getPassword()).equals("Ingrese su contraseña")) {
+        pfPassword.setText("");
+        pfPassword.setForeground(Color.BLACK);
+        pfPassword.setEchoChar('●'); // Asegura que la contraseña esté oculta
+    }
+    lblMostrar.setVisible(true);
+    }//GEN-LAST:event_pfPasswordFocusGained
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(() -> {
             new IniciarSesion().setVisible(true);
         });
     }
-    
+
     private void initMethod() {
         try {
             for (var info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -247,10 +275,10 @@ public class IniciarSesion extends javax.swing.JFrame {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        
+
         lblOcultar.setVisible(false);
         lblMostrar.setVisible(false);
-        pfPassword.setEchoChar((char)0);
+        pfPassword.setEchoChar((char) 0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
