@@ -7,12 +7,13 @@ import modelo.dao.impl.VentaDAOImpl;
 
 public class ControladorVenta {
     
-    public static void agregarVenta(long c, long e, long p) {
+    public static long agregarVenta(long c, long e, long p) throws Exception {
         Venta v = new Venta(0, c, e, p);
         try {
-            new VentaDAOImpl().create(v);
+            return new VentaDAOImpl().create(v);
         } catch (Exception ex) {
             System.out.println(ex);
+            throw ex;
         }
     }
 

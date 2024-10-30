@@ -137,4 +137,32 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
         
         return nombres;
     }
+    
+    @Override
+    public long obtenerIdPorNombre(String nombre) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        long id = -1;
+
+        try {
+            this.conectar();
+
+            declaracion = this.conexion.prepareStatement("SELECT id FROM metodos_pago WHERE nombre = ?");
+            declaracion.setString(1, nombre);
+
+            resultado = declaracion.executeQuery();
+
+            if (resultado.next()) {
+                id = resultado.getLong("id");
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+
+        return id;
+    }
 }

@@ -61,4 +61,13 @@ public class ControladorProducto {
             return null;
         }
     }
+    
+    public static double obtenerPrecioPorId(long id) throws Exception {
+        try {
+            return new ProductoDAOImpl().obtenerPrecioPorId(id);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
+    }
 }

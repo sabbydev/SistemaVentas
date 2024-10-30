@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
 import modelo.dto.ClienteDTO;
+import modelo.dto.DetalleVentaDTO;
 import modelo.dto.EmpleadoDTO;
 import modelo.dto.ProductoDTO;
 
@@ -870,30 +871,40 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEliminarTodoRegistrarVentaActionPerformed
 
     private void btnRegistrarRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarRegistrarVentaActionPerformed
-        if(datosClienteRegistrarVentaValidos()) {
-            try {
-                long idCliente = controlador.ControladorCliente.obtenerOInsertarClienteId(
-                        new ClienteDTO(
-                            txtIdDocRegistrarVenta.getText(),
-                            txtNombreRegistrarVenta.getText(),
-                            txtCorreoRegistrarVenta.getText(),
-                            txtTelefonoRegistrarVenta.getText()
-                        )
-                );
-                List<Integer> columna = vista.utilidadesVista.GestorTablas.obtenerColumna(tblRegistrarVenta, 1);
-                for (long idProducto : columna) {
-                    controlador.ControladorVenta.agregarVenta(idEmpleadoSesion, idCliente, idProducto);
-                }
-                
-                JOptionPane.showMessageDialog(null, "Todas las ventas se han registrado con éxito para el cliente ID: " + idCliente, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-                vista.utilidadesVista.GestorTablas.vaciarTabla(tblRegistrarVenta);
-            } catch (HeadlessException headlessEx) {
-                System.err.println("No se puede mostrar la interfaz gráfica: " + headlessEx.getMessage());
-            } catch (Exception ex) {
-                JOptionPane.showMessageDialog(null, "Error al registrar la venta: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        if (!datosClienteRegistrarVentaValidos()) {
+            mostrarAdvertencia("Los datos del cliente no son válidos.");
+            return;
+        }
+
+        try {
+            long idCliente = controlador.ControladorCliente.obtenerOInsertarClienteId(
+                new ClienteDTO(
+                        txtIdDocRegistrarVenta.getText(),
+                        txtNombreRegistrarVenta.getText(),
+                        txtCorreoRegistrarVenta.getText(),
+                        txtTelefonoRegistrarVenta.getText()
+                )
+            );
+            List<Long> listaIdProducto = vista.utilidadesVista.GestorTablas.obtenerColumnaLong(tblRegistrarVenta, 1);
+            boolean errorEnVenta = registrarVentas(listaIdProducto, idCliente);
+
+            if (errorEnVenta) {
+                mostrarAdvertencia("Algunas ventas no se pudieron registrar. Verifique los errores en la consola.");
+            } else {
+                mostrarExito("Todas las ventas se han registrado con éxito para el cliente ID: " + idCliente);
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Los datos del cliente no son válidos.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+
+            vista.utilidadesVista.GestorTablas.vaciarTabla(tblRegistrarVenta);
+            vista.utilidadesVista.GestorEntradasUsuario.limpiarCampos(
+                    txtCantidadRegistrarVenta,
+                    txtIdDocRegistrarVenta,
+                    txtNombreRegistrarVenta,
+                    txtCorreoRegistrarVenta,
+                    txtTelefonoRegistrarVenta
+            );
+            vista.utilidadesVista.GestorEntradasUsuario.reiniciarSeleccion(cbProductoRegistrarVenta, cbMetodoPagoRegistrarVenta);
+        } catch (Exception ex) {
+            mostrarError("Error al registrar la venta: " + ex.getMessage());
         }
     }//GEN-LAST:event_btnRegistrarRegistrarVentaActionPerformed
 
@@ -953,6 +964,18 @@ public class Principal extends javax.swing.JFrame {
         btnConfiguracion.setVisible(false);
     }
     
+    private void mostrarAdvertencia(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, "Advertencia", JOptionPane.WARNING_MESSAGE);
+    }
+
+    private void mostrarExito(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void mostrarError(String mensaje) {
+        JOptionPane.showMessageDialog(null, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    
     private void cargarProductos(javax.swing.JComboBox<String> cb) {
         javax.swing.DefaultComboBoxModel<String> modelo = new javax.swing.DefaultComboBoxModel<>();
         modelo.addElement("--Seleccionar--");
@@ -977,6 +1000,26 @@ public class Principal extends javax.swing.JFrame {
         }
         
         cb.setModel(modelo);
+    }
+    
+    private boolean registrarVentas(List<Long> listaIdProducto, long idCliente) {
+        boolean errorEnVenta = false;
+
+        for (int i = 0; i < listaIdProducto.size(); i++) {
+            long idProducto = listaIdProducto.get(i);
+            try {
+                long idVenta = controlador.ControladorVenta.agregarVenta(idEmpleadoSesion, idCliente, idProducto);
+                long idMetodoPago = controlador.ControladorMetodoPago.obtenerIdPorNombre(cbMetodoPagoRegistrarVenta.getSelectedItem().toString());
+                double precio = controlador.ControladorProducto.obtenerPrecioPorId(idProducto);
+                int cantidad = (int) tblRegistrarVenta.getValueAt(i, 5);
+
+                controlador.ControladorDetalleVenta.agregarDetalleVenta(new DetalleVentaDTO(idVenta, idMetodoPago, precio, cantidad));
+            } catch (Exception ventaEx) {
+                errorEnVenta = true;
+                System.err.println("Error al registrar la venta del producto ID: " + idProducto + " - " + ventaEx.getMessage());
+            }
+        }
+        return errorEnVenta;
     }
     
     private boolean datosProductoRegistrarVentaValidos() {

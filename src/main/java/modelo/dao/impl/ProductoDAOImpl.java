@@ -227,4 +227,32 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
         
         return null;
     }
+    
+    @Override
+    public double obtenerPrecioPorId(long id) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        double precio = -1;
+
+        try {
+            this.conectar();
+
+            declaracion = this.conexion.prepareStatement("SELECT precio FROM productos WHERE id = ?");
+            declaracion.setLong(1, id);
+
+            resultado = declaracion.executeQuery();
+
+            if (resultado.next()) {
+                precio = resultado.getDouble("precio");
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+
+        return precio;
+    }
 }

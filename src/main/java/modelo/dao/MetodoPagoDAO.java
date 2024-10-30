@@ -10,4 +10,5 @@ public interface MetodoPagoDAO {
     public void delete(long id) throws Exception;
     
     public List<String> obtenerNombresMetodosPago() throws Exception;
+    public long obtenerIdPorNombre(String nombre) throws Exception;
 }

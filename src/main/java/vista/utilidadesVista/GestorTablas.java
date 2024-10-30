@@ -78,7 +78,7 @@ public class GestorTablas {
         return suma;
     }
     
-    public static List<Integer> obtenerColumna(JTable tabla, int columna) {
+    public static List<Integer> obtenerColumnaInt(JTable tabla, int columna) {
         List<Integer> listaColumna = new ArrayList<>();
         DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
         int numeroFilas = modelo.getRowCount();
@@ -87,6 +87,23 @@ public class GestorTablas {
             Object valorId = modelo.getValueAt(i, columna);
             if (valorId != null) {
                 listaColumna.add(Integer.valueOf(valorId.toString()));
+            } else {
+                System.out.println("No se pudo recuperar el elemento " + (i+1) + " de la columna.");
+            }
+        }
+
+        return listaColumna;
+    }
+    
+    public static List<Long> obtenerColumnaLong(JTable tabla, int columna) {
+        List<Long> listaColumna = new ArrayList<>();
+        DefaultTableModel modelo = (DefaultTableModel) tabla.getModel();
+        int numeroFilas = modelo.getRowCount();
+
+        for (int i = 0; i < numeroFilas; i++) {
+            Object valorId = modelo.getValueAt(i, columna);
+            if (valorId != null) {
+                listaColumna.add(Long.valueOf(valorId.toString()));
             } else {
                 System.out.println("No se pudo recuperar el elemento " + (i+1) + " de la columna.");
             }

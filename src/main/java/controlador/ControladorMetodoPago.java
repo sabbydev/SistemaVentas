@@ -50,4 +50,14 @@ public class ControladorMetodoPago {
             return new ArrayList<>();
         }
     }
+    
+    public static long obtenerIdPorNombre(String nombre) throws Exception {
+        try {
+            return new MetodoPagoDAOImpl().obtenerIdPorNombre(nombre);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
+    }
+
 }
