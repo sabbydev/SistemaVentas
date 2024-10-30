@@ -1,11 +1,11 @@
 package modelo;
 public class MetodoPago {
-    private final long id;
+    private final int id;
     private NombreMetodoPago nombre;
     private String descripcion;
     private EstadoMetodoPago estado;
 
-    public MetodoPago(long id, String nombre, String descripcion, String estado) {
+    public MetodoPago(int id, String nombre, String descripcion, String estado) {
         this.id = id;
         
         try {
@@ -23,7 +23,7 @@ public class MetodoPago {
         }
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 

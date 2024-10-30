@@ -76,7 +76,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
             declaracion = this.conexion.prepareStatement("UPDATE metodos_pago SET estado = ? WHERE id_metodo_pago = ?");
 
             declaracion.setString(1, mp.getEstado());
-            declaracion.setLong(2, mp.getId());
+            declaracion.setInt(2, mp.getId());
 
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -89,7 +89,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
     }
 
     @Override
-    public void delete(long id) throws Exception {
+    public void delete(int id) throws Exception {
         PreparedStatement declaracion = null;
         try {
             this.conectar();
@@ -97,7 +97,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
             declaracion = this.conexion.prepareStatement("DELETE FROM metodos_pago WHERE id_metodo_pago = ?");
 
             
-            declaracion.setLong(1, id);
+            declaracion.setInt(1, id);
             
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -139,10 +139,10 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
     }
     
     @Override
-    public long obtenerIdPorNombre(String nombre) throws Exception {
+    public int obtenerIdPorNombre(String nombre) throws Exception {
         PreparedStatement declaracion = null;
         ResultSet resultado = null;
-        long id = -1;
+        int id = -1;
 
         try {
             this.conectar();
@@ -153,7 +153,7 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
             resultado = declaracion.executeQuery();
 
             if (resultado.next()) {
-                id = resultado.getLong("id");
+                id = resultado.getInt("id");
             }
         } catch (Exception ex) {
             throw ex;

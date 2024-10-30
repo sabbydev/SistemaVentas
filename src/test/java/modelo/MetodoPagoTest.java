@@ -11,12 +11,12 @@ public class MetodoPagoTest {
     @BeforeEach
     public void setUp() {
         // Inicializar el objeto MetodoPago con datos de prueba
-        metodoPago = new MetodoPago(1L, "TARJETA_DE_CREDITO", "Pago con tarjeta de crédito", "ACTIVO");
+        metodoPago = new MetodoPago(1, "TARJETA_DE_CREDITO", "Pago con tarjeta de crédito", "ACTIVO");
     }
 
     @Test
     public void testGetId() {
-        assertEquals(1L, metodoPago.getId());
+        assertEquals(1, metodoPago.getId());
     }
 
     @Test

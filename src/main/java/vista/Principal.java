@@ -1009,7 +1009,7 @@ public class Principal extends javax.swing.JFrame {
             long idProducto = listaIdProducto.get(i);
             try {
                 long idVenta = controlador.ControladorVenta.agregarVenta(idEmpleadoSesion, idCliente, idProducto);
-                long idMetodoPago = controlador.ControladorMetodoPago.obtenerIdPorNombre(cbMetodoPagoRegistrarVenta.getSelectedItem().toString());
+                int idMetodoPago = controlador.ControladorMetodoPago.obtenerIdPorNombre(cbMetodoPagoRegistrarVenta.getSelectedItem().toString());
                 double precio = controlador.ControladorProducto.obtenerPrecioPorId(idProducto);
                 int cantidad = (int) tblRegistrarVenta.getValueAt(i, 5);
 
