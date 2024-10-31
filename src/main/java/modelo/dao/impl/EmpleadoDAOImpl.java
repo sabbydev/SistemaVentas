@@ -120,14 +120,14 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("SELECT id, rol, nombre, apellido, correo, dni FROM empleados WHERE id = ?");
+            declaracion = this.conexion.prepareStatement("SELECT id_empleado, rol, nombre, apellido, correo, dni FROM empleados WHERE id_empleado = ?");
             declaracion.setLong(1, id);
 
             resultado = declaracion.executeQuery();
 
             if (resultado.next()) {
                 e = new Empleado(
-                    resultado.getInt("id"),
+                    resultado.getInt("id_empleado"),
                     resultado.getString("dni"),
                     resultado.getString("nombre"),
                     resultado.getString("correo"),
@@ -165,11 +165,9 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
 
             if (resultado.next()) {
                 long idEmpleado = resultado.getLong("id_empleado");
-                String nombre = resultado.getString("nombre");
                 String rol = resultado.getString("rol");
-                double salario = resultado.getDouble("salario");
                 
-                e = new Empleado(idEmpleado, dni, nombre, correo, rol, salario);
+                e = new Empleado(idEmpleado, dni, "", correo, rol, 0);
             } else {
                 System.out.println("Empleado no encontrado con el correo y DNI proporcionados.");
             }

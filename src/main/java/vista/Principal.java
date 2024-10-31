@@ -1,7 +1,6 @@
 package vista;
 
 import java.awt.Color;
-import java.awt.HeadlessException;
 import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -265,8 +264,6 @@ public class Principal extends javax.swing.JFrame {
 
         lblProductoRegistrarVenta.setText("Producto:");
         seccionProductoRegistrarVenta.add(lblProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 24, 214, -1));
-
-        cbProductoRegistrarVenta.setEditable(true);
         seccionProductoRegistrarVenta.add(cbProductoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 44, 214, -1));
 
         lblCantidadRegistrarVenta.setText("Cantidad:");
@@ -335,27 +332,19 @@ public class Principal extends javax.swing.JFrame {
 
         lblNombreRegistrarVenta.setText("Nombre del Cliente:");
         seccionClienteRegistrarVenta.add(lblNombreRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 250, -1));
-
-        txtNombreRegistrarVenta.setEditable(false);
         seccionClienteRegistrarVenta.add(txtNombreRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 250, -1));
 
         lblCorreoRegistrarVenta.setText("Correo:");
         seccionClienteRegistrarVenta.add(lblCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 250, -1));
-
-        txtCorreoRegistrarVenta.setEditable(false);
         seccionClienteRegistrarVenta.add(txtCorreoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 250, -1));
 
         lblTelefonoRegistrarVenta.setText("Telefono");
         seccionClienteRegistrarVenta.add(lblTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 250, -1));
-
-        txtTelefonoRegistrarVenta.setEditable(false);
         seccionClienteRegistrarVenta.add(txtTelefonoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 250, -1));
 
         lblMetodoPagoRegistrarVenta.setText("Método de Pago:");
         seccionClienteRegistrarVenta.add(lblMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 250, -1));
         seccionClienteRegistrarVenta.add(cbMetodoPagoRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 50, 250, -1));
-
-        txtIdDocRegistrarVenta.setEditable(false);
         seccionClienteRegistrarVenta.add(txtIdDocRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 250, -1));
 
         lblIdDocRegistrarVenta.setText("DNI/RUC:");
@@ -856,6 +845,7 @@ public class Principal extends javax.swing.JFrame {
                 precio * cantidad
             });
             
+            vista.utilidadesVista.GestorEntradasUsuario.limpiarCampos(txtCantidadRegistrarVenta);
             lblTotalRegistrarVenta.setText("Total a Pagar: " + df.format(vista.utilidadesVista.GestorTablas.calcularSumaColumna(tblRegistrarVenta, 6)));
         }
     }//GEN-LAST:event_btnAgregarRegistrarVentaActionPerformed
@@ -1008,7 +998,7 @@ public class Principal extends javax.swing.JFrame {
         for (int i = 0; i < listaIdProducto.size(); i++) {
             long idProducto = listaIdProducto.get(i);
             try {
-                long idVenta = controlador.ControladorVenta.agregarVenta(idEmpleadoSesion, idCliente, idProducto);
+                long idVenta = controlador.ControladorVenta.agregarVenta(idCliente, idEmpleadoSesion, idProducto);
                 int idMetodoPago = controlador.ControladorMetodoPago.obtenerIdPorNombre(cbMetodoPagoRegistrarVenta.getSelectedItem().toString());
                 double precio = controlador.ControladorProducto.obtenerPrecioPorId(idProducto);
                 int cantidad = (int) tblRegistrarVenta.getValueAt(i, 5);

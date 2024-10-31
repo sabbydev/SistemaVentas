@@ -147,13 +147,13 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("SELECT id FROM metodos_pago WHERE nombre = ?");
+            declaracion = this.conexion.prepareStatement("SELECT id_metodo_pago FROM metodos_pago WHERE nombre = ?");
             declaracion.setString(1, nombre);
 
             resultado = declaracion.executeQuery();
 
             if (resultado.next()) {
-                id = resultado.getInt("id");
+                id = resultado.getInt("id_metodo_pago");
             }
         } catch (Exception ex) {
             throw ex;

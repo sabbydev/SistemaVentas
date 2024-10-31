@@ -55,7 +55,7 @@ public class ControladorProducto {
     public static ProductoDTO buscarPorNombre(String nombre) {
         try {
             Producto p = new ProductoDAOImpl().buscarPorNombre(nombre);
-           return new ProductoDTO(p.getId(), p.getNombre(), p.getCategoria(), p.getPrecio(), p.getDescripcion(), p.getFechaHoraCreacion());
+            return new ProductoDTO(p.getId(), p.getNombre(), p.getCategoria(), p.getPrecio(), p.getDescripcion(), p.getFechaHoraCreacion()); 
         } catch (Exception ex) {
             System.out.println(ex);
             return null;

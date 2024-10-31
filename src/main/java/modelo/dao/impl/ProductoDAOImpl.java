@@ -197,6 +197,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
         return nombres;
     }
     
+    @Override
     public Producto buscarPorNombre(String nombre) throws Exception {
         PreparedStatement declaracion = null;
         ResultSet resultado = null;
@@ -205,11 +206,13 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
             this.conectar();
             
             declaracion = this.conexion.prepareStatement("SELECT * FROM productos WHERE nombre = ?");
+            declaracion.setString(1, nombre);
+            
             resultado = declaracion.executeQuery();
             
             if (resultado.next()) {
                 return new Producto(
-                    resultado.getInt("id_producto"),
+                    resultado.getLong("id_producto"),
                     resultado.getString("nombre"),
                     resultado.getString("categoria"),
                     resultado.getDouble("precio"),
@@ -237,7 +240,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("SELECT precio FROM productos WHERE id = ?");
+            declaracion = this.conexion.prepareStatement("SELECT precio FROM productos WHERE id_producto = ?");
             declaracion.setLong(1, id);
 
             resultado = declaracion.executeQuery();

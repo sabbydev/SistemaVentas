@@ -18,13 +18,12 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
         try {
             this.conectar();
             
-            declaracion = this.conexion.prepareStatement("INSERT INTO detalles_venta(id_venta, id_metodo_pago, precio_unitario, cantidad, monto_total) VALUES()");
+            declaracion = this.conexion.prepareStatement("INSERT INTO detalle_ventas(id_venta, id_metodo_pago, precio_unitario, cantidad) VALUES(?, ?, ?, ?)");
 
             declaracion.setLong(1, dv.getIdVenta());
             declaracion.setLong(2, dv.getIdMetodoPago());
             declaracion.setDouble(3, dv.getPrecioUnitario());
             declaracion.setInt(4, dv.getCantidad());
-            declaracion.setDouble(5, dv.getMontoTotal());
                 
             int filasAfectadas = declaracion.executeUpdate();
             System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
@@ -45,7 +44,7 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("SELECT * FROM detalles_venta");
+            declaracion = this.conexion.prepareStatement("SELECT * FROM detalle_ventas");
 
             resultado = declaracion.executeQuery();
             lista = new LinkedList<>();
