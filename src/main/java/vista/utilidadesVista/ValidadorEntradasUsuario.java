@@ -103,10 +103,10 @@ public class ValidadorEntradasUsuario {
     private static boolean LongitudDniRucValido(JTextField textField, String nombreCampo) {
         int longitud = textField.getText().length();
 
-        if (longitud == 7 || longitud == 11) {
+        if (longitud == 8 || longitud == 11) {
             return true;
         } else {
-            JOptionPane.showMessageDialog(null, nombreCampo + " es inválido. El DNI debe tener exactamente 7 dígitos y el RUC debe tener exactamente 11 dígitos.");
+            JOptionPane.showMessageDialog(null, nombreCampo + " es inválido. El DNI debe tener exactamente 8 dígitos y el RUC debe tener exactamente 11 dígitos.");
             return false;
         }
     }
