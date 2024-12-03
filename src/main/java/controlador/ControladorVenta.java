@@ -43,4 +43,13 @@ public class ControladorVenta {
             System.out.println(ex);
         }
     }
+    
+    public static List<Object[]> obtenerVentasConDetalles() {
+        try {
+            return new VentaDAOImpl().obtenerVentasConDetalles();
+        } catch (Exception ex) {
+            System.out.println(ex);
+        }
+        return new ArrayList<>();
+    }
 }

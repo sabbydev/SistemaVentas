@@ -1,13 +1,24 @@
 package vista;
 
 import java.awt.Color;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelo.Cliente;
+import modelo.Empleado;
+import modelo.Producto;
 import modelo.dto.ClienteDTO;
 import modelo.dto.DetalleVentaDTO;
 import modelo.dto.EmpleadoDTO;
 import modelo.dto.ProductoDTO;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class Principal extends javax.swing.JFrame {
     private final Color btnBgColor = Color.decode("#FAD15E");
@@ -35,8 +46,8 @@ public class Principal extends javax.swing.JFrame {
         btnClientes = new javax.swing.JButton();
         btnProductos = new javax.swing.JButton();
         btnEmpleados = new javax.swing.JButton();
-        btnInformacion = new javax.swing.JButton();
-        btnConfiguracion = new javax.swing.JButton();
+        btnVerVentas = new javax.swing.JButton();
+        btnVerLogs = new javax.swing.JButton();
         tbdpnlSistema = new javax.swing.JTabbedPane();
         pnlRegistrarVenta = new javax.swing.JPanel();
         seccionProductoRegistrarVenta = new javax.swing.JPanel();
@@ -61,7 +72,6 @@ public class Principal extends javax.swing.JFrame {
         txtIdDocRegistrarVenta = new javax.swing.JTextField();
         lblIdDocRegistrarVenta = new javax.swing.JLabel();
         btnRegistrarRegistrarVenta = new javax.swing.JButton();
-        btnImprimirRegistrarVenta = new javax.swing.JButton();
         pnlClientes = new javax.swing.JPanel();
         lblNombreClientes = new javax.swing.JLabel();
         txtNombreClientes = new javax.swing.JTextField();
@@ -72,10 +82,8 @@ public class Principal extends javax.swing.JFrame {
         btnGuardarClientes = new javax.swing.JButton();
         btnEditarClientes = new javax.swing.JButton();
         btnEliminarClientes = new javax.swing.JButton();
-        lblTotalClientes = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tblClientes = new javax.swing.JTable();
-        txtTotalClientes = new javax.swing.JTextField();
         txtDocumentoClientes = new javax.swing.JTextField();
         lblDocumentoClientes = new javax.swing.JLabel();
         pnlProductos = new javax.swing.JPanel();
@@ -92,63 +100,24 @@ public class Principal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProductos = new javax.swing.JTable();
         txtCategoriaProductos = new javax.swing.JTextField();
-        lblTotalProductos = new javax.swing.JLabel();
         lblCategoriaProductos = new javax.swing.JLabel();
-        txtTotalProductos = new javax.swing.JTextField();
         pnlEmpleados = new javax.swing.JPanel();
         lblNombreEmpleados = new javax.swing.JLabel();
         txtNombreEmpleados = new javax.swing.JTextField();
         lblSalarioEmpleados = new javax.swing.JLabel();
         txtSalarioEmpleados = new javax.swing.JTextField();
-        btnGuardarEmpleados = new javax.swing.JButton();
+        btnAgregarEmpleados = new javax.swing.JButton();
         btnEliminarEmpleados = new javax.swing.JButton();
         btnEditarEmpleados = new javax.swing.JButton();
         btnExcelEmpleados = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tblEmpleados = new javax.swing.JTable();
-        lblTotalEmpleados = new javax.swing.JLabel();
         lblCargoEmpleados = new javax.swing.JLabel();
-        txtTotalEmpleados = new javax.swing.JTextField();
         lblDniEmpleados = new javax.swing.JLabel();
         txtDniEmpleados = new javax.swing.JTextField();
         txtCorreoEmpleados = new javax.swing.JTextField();
         lblCorreoEmpleados = new javax.swing.JLabel();
         cbCargoEmpleados = new javax.swing.JComboBox<>();
-        pnlInformacion = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        tblVentas = new javax.swing.JTable();
-        seccionBusquedaVentas = new javax.swing.JPanel();
-        lblIdVentas = new javax.swing.JLabel();
-        lblClienteVentas = new javax.swing.JLabel();
-        lblProductoVentas = new javax.swing.JLabel();
-        lblPrecioVentas = new javax.swing.JLabel();
-        lblCantidadVentas = new javax.swing.JLabel();
-        lblMontoVentas = new javax.swing.JLabel();
-        lblMetodoPagoVentas = new javax.swing.JLabel();
-        lblFechaVentas = new javax.swing.JLabel();
-        lblHoraVentas = new javax.swing.JLabel();
-        txtClienteVentas = new javax.swing.JTextField();
-        txtIdVentas = new javax.swing.JTextField();
-        txtProductoVentas = new javax.swing.JTextField();
-        txtPrecioVentas = new javax.swing.JTextField();
-        txtCantidadVentas = new javax.swing.JTextField();
-        txtMontoVentas = new javax.swing.JTextField();
-        cbMetodoPagoVentas = new javax.swing.JComboBox<>();
-        jDateChooserVentas = new com.toedter.calendar.JDateChooser();
-        spnHoraVentas = new javax.swing.JSpinner();
-        btnPDFVentas = new javax.swing.JButton();
-        pnlConfiguracion = new javax.swing.JPanel();
-        btnGuardarConfiguracion = new javax.swing.JButton();
-        lblRucConfiguracion = new javax.swing.JLabel();
-        lblRazonSocialConfiguracion = new javax.swing.JLabel();
-        lblNombreConfiguracion = new javax.swing.JLabel();
-        lblDireccionConfiguracion = new javax.swing.JLabel();
-        lblTelefonoConfiguracion = new javax.swing.JLabel();
-        txtRucConfiguracion = new javax.swing.JTextField();
-        txtRazonSocialConfiguracion = new javax.swing.JTextField();
-        txtNombreConfiguracion = new javax.swing.JTextField();
-        txtDireccionConfiguracion = new javax.swing.JTextField();
-        txtTelefonoConfiguracion = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -228,29 +197,22 @@ public class Principal extends javax.swing.JFrame {
         });
         pnlNavBar.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 458, 188, 62));
 
-        btnInformacion.setBackground(new java.awt.Color(250, 209, 94));
-        btnInformacion.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
-        btnInformacion.setForeground(new java.awt.Color(0, 0, 0));
-        btnInformacion.setText("Información");
-        btnInformacion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnInformacion.addActionListener(new java.awt.event.ActionListener() {
+        btnVerVentas.setBackground(new java.awt.Color(0, 204, 0));
+        btnVerVentas.setForeground(new java.awt.Color(0, 0, 0));
+        btnVerVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel.png"))); // NOI18N
+        btnVerVentas.setText("VENTAS");
+        btnVerVentas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInformacionActionPerformed(evt);
+                btnVerVentasActionPerformed(evt);
             }
         });
-        pnlNavBar.add(btnInformacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 538, 188, 62));
+        pnlNavBar.add(btnVerVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 180, 60));
 
-        btnConfiguracion.setBackground(new java.awt.Color(250, 209, 94));
-        btnConfiguracion.setFont(new java.awt.Font("Comic Sans MS", 1, 16)); // NOI18N
-        btnConfiguracion.setForeground(new java.awt.Color(0, 0, 0));
-        btnConfiguracion.setText("Configuración");
-        btnConfiguracion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnConfiguracion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfiguracionActionPerformed(evt);
-            }
-        });
-        pnlNavBar.add(btnConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 618, 188, 62));
+        btnVerLogs.setBackground(new java.awt.Color(153, 153, 153));
+        btnVerLogs.setForeground(new java.awt.Color(0, 0, 0));
+        btnVerLogs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logs.png"))); // NOI18N
+        btnVerLogs.setText("LOGS");
+        pnlNavBar.add(btnVerLogs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 180, 60));
 
         getContentPane().add(pnlNavBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
@@ -361,10 +323,6 @@ public class Principal extends javax.swing.JFrame {
         });
         pnlRegistrarVenta.add(btnRegistrarRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 580, -1, 44));
 
-        btnImprimirRegistrarVenta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/imprimir.png"))); // NOI18N
-        btnImprimirRegistrarVenta.setText("Imprimir");
-        pnlRegistrarVenta.add(btnImprimirRegistrarVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 580, 145, 44));
-
         tbdpnlSistema.addTab("Registrar Venta", pnlRegistrarVenta);
 
         pnlClientes.setBackground(new java.awt.Color(245, 222, 179));
@@ -397,9 +355,6 @@ public class Principal extends javax.swing.JFrame {
         btnEliminarClientes.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
         pnlClientes.add(btnEliminarClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 590, -1, -1));
 
-        lblTotalClientes.setText("Total de Clientes:");
-        pnlClientes.add(lblTotalClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 500, -1, 20));
-
         tblClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -420,14 +375,13 @@ public class Principal extends javax.swing.JFrame {
         if (tblClientes.getColumnModel().getColumnCount() > 0) {
             tblClientes.getColumnModel().getColumn(0).setPreferredWidth(1);
             tblClientes.getColumnModel().getColumn(1).setPreferredWidth(10);
-            tblClientes.getColumnModel().getColumn(2).setPreferredWidth(20);
+            tblClientes.getColumnModel().getColumn(2).setPreferredWidth(50);
             tblClientes.getColumnModel().getColumn(3).setPreferredWidth(150);
             tblClientes.getColumnModel().getColumn(4).setPreferredWidth(150);
-            tblClientes.getColumnModel().getColumn(5).setPreferredWidth(100);
+            tblClientes.getColumnModel().getColumn(5).setPreferredWidth(50);
         }
 
         pnlClientes.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, 1050, 406));
-        pnlClientes.add(txtTotalClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 500, 100, -1));
         pnlClientes.add(txtDocumentoClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 250, -1));
 
         lblDocumentoClientes.setText("DNI/RUC");
@@ -491,20 +445,16 @@ public class Principal extends javax.swing.JFrame {
             tblProductos.getColumnModel().getColumn(0).setPreferredWidth(1);
             tblProductos.getColumnModel().getColumn(1).setPreferredWidth(5);
             tblProductos.getColumnModel().getColumn(2).setPreferredWidth(200);
-            tblProductos.getColumnModel().getColumn(3).setPreferredWidth(100);
-            tblProductos.getColumnModel().getColumn(4).setPreferredWidth(50);
-            tblProductos.getColumnModel().getColumn(5).setPreferredWidth(300);
+            tblProductos.getColumnModel().getColumn(3).setPreferredWidth(70);
+            tblProductos.getColumnModel().getColumn(4).setPreferredWidth(40);
+            tblProductos.getColumnModel().getColumn(5).setPreferredWidth(350);
         }
 
-        pnlProductos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 6, 1061, 344));
+        pnlProductos.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 1061, 344));
         pnlProductos.add(txtCategoriaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 548, 250, -1));
-
-        lblTotalProductos.setText("Total de Productos:");
-        pnlProductos.add(lblTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(838, 371, -1, -1));
 
         lblCategoriaProductos.setText("Categoría:");
         pnlProductos.add(lblCategoriaProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(79, 526, 250, -1));
-        pnlProductos.add(txtTotalProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 368, 100, -1));
 
         tbdpnlSistema.addTab("Productos", pnlProductos);
 
@@ -519,10 +469,15 @@ public class Principal extends javax.swing.JFrame {
         pnlEmpleados.add(lblSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 100, -1));
         pnlEmpleados.add(txtSalarioEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 100, -1));
 
-        btnGuardarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar.png"))); // NOI18N
-        btnGuardarEmpleados.setText("Agregar");
-        btnGuardarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlEmpleados.add(btnGuardarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 630, 114, -1));
+        btnAgregarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/agregar.png"))); // NOI18N
+        btnAgregarEmpleados.setText("Agregar");
+        btnAgregarEmpleados.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
+        btnAgregarEmpleados.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarEmpleadosActionPerformed(evt);
+            }
+        });
+        pnlEmpleados.add(btnAgregarEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 630, 114, -1));
 
         btnEliminarEmpleados.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/eliminar.png"))); // NOI18N
         btnEliminarEmpleados.setText("Eliminar");
@@ -544,7 +499,7 @@ public class Principal extends javax.swing.JFrame {
 
             },
             new String [] {
-                "N°", "ID_Cliente", "DNI", "Nombre", "Correo", "Cargo", "Salario"
+                "N°", "ID_Empleado", "DNI", "Nombre", "Correo", "Cargo", "Salario"
             }
         ) {
             Class[] types = new Class [] {
@@ -566,14 +521,10 @@ public class Principal extends javax.swing.JFrame {
             tblEmpleados.getColumnModel().getColumn(6).setPreferredWidth(10);
         }
 
-        pnlEmpleados.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 6, 1070, 344));
-
-        lblTotalEmpleados.setText("Total de Empleados:");
-        pnlEmpleados.add(lblTotalEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(834, 371, -1, -1));
+        pnlEmpleados.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 1070, 344));
 
         lblCargoEmpleados.setText("Cargo:");
         pnlEmpleados.add(lblCargoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 140, -1));
-        pnlEmpleados.add(txtTotalEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(958, 368, 100, -1));
 
         lblDniEmpleados.setText("DNI:");
         pnlEmpleados.add(lblDniEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 100, -1));
@@ -587,191 +538,6 @@ public class Principal extends javax.swing.JFrame {
         pnlEmpleados.add(cbCargoEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 140, -1));
 
         tbdpnlSistema.addTab("Proveedores", pnlEmpleados);
-
-        pnlInformacion.setBackground(new java.awt.Color(245, 222, 179));
-        pnlInformacion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        tblVentas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "N°", "ID_Venta", "ID_Cliente", "ID_Producto", "Precio Unitario", "Cantidad", "Monto Total", "Fecha", "Metodo de Pago"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Long.class, java.lang.Long.class, java.lang.Long.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.String.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        jScrollPane3.setViewportView(tblVentas);
-        if (tblVentas.getColumnModel().getColumnCount() > 0) {
-            tblVentas.getColumnModel().getColumn(0).setPreferredWidth(1);
-            tblVentas.getColumnModel().getColumn(1).setPreferredWidth(2);
-            tblVentas.getColumnModel().getColumn(2).setPreferredWidth(2);
-            tblVentas.getColumnModel().getColumn(3).setPreferredWidth(2);
-            tblVentas.getColumnModel().getColumn(4).setPreferredWidth(10);
-            tblVentas.getColumnModel().getColumn(5).setPreferredWidth(2);
-            tblVentas.getColumnModel().getColumn(6).setPreferredWidth(10);
-            tblVentas.getColumnModel().getColumn(7).setPreferredWidth(100);
-            tblVentas.getColumnModel().getColumn(8).setPreferredWidth(100);
-        }
-
-        pnlInformacion.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 1070, -1));
-
-        seccionBusquedaVentas.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtros de Búsqueda"));
-
-        lblIdVentas.setText("ID_Venta:");
-
-        lblClienteVentas.setText("Nombre del Cliente:");
-
-        lblProductoVentas.setText("Nombre del Producto:");
-
-        lblPrecioVentas.setText("Precio Unitario:");
-
-        lblCantidadVentas.setText("Cantidad:");
-
-        lblMontoVentas.setText("Monto Total:");
-
-        lblMetodoPagoVentas.setText("Metodo de Pago:");
-
-        lblFechaVentas.setText("Fecha:");
-
-        lblHoraVentas.setText("Hora:");
-
-        cbMetodoPagoVentas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Seleccionar--", "Efectivo", "Tarjeta de Débito", "Tarjeta de Crédito", "Transferencia Bancaria" }));
-
-        jDateChooserVentas.setDateFormatString("yyyy-MM-dd");
-
-        spnHoraVentas.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1729746000000L), null, null, java.util.Calendar.DAY_OF_MONTH));
-        spnHoraVentas.setEditor(new javax.swing.JSpinner.DateEditor(spnHoraVentas, "HH:mm:ss"));
-
-        btnPDFVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/pdf.png"))); // NOI18N
-
-        javax.swing.GroupLayout seccionBusquedaVentasLayout = new javax.swing.GroupLayout(seccionBusquedaVentas);
-        seccionBusquedaVentas.setLayout(seccionBusquedaVentasLayout);
-        seccionBusquedaVentasLayout.setHorizontalGroup(
-            seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtIdVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
-                    .addComponent(lblIdVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtClienteVentas)
-                        .addComponent(lblClienteVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE))
-                    .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(lblMetodoPagoVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbMetodoPagoVentas, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtProductoVentas)
-                    .addComponent(lblProductoVentas, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                    .addComponent(jDateChooserVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFechaVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(spnHoraVentas, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblPrecioVentas, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtPrecioVentas, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblHoraVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblCantidadVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtCantidadVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lblMontoVentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtMontoVentas, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
-                        .addGap(72, 72, 72)
-                        .addComponent(btnPDFVentas)))
-                .addContainerGap(167, Short.MAX_VALUE))
-        );
-        seccionBusquedaVentasLayout.setVerticalGroup(
-            seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
-                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblPrecioVentas)
-                            .addComponent(lblCantidadVentas)
-                            .addComponent(lblMontoVentas))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtPrecioVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtCantidadVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMontoVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
-                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblIdVentas)
-                            .addComponent(lblClienteVentas)
-                            .addComponent(lblProductoVentas))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtClienteVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtIdVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtProductoVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionBusquedaVentasLayout.createSequentialGroup()
-                        .addComponent(lblFechaVentas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooserVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionBusquedaVentasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seccionBusquedaVentasLayout.createSequentialGroup()
-                            .addComponent(lblMetodoPagoVentas)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(cbMetodoPagoVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(seccionBusquedaVentasLayout.createSequentialGroup()
-                            .addComponent(lblHoraVentas)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(spnHoraVentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(btnPDFVentas, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(34, 34, 34))
-        );
-
-        pnlInformacion.add(seccionBusquedaVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 1070, -1));
-
-        tbdpnlSistema.addTab("Ventas", pnlInformacion);
-
-        pnlConfiguracion.setBackground(new java.awt.Color(245, 222, 179));
-        pnlConfiguracion.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnGuardarConfiguracion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/guardar.png"))); // NOI18N
-        btnGuardarConfiguracion.setText("Guardar");
-        btnGuardarConfiguracion.setHorizontalAlignment(javax.swing.SwingConstants.LEADING);
-        pnlConfiguracion.add(btnGuardarConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 612, 114, -1));
-
-        lblRucConfiguracion.setText("RUC:");
-        pnlConfiguracion.add(lblRucConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 84, 250, -1));
-
-        lblRazonSocialConfiguracion.setText("Razón Social:");
-        pnlConfiguracion.add(lblRazonSocialConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 146, 250, -1));
-
-        lblNombreConfiguracion.setText("Nombre:");
-        pnlConfiguracion.add(lblNombreConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 208, 250, -1));
-
-        lblDireccionConfiguracion.setText("Dirección:");
-        pnlConfiguracion.add(lblDireccionConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 270, 250, -1));
-
-        lblTelefonoConfiguracion.setText("Teléfono:");
-        pnlConfiguracion.add(lblTelefonoConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 332, 250, -1));
-        pnlConfiguracion.add(txtRucConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 106, 250, -1));
-        pnlConfiguracion.add(txtRazonSocialConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 168, 250, -1));
-        pnlConfiguracion.add(txtNombreConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 230, 250, -1));
-        pnlConfiguracion.add(txtDireccionConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 292, 250, -1));
-        pnlConfiguracion.add(txtTelefonoConfiguracion, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 354, 250, -1));
-
-        tbdpnlSistema.addTab("Configuración", pnlConfiguracion);
 
         getContentPane().add(tbdpnlSistema, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 0, 1190, 720));
 
@@ -802,19 +568,7 @@ public class Principal extends javax.swing.JFrame {
         desenfocarBotonesNavegacion();
         enfocarBotonNavegacion(btnEmpleados);
     }//GEN-LAST:event_btnEmpleadosActionPerformed
-
-     private void btnInformacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionActionPerformed
-        tbdpnlSistema.setSelectedIndex(4);
-        desenfocarBotonesNavegacion();
-        enfocarBotonNavegacion(btnInformacion);
-    }//GEN-LAST:event_btnInformacionActionPerformed
     
-    private void btnConfiguracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfiguracionActionPerformed
-        tbdpnlSistema.setSelectedIndex(5);
-        desenfocarBotonesNavegacion();
-        enfocarBotonNavegacion(btnConfiguracion);
-    }//GEN-LAST:event_btnConfiguracionActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int opcionSeleccionada = JOptionPane.showOptionDialog(this, "¿Estas seguro de salir?",
             "Mensaje de Confirmación",
@@ -896,7 +650,98 @@ public class Principal extends javax.swing.JFrame {
         } catch (Exception ex) {
             mostrarError("Error al registrar la venta: " + ex.getMessage());
         }
+        lblTotalRegistrarVenta.setText("Total a Pagar: ");
     }//GEN-LAST:event_btnRegistrarRegistrarVentaActionPerformed
+
+    private void btnVerVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerVentasActionPerformed
+        try {
+            List<Object[]> data = controlador.ControladorVenta.obtenerVentasConDetalles();
+            String[] headers = {
+                "id_venta", 
+                "id_cliente", 
+                "id_empleado", 
+                "id_producto", 
+                "id_detalle_venta", 
+                "id_metodo_pago", 
+                "precio_unitario", 
+                "cantidad", 
+                "monto_total", 
+                "fecha_hora"
+            };
+
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet("Ventas");
+
+            // Crear fila de encabezados
+            Row headerRow = sheet.createRow(0);
+            for (int i = 0; i < headers.length; i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(headers[i]);
+
+                CellStyle style = workbook.createCellStyle();
+                Font font = workbook.createFont();
+                font.setBold(true);
+                style.setFont(font);
+                cell.setCellStyle(style);
+            }
+
+            // Escribe los datos
+            for (int i = 0; i < data.size(); i++) {
+                Row row = sheet.createRow(i + 1); // Las filas de datos comienzan en la fila 1
+                Object[] rowData = data.get(i);
+                for (int j = 0; j < rowData.length; j++) {
+                    Cell cell = row.createCell(j);
+                    // Agrega los valores
+                    if (rowData[j] != null) {
+                        if (rowData[j] instanceof Number) {
+                            cell.setCellValue(((Number) rowData[j]).doubleValue());
+                        } else {
+                            cell.setCellValue(rowData[j].toString());
+                        }
+                    }
+                }
+            }
+
+            // Autoajusta el tamaño de las columnas
+            for (int i = 0; i < headers.length; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            // Crea un archivo temporal para guardar el Excel
+            File tempFile = File.createTempFile("ventas", ".xlsx");
+            try (FileOutputStream fileOut = new FileOutputStream(tempFile)) {
+                workbook.write(fileOut);
+            }
+            workbook.close();
+
+            // Abre el archivo con la aplicación predeterminada del sistema
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(tempFile);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, "No se puede abrir el archivo automáticamente. Archivo temporal: " + tempFile.getAbsolutePath());
+            }
+
+            // Elimina el archivo temporal al cerrar la aplicación
+            tempFile.deleteOnExit();
+
+        } catch (Exception e) {
+            // Manejo de excepciones
+            e.printStackTrace();
+            javax.swing.JOptionPane.showMessageDialog(this, "Error al generar el archivo Excel: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnVerVentasActionPerformed
+
+    private void btnAgregarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpleadosActionPerformed
+        if(datosEmpleadoValidos()) {
+            Empleado e = new Empleado(0, txtDniEmpleados.getText(), txtNombreEmpleados.getText(), txtCorreoEmpleados.getText(), cbCargoEmpleados.getSelectedItem().toString(), Double.parseDouble(txtSalarioEmpleados.getText()));
+            try {
+                controlador.ControladorEmpleado.agregarEmpleado(e);
+                cargarEmpleados();
+            } catch (Exception ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_btnAgregarEmpleadosActionPerformed
 
     private void initMethods() {
         try {
@@ -914,6 +759,9 @@ public class Principal extends javax.swing.JFrame {
         vista.utilidadesVista.GestorTablas.deshabilitarEdicion(tblRegistrarVenta);
         cargarProductos(cbProductoRegistrarVenta);
         cargarMetodosPago(cbMetodoPagoRegistrarVenta);
+        cargarClientes();
+        cargarEmpleados();
+        cargarCargos();
     }
     
     private void desenfocarBotonesNavegacion() {
@@ -977,6 +825,24 @@ public class Principal extends javax.swing.JFrame {
         }
         
         cb.setModel(modelo);
+        
+        List<Producto> l = controlador.ControladorProducto.obtenerProductos();
+        
+        List<Object[]> datosTabla = new ArrayList<>();
+        int i = 1;
+        for (Producto p : l) {
+            Object[] fila = {
+                i++,
+                p.getId(),
+                p.getNombre(),
+                p.getCategoria(),
+                p.getPrecio(),
+                p.getDescripcion()
+            };
+            datosTabla.add(fila);
+        }
+        
+        vista.utilidadesVista.GestorTablas.actualizarTabla(tblProductos, datosTabla);
     }
     
     private void cargarMetodosPago(javax.swing.JComboBox<String> cb) {
@@ -1024,11 +890,70 @@ public class Principal extends javax.swing.JFrame {
                vista.utilidadesVista.ValidadorEntradasUsuario.campoTelefonoEsValido(txtTelefonoRegistrarVenta, "Teléfono") &&
                vista.utilidadesVista.ValidadorEntradasUsuario.seleccionCbEsValida(cbMetodoPagoRegistrarVenta, "Método de Pago");
     }
+    
+    private boolean datosEmpleadoValidos() {
+        return vista.utilidadesVista.ValidadorEntradasUsuario.campoDniRucEsValido(txtDniEmpleados, "DNI") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.campoNombrePersonaEsValida(txtNombreEmpleados, "Nombre del Empleado") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.campoCorreoEsValido(txtCorreoEmpleados, "Correo") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.seleccionCbEsValida(cbCargoEmpleados, "Cargo") &&
+               vista.utilidadesVista.ValidadorEntradasUsuario.campoCantidadEsValido(txtSalarioEmpleados, "Salario");
+    }
+    
+    private void cargarClientes() {
+        List<Cliente> l = controlador.ControladorCliente.obtenerClientes();
+        
+        List<Object[]> datosTabla = new ArrayList<>();
+        int i = 1;
+        for (Cliente c : l) {
+            Object[] fila = {
+                i++,
+                c.getId(),
+                c.getIdDoc(),
+                c.getNombre(),
+                c.getCorreo(),
+                c.getTelefono()
+            };
+            datosTabla.add(fila);
+        }
+        
+        vista.utilidadesVista.GestorTablas.actualizarTabla(tblClientes, datosTabla);
+    }
+    
+    private void cargarEmpleados() {
+        List<Empleado> l = controlador.ControladorEmpleado.obtenerEmpleados();
+        
+        List<Object[]> datosTabla = new ArrayList<>();
+        int i = 1;
+        for (Empleado e : l) {
+            Object[] fila = {
+                i++,
+                e.getId(),
+                e.getDni(),
+                e.getNombre(),
+                e.getCorreo(),
+                e.getRol(),
+                e.getSalario()
+            };
+            datosTabla.add(fila);
+        }
+        
+        vista.utilidadesVista.GestorTablas.actualizarTabla(tblEmpleados, datosTabla);
+    }
+    
+    private void cargarCargos() {
+        javax.swing.DefaultComboBoxModel<String> modelo = (javax.swing.DefaultComboBoxModel<String>) cbCargoEmpleados.getModel();
+        modelo.addElement("Vendedor");
+        modelo.addElement("Administrador");    
+    }
+    
+    private void cargarEmpresaDatos() {
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregarEmpleados;
     private javax.swing.JButton btnAgregarRegistrarVenta;
     private javax.swing.JButton btnClientes;
-    private javax.swing.JButton btnConfiguracion;
     private javax.swing.JButton btnEditarClientes;
     private javax.swing.JButton btnEditarEmpleados;
     private javax.swing.JButton btnEditarProductos;
@@ -1040,113 +965,71 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnExcelEmpleados;
     private javax.swing.JButton btnExcelProductos;
     private javax.swing.JButton btnGuardarClientes;
-    private javax.swing.JButton btnGuardarConfiguracion;
-    private javax.swing.JButton btnGuardarEmpleados;
     private javax.swing.JButton btnGuardarProductos;
-    private javax.swing.JButton btnImprimirRegistrarVenta;
-    private javax.swing.JButton btnInformacion;
     private javax.swing.JButton btnMinimizar;
-    private javax.swing.JButton btnPDFVentas;
     private javax.swing.JButton btnProductos;
     private javax.swing.JButton btnRegistrarRegistrarVenta;
     private javax.swing.JButton btnRegistrarVenta;
     private javax.swing.JButton btnSalir;
+    private javax.swing.JButton btnVerLogs;
+    private javax.swing.JButton btnVerVentas;
     private javax.swing.JComboBox<String> cbCargoEmpleados;
     private javax.swing.JComboBox<String> cbMetodoPagoRegistrarVenta;
-    private javax.swing.JComboBox<String> cbMetodoPagoVentas;
     private javax.swing.JComboBox<String> cbProductoRegistrarVenta;
-    private com.toedter.calendar.JDateChooser jDateChooserVentas;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JLabel lblCantidadRegistrarVenta;
-    private javax.swing.JLabel lblCantidadVentas;
     private javax.swing.JLabel lblCargoEmpleados;
     private javax.swing.JLabel lblCategoriaProductos;
-    private javax.swing.JLabel lblClienteVentas;
     private javax.swing.JLabel lblCorreoClientes;
     private javax.swing.JLabel lblCorreoEmpleados;
     private javax.swing.JLabel lblCorreoRegistrarVenta;
     private javax.swing.JLabel lblDescripcionProductos;
-    private javax.swing.JLabel lblDireccionConfiguracion;
     private javax.swing.JLabel lblDniEmpleados;
     private javax.swing.JLabel lblDocumentoClientes;
-    private javax.swing.JLabel lblFechaVentas;
-    private javax.swing.JLabel lblHoraVentas;
     private javax.swing.JLabel lblIdDocRegistrarVenta;
-    private javax.swing.JLabel lblIdVentas;
     private javax.swing.JLabel lblMetodoPagoRegistrarVenta;
-    private javax.swing.JLabel lblMetodoPagoVentas;
-    private javax.swing.JLabel lblMontoVentas;
     private javax.swing.JLabel lblNombreClientes;
-    private javax.swing.JLabel lblNombreConfiguracion;
     private javax.swing.JLabel lblNombreEmpleados;
     private javax.swing.JLabel lblNombreProductos;
     private javax.swing.JLabel lblNombreRegistrarVenta;
     private javax.swing.JLabel lblPrecioProductos;
-    private javax.swing.JLabel lblPrecioVentas;
     private javax.swing.JLabel lblProductoRegistrarVenta;
-    private javax.swing.JLabel lblProductoVentas;
-    private javax.swing.JLabel lblRazonSocialConfiguracion;
-    private javax.swing.JLabel lblRucConfiguracion;
     private javax.swing.JLabel lblSalarioEmpleados;
     private javax.swing.JLabel lblTelefonoClientes;
-    private javax.swing.JLabel lblTelefonoConfiguracion;
     private javax.swing.JLabel lblTelefonoRegistrarVenta;
-    private javax.swing.JLabel lblTotalClientes;
-    private javax.swing.JLabel lblTotalEmpleados;
-    private javax.swing.JLabel lblTotalProductos;
     private javax.swing.JLabel lblTotalRegistrarVenta;
     private javax.swing.JLabel logo;
     private javax.swing.JPanel pnlClientes;
-    private javax.swing.JPanel pnlConfiguracion;
     private javax.swing.JPanel pnlEmpleados;
-    private javax.swing.JPanel pnlInformacion;
     private javax.swing.JPanel pnlNavBar;
     private javax.swing.JPanel pnlProductos;
     private javax.swing.JPanel pnlRegistrarVenta;
-    private javax.swing.JPanel seccionBusquedaVentas;
     private javax.swing.JPanel seccionClienteRegistrarVenta;
     private javax.swing.JPanel seccionProductoRegistrarVenta;
-    private javax.swing.JSpinner spnHoraVentas;
     private javax.swing.JTabbedPane tbdpnlSistema;
     private javax.swing.JTable tblClientes;
     private javax.swing.JTable tblEmpleados;
     private javax.swing.JTable tblProductos;
     private javax.swing.JTable tblRegistrarVenta;
-    private javax.swing.JTable tblVentas;
     private javax.swing.JTextField txtCantidadRegistrarVenta;
-    private javax.swing.JTextField txtCantidadVentas;
     private javax.swing.JTextField txtCategoriaProductos;
-    private javax.swing.JTextField txtClienteVentas;
     private javax.swing.JTextField txtCorreoClientes;
     private javax.swing.JTextField txtCorreoEmpleados;
     private javax.swing.JTextField txtCorreoRegistrarVenta;
     private javax.swing.JTextField txtDescripcionProductos;
-    private javax.swing.JTextField txtDireccionConfiguracion;
     private javax.swing.JTextField txtDniEmpleados;
     private javax.swing.JTextField txtDocumentoClientes;
     private javax.swing.JTextField txtIdDocRegistrarVenta;
-    private javax.swing.JTextField txtIdVentas;
-    private javax.swing.JTextField txtMontoVentas;
     private javax.swing.JTextField txtNombreClientes;
-    private javax.swing.JTextField txtNombreConfiguracion;
     private javax.swing.JTextField txtNombreEmpleados;
     private javax.swing.JTextField txtNombreProductos;
     private javax.swing.JTextField txtNombreRegistrarVenta;
     private javax.swing.JTextField txtPrecioProductos;
-    private javax.swing.JTextField txtPrecioVentas;
-    private javax.swing.JTextField txtProductoVentas;
-    private javax.swing.JTextField txtRazonSocialConfiguracion;
-    private javax.swing.JTextField txtRucConfiguracion;
     private javax.swing.JTextField txtSalarioEmpleados;
     private javax.swing.JTextField txtTelefonoClientes;
-    private javax.swing.JTextField txtTelefonoConfiguracion;
     private javax.swing.JTextField txtTelefonoRegistrarVenta;
-    private javax.swing.JTextField txtTotalClientes;
-    private javax.swing.JTextField txtTotalEmpleados;
-    private javax.swing.JTextField txtTotalProductos;
     // End of variables declaration//GEN-END:variables
 }

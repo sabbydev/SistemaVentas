@@ -119,4 +119,65 @@ public class VentaDAOImpl extends Conexion implements VentaDAO{
             this.desconectar();
         }
     }
+    
+    public List<Object[]> obtenerVentasConDetalles() throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        List<Object[]> matriz = null;
+
+        try {
+            this.conectar();
+
+            // Query para combinar las tablas "ventas" y "detalle_ventas" mediante JOIN
+            String sql = """
+                SELECT 
+                    v.id_venta, 
+                    v.id_cliente, 
+                    v.id_empleado, 
+                    v.id_producto, 
+                    dv.id_detalle_venta, 
+                    dv.id_metodo_pago, 
+                    dv.precio_unitario, 
+                    dv.cantidad, 
+                    dv.monto_total, 
+                    dv.fecha_hora
+                FROM 
+                    ventas v
+                INNER JOIN 
+                    detalle_ventas dv 
+                ON 
+                    v.id_venta = dv.id_venta
+            """;
+
+            declaracion = this.conexion.prepareStatement(sql);
+            resultado = declaracion.executeQuery();
+
+            matriz = new LinkedList<>();
+
+            // Obtiene la cantidad de columnas de la tabla combinada
+            int columnCount = resultado.getMetaData().getColumnCount();
+
+            while (resultado.next()) {
+                // Crea un arreglo para almacenar los datos de la fila actual
+                Object[] fila = new Object[columnCount];
+
+                // Recorre cada columna de la fila y almacena el valor
+                for (int i = 1; i <= columnCount; i++) {
+                    fila[i - 1] = resultado.getObject(i);
+                }
+
+                // Añade la fila a la matriz
+                matriz.add(fila);
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (declaracion != null) declaracion.close();
+            if (resultado != null) resultado.close();
+            this.desconectar();
+        }
+
+        return matriz;
+    }
 }
