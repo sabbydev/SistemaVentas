@@ -48,14 +48,14 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
                 SELECT p1.*
                 FROM productos p1
                 INNER JOIN (
-                    SELECT nombre, MAX(fecha_hora_creacion) AS max_date
+                    SELECT nombre, MAX(fecha_creacion) AS max_date
                     FROM productos
                     GROUP BY nombre
-                ) p2 ON p1.nombre = p2.nombre AND p1.fecha_hora_creacion = p2.max_date
-                WHERE p1.id = (
-                    SELECT MAX(p3.id)
+                ) p2 ON p1.nombre = p2.nombre AND p1.fecha_creacion = p2.max_date
+                WHERE p1.id_producto = (
+                    SELECT MAX(p3.id_producto)
                     FROM productos p3
-                    WHERE p3.nombre = p1.nombre AND p3.fecha_hora_creacion = p1.fecha_hora_creacion
+                    WHERE p3.nombre = p1.nombre AND p3.fecha_creacion = p1.fecha_creacion
                 );
             """);
 
@@ -69,7 +69,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
                     resultado.getString("categoria"),
                     resultado.getDouble("precio"),
                     resultado.getString("descripcion"),
-                    resultado.getObject("fecha_hora_creacion", LocalDateTime.class)
+                    resultado.getObject("fecha_creacion", LocalDateTime.class)
                 );
                 lista.add(p);
             }
@@ -142,7 +142,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
                 SELECT p1.* 
                 FROM productos p1 
                 WHERE p1.nombre = ? 
-                ORDER BY p1.fecha_hora_creacion DESC, p1.id_producto DESC 
+                ORDER BY p1.fecha_creacion DESC, p1.id_producto DESC 
                 LIMIT 1
             """);
             declaracion.setString(1, nombre);
@@ -156,7 +156,7 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
                     resultado.getString("categoria"),
                     resultado.getDouble("precio"),
                     resultado.getString("descripcion"),
-                    resultado.getObject("fecha_hora_creacion", LocalDateTime.class)
+                    resultado.getObject("fecha_creacion", LocalDateTime.class)
                 );
             }
         } catch (Exception e) {
