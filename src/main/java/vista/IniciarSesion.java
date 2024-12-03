@@ -162,10 +162,9 @@ public class IniciarSesion extends javax.swing.JFrame {
         EmpleadoDTO eDTO = controlador.ControladorSesion.auntenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()));
         if(eDTO != null) {
             new Principal(eDTO).setVisible(true);
+            this.dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
-            
-            if (txtCorreo.getText().equals("admin@email.com") && new String(pfPassword.getPassword()).equals("admin")) new Principal(new EmpleadoDTO(0,"","","","Administrador",0)).setVisible(true);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
