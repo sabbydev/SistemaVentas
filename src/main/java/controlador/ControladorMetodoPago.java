@@ -34,7 +34,7 @@ public class ControladorMetodoPago {
         }
     }
 
-    public static void eliminarMetodosPago(int id) {
+    public static void eliminarMetodoPago(int id) {
         try {            
             new MetodoPagoDAOImpl().delete(id);
         } catch (Exception ex) {
@@ -59,5 +59,14 @@ public class ControladorMetodoPago {
             throw ex;
         }
     }
-
+    
+    public static int crearMetodoPago(String nombre, String descripcion, String estado) throws Exception {
+        MetodoPago mp = new MetodoPago(0, nombre, descripcion, estado);
+        try {
+            return new MetodoPagoDAOImpl().crear(mp);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
+    }
 }

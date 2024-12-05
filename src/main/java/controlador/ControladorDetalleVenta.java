@@ -28,4 +28,23 @@ public class ControladorDetalleVenta {
     public static void eliminarDetalleVenta(long id) throws Exception {
         new DetalleVentaDAOImpl().delete(id);
     }
+    
+    public static long crearDetalleVenta(long idVenta, long idMetodoPago, double precioUnitario, int cantidad) throws Exception {
+        DetalleVenta dv = new DetalleVenta(-1, idVenta, idMetodoPago, precioUnitario, cantidad, null);
+        try {
+            return new DetalleVentaDAOImpl().crear(dv);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
+    }
+    
+    public static DetalleVenta obtenerDetalleVenta(long id) throws Exception {
+        try {
+            return new DetalleVentaDAOImpl().obtenerDetalleVenta(id);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
+    }
 }

@@ -70,4 +70,14 @@ public class ControladorProducto {
             throw ex;
         }
     }
+    
+    public static long crearProducto(String nombre, String categoria, double precio, String descripcion) throws Exception {
+        Producto p = new Producto(0, nombre, categoria, precio, descripcion, null);
+        try {
+            return new ProductoDAOImpl().crear(p);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
+    }
 }

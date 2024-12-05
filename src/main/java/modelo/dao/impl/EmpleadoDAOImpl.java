@@ -181,4 +181,37 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
 
         return e;
     }
+    
+    public long crear(Empleado e) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet generatedKeys = null;
+
+        try {
+            this.conectar();
+            
+            declaracion = this.conexion.prepareStatement("INSERT INTO empleados(dni, nombre, correo, rol, salario) VALUES(?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+            declaracion.setString(1, e.getDni());
+            declaracion.setString(2, e.getNombre());
+            declaracion.setString(3, e.getCorreo());
+            declaracion.setString(4, e.getRol());
+            declaracion.setDouble(5, e.getSalario());
+                
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+            if (filasAfectadas > 0) {
+                generatedKeys = declaracion.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                }
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (generatedKeys != null) generatedKeys.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        return -1;
+    }
 }

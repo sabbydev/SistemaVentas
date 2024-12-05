@@ -35,7 +35,7 @@ public class ControladorVenta {
         }
     }
 
-    public static void eliminarVentas(long id) {
+    public static void eliminarVenta(long id) {
         Venta v = new Venta(id, 0, 0, 0);
         try {
             new VentaDAOImpl().delete(v);
@@ -51,5 +51,14 @@ public class ControladorVenta {
             System.out.println(ex);
         }
         return new ArrayList<>();
+    }
+    
+    public static Venta obtenerVenta(long id) throws Exception {
+        try {
+            return new VentaDAOImpl().obtenerVenta(id);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
     }
 }

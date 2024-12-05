@@ -56,7 +56,7 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
                     resultado.getInt("id_metodo_pago"),
                     resultado.getDouble("precio_unitario"),
                     resultado.getInt("cantidad"),
-                    resultado.getObject("fecha_hora_venta", LocalDateTime.class)
+                    resultado.getObject("fecha_hora", LocalDateTime.class)
                 );
                 lista.add(dv);
             }
@@ -98,7 +98,7 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
         try {
             this.conectar();
 
-            declaracion = this.conexion.prepareStatement("DELETE FROM ventas WHERE id_detalle_venta = ?");
+            declaracion = this.conexion.prepareStatement("DELETE FROM detalle_ventas WHERE id_detalle_venta = ?");
 
             declaracion.setLong(1, id);
             
@@ -110,5 +110,74 @@ public class DetalleVentaDAOImpl extends Conexion implements DetalleVentaDAO{
             if (declaracion != null) declaracion.close();
             this.desconectar();
         }
+    }
+    
+    public long crear(DetalleVenta dv) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet generatedKeys = null;
+        
+        try {
+            this.conectar();
+            
+            declaracion = this.conexion.prepareStatement("INSERT INTO detalle_ventas(id_venta, id_metodo_pago, precio_unitario, cantidad) VALUES(?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+            declaracion.setLong(1, dv.getIdVenta());
+            declaracion.setLong(2, dv.getIdMetodoPago());
+            declaracion.setDouble(3, dv.getPrecioUnitario());
+            declaracion.setInt(4, dv.getCantidad());
+                
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+            
+            if (filasAfectadas > 0) {
+                generatedKeys = declaracion.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (generatedKeys != null) generatedKeys.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        return -1;
+    }
+    
+    public DetalleVenta obtenerDetalleVenta(long id) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        DetalleVenta detalleVenta = null;
+
+        try {
+            this.conectar();
+
+            // Asegúrate de que la tabla y las columnas coincidan con tu base de datos
+            declaracion = this.conexion.prepareStatement("SELECT * FROM detalle_ventas WHERE id_detalle_venta = ? LIMIT 1");
+            declaracion.setLong(1, id);
+
+            resultado = declaracion.executeQuery();
+
+            if (resultado.next()) {
+                detalleVenta = new DetalleVenta(
+                    resultado.getInt("id_detalle_venta"),
+                    resultado.getInt("id_venta"),
+                    resultado.getInt("id_metodo_pago"),
+                    resultado.getDouble("precio_unitario"),
+                    resultado.getInt("cantidad"),
+                    resultado.getObject("fecha_hora", LocalDateTime.class)
+                );
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (resultado != null) resultado.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+
+        return detalleVenta;
     }
 }

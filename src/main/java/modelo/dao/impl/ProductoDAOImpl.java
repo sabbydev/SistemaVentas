@@ -258,4 +258,37 @@ public class ProductoDAOImpl extends Conexion implements ProductoDAO{
 
         return precio;
     }
+    
+    public long crear(Producto p) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet generatedKeys = null;
+
+        try {
+            this.conectar();
+            
+            declaracion = this.conexion.prepareStatement("INSERT INTO productos(nombre, categoria, precio, descripcion) VALUES(?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+            
+            declaracion.setString(1, p.getNombre());
+            declaracion.setString(2, p.getCategoria());
+            declaracion.setDouble(3, p.getPrecio());
+            declaracion.setString(4, p.getDescripcion());
+                
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+            
+            if (filasAfectadas > 0) {
+                generatedKeys = declaracion.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (generatedKeys != null) generatedKeys.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        return -1;
+    }
 }

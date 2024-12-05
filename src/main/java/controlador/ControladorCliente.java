@@ -65,4 +65,14 @@ public class ControladorCliente {
             return 0;
         }
     }
+    
+    public static long crearCliente(String idDoc, String nombre, String correo, String telefono) throws Exception {
+        Cliente c = new Cliente(0, idDoc, nombre, correo, telefono);
+        try {
+            return new ClienteDAOImpl().crear(c);
+        } catch (Exception ex) {
+            System.out.println(ex);
+            throw ex;
+        }
+    }
 }

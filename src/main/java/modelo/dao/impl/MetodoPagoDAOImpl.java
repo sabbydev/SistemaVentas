@@ -165,4 +165,35 @@ public class MetodoPagoDAOImpl extends Conexion implements MetodoPagoDAO {
 
         return id;
     }
+    
+    public int crear(MetodoPago mp) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet generatedKeys = null;
+
+        try {
+            this.conectar();
+
+            declaracion = this.conexion.prepareStatement("INSERT INTO metodos_pago(nombre, descripcion, estado) VALUES(?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+            declaracion.setString(1, mp.getNombre());
+            declaracion.setString(2, mp.getDescripcion());
+            declaracion.setString(3, mp.getEstado());
+                
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+            if (filasAfectadas > 0) {
+                generatedKeys = declaracion.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getInt(1);
+                }
+            }
+        } catch (Exception ex) {
+            throw ex;
+        } finally {
+            if (generatedKeys != null) generatedKeys.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        return -1;
+    }
 }

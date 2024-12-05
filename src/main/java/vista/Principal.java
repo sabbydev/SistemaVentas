@@ -657,16 +657,18 @@ public class Principal extends javax.swing.JFrame {
         try {
             List<Object[]> data = controlador.ControladorVenta.obtenerVentasConDetalles();
             String[] headers = {
-                "id_venta", 
-                "id_cliente", 
-                "id_empleado", 
-                "id_producto", 
-                "id_detalle_venta", 
-                "id_metodo_pago", 
+                "id_venta",
+                "id_cliente",
+                "nombre_cliente",
+                "id_empleado",
+                "nombre_empleado",
+                "id_producto",
+                "nombre_producto",
                 "precio_unitario", 
                 "cantidad", 
                 "monto_total", 
-                "fecha_hora"
+                "fecha_hora",
+                "id_metodo_pago"
             };
 
             Workbook workbook = new XSSFWorkbook();
@@ -767,10 +769,8 @@ public class Principal extends javax.swing.JFrame {
     private void desenfocarBotonesNavegacion() {
         btnRegistrarVenta.setBackground(btnBgColor);
         btnClientes.setBackground(btnBgColor);
-        btnInformacion.setBackground(btnBgColor);
         btnProductos.setBackground(btnBgColor);
         btnEmpleados.setBackground(btnBgColor);
-        btnConfiguracion.setBackground(btnBgColor);
     }
     
     private void enfocarBotonNavegacion(javax.swing.JButton jb){
@@ -796,10 +796,8 @@ public class Principal extends javax.swing.JFrame {
     
     private void initVendedor() {
         btnClientes.setVisible(false);
-        btnInformacion.setVisible(false);
         btnProductos.setVisible(false);
         btnEmpleados.setVisible(false);
-        btnConfiguracion.setVisible(false);
     }
     
     private void mostrarAdvertencia(String mensaje) {

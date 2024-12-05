@@ -128,25 +128,33 @@ public class VentaDAOImpl extends Conexion implements VentaDAO{
         try {
             this.conectar();
 
-            // Query para combinar las tablas "ventas" y "detalle_ventas" mediante JOIN
+            // Query para combinar todas las tablas necesarias con JOIN
             String sql = """
                 SELECT 
-                    v.id_venta, 
-                    v.id_cliente, 
-                    v.id_empleado, 
-                    v.id_producto, 
-                    dv.id_detalle_venta, 
-                    dv.id_metodo_pago, 
-                    dv.precio_unitario, 
-                    dv.cantidad, 
-                    dv.monto_total, 
-                    dv.fecha_hora
+                    v.id_venta,
+                    c.id_doc AS cliente_dni,
+                    c.nombre AS cliente_nombre,
+                    e.dni AS empleado_dni,
+                    e.nombre AS empleado_nombre,
+                    p.id_producto AS id_producto,
+                    p.nombre AS producto_nombre,
+                    dv.precio_unitario,
+                    dv.cantidad,
+                    dv.monto_total,
+                    dv.fecha_hora,
+                    mp.nombre AS metodo_pago
                 FROM 
                     ventas v
                 INNER JOIN 
-                    detalle_ventas dv 
-                ON 
-                    v.id_venta = dv.id_venta
+                    detalle_ventas dv ON v.id_venta = dv.id_venta
+                INNER JOIN 
+                    clientes c ON v.id_cliente = c.id_cliente
+                INNER JOIN 
+                    empleados e ON v.id_empleado = e.id_empleado
+                INNER JOIN 
+                    productos p ON v.id_producto = p.id_producto
+                INNER JOIN 
+                    metodos_pago mp ON dv.id_metodo_pago = mp.id_metodo_pago
             """;
 
             declaracion = this.conexion.prepareStatement(sql);
@@ -154,7 +162,7 @@ public class VentaDAOImpl extends Conexion implements VentaDAO{
 
             matriz = new LinkedList<>();
 
-            // Obtiene la cantidad de columnas de la tabla combinada
+            // Obtiene la cantidad de columnas del resultado
             int columnCount = resultado.getMetaData().getColumnCount();
 
             while (resultado.next()) {
@@ -179,5 +187,38 @@ public class VentaDAOImpl extends Conexion implements VentaDAO{
         }
 
         return matriz;
+    }
+    
+    public Venta obtenerVenta(long id) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet resultado = null;
+        Venta venta = null;
+
+        try {
+            this.conectar();
+
+            declaracion = this.conexion.prepareStatement("SELECT * FROM ventas ORDER BY id_venta = ? DESC LIMIT 1");
+            declaracion.setLong(1, id);
+
+            resultado = declaracion.executeQuery();
+
+            if (resultado.next()) {
+                venta = new Venta(
+                    resultado.getInt("id_venta"),
+                    resultado.getInt("id_cliente"),
+                    resultado.getInt("id_empleado"),
+                    resultado.getInt("id_producto")
+                );
+            }
+
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (declaracion != null) declaracion.close();
+            if (resultado != null) resultado.close();
+            this.desconectar();
+        }
+
+        return venta;
     }
 }

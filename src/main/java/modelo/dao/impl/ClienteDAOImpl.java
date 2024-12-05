@@ -192,4 +192,37 @@ public class ClienteDAOImpl extends Conexion implements ClienteDAO {
 
         return -1;
     }
+    
+    public long crear(Cliente c) throws Exception {
+        PreparedStatement declaracion = null;
+        ResultSet generatedKeys = null;
+
+        try {
+            this.conectar();
+            
+            declaracion = this.conexion.prepareStatement("INSERT INTO clientes(id_doc, nombre, correo, telefono) VALUES(?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+
+            declaracion.setString(1, c.getIdDoc());
+            declaracion.setString(2, c.getNombre());
+            declaracion.setString(3, c.getCorreo());
+            declaracion.setString(4, c.getTelefono());
+
+            int filasAfectadas = declaracion.executeUpdate();
+            System.out.println(filasAfectadas + (filasAfectadas > 1 ? " filas afectadas" : " fila afectada"));
+            
+            if (filasAfectadas > 0) {
+                generatedKeys = declaracion.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    return generatedKeys.getLong(1);
+                }
+            }
+        } catch (Exception e) {
+            throw e;
+        } finally {
+            if (generatedKeys != null) generatedKeys.close();
+            if (declaracion != null) declaracion.close();
+            this.desconectar();
+        }
+        return -1;
+    }
 }
