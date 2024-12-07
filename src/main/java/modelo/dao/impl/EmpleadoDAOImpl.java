@@ -127,7 +127,7 @@ public class EmpleadoDAOImpl extends Conexion implements EmpleadoDAO{
 
             if (resultado.next()) {
                 e = new Empleado(
-                    resultado.getInt("id_empleado"),
+                    resultado.getLong("id_empleado"),
                     resultado.getString("dni"),
                     resultado.getString("nombre"),
                     resultado.getString("correo"),

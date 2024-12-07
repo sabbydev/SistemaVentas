@@ -159,7 +159,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        EmpleadoDTO eDTO = controlador.ControladorSesion.auntenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()));
+        EmpleadoDTO eDTO = controlador.ControladorSesion.autenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()));
         if(eDTO != null) {
             new Principal(eDTO).setVisible(true);
             this.dispose();

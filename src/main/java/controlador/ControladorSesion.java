@@ -6,7 +6,7 @@ import modelo.dto.EmpleadoDTO;
 
 public class ControladorSesion {
     
-    public static EmpleadoDTO auntenticarUsuario(String correo, String pass) {
+    public static EmpleadoDTO autenticarUsuario(String correo, String pass) {
         Empleado e;
         try {
             e = new EmpleadoDAOImpl().obtenerEmpleado(correo, pass);
