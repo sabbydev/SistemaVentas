@@ -1,10 +1,11 @@
-package modelo.conexion;
+package funcionales.unitarias;
 
 import org.junit.jupiter.api.Test;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import modelo.conexion.Conexion;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,16 +24,16 @@ public class ConexionTest {
 
         try {
             // Crear tabla temporal
-            PreparedStatement crearTablaStmt = conexionBD.conexion.prepareStatement(crearTablaSQL);
+            PreparedStatement crearTablaStmt = conexionBD.getConexion().prepareStatement(crearTablaSQL);
             crearTablaStmt.executeUpdate();
 
             // **Inserción**
-            PreparedStatement insertarStmt = conexionBD.conexion.prepareStatement(insertarSQL);
+            PreparedStatement insertarStmt = conexionBD.getConexion().prepareStatement(insertarSQL);
             int filasInsertadas = insertarStmt.executeUpdate();
             assertEquals(1, filasInsertadas, "La inserción falló: No se insertó ninguna fila.");
 
             // **Consulta**
-            PreparedStatement seleccionarStmt = conexionBD.conexion.prepareStatement(seleccionarSQL);
+            PreparedStatement seleccionarStmt = conexionBD.getConexion().prepareStatement(seleccionarSQL);
             ResultSet resultSet = seleccionarStmt.executeQuery();
             String resultado = null;
             if (resultSet.next()) {
@@ -41,7 +42,7 @@ public class ConexionTest {
             assertEquals("Test", resultado, "El valor recuperado no coincide con el esperado.");
 
             // **Eliminación**
-            PreparedStatement eliminarStmt = conexionBD.conexion.prepareStatement(eliminarSQL);
+            PreparedStatement eliminarStmt = conexionBD.getConexion().prepareStatement(eliminarSQL);
             int filasEliminadas = eliminarStmt.executeUpdate();
             assertEquals(1, filasEliminadas, "La eliminación falló: No se eliminó ninguna fila.");
 

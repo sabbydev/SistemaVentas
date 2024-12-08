@@ -1,5 +1,6 @@
-package modelo;
+package funcionales.unitarias;
 
+import modelo.Venta;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

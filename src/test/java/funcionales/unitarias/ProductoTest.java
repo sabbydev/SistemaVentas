@@ -1,6 +1,7 @@
-package modelo;
+package funcionales.unitarias;
 
 import java.time.LocalDateTime;
+import modelo.Producto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

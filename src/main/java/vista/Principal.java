@@ -48,6 +48,7 @@ public class Principal extends javax.swing.JFrame {
         btnEmpleados = new javax.swing.JButton();
         btnVerVentas = new javax.swing.JButton();
         btnVerLogs = new javax.swing.JButton();
+        lblIDSesion = new javax.swing.JLabel();
         tbdpnlSistema = new javax.swing.JTabbedPane();
         pnlRegistrarVenta = new javax.swing.JPanel();
         seccionProductoRegistrarVenta = new javax.swing.JPanel();
@@ -213,6 +214,9 @@ public class Principal extends javax.swing.JFrame {
         btnVerLogs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logs.png"))); // NOI18N
         btnVerLogs.setText("LOGS");
         pnlNavBar.add(btnVerLogs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 180, 60));
+
+        lblIDSesion.setText("ID Sesión:");
+        pnlNavBar.add(lblIDSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 690, -1, -1));
 
         getContentPane().add(pnlNavBar, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 720));
 
@@ -759,6 +763,7 @@ public class Principal extends javax.swing.JFrame {
         tbdpnlSistema.setUI(null);
         enfocarBotonNavegacion(btnRegistrarVenta);
         vista.utilidadesVista.GestorTablas.deshabilitarEdicion(tblRegistrarVenta);
+        lblIDSesion.setText("ID Sesión: " + idEmpleadoSesion);
         cargarProductos(cbProductoRegistrarVenta);
         cargarMetodosPago(cbMetodoPagoRegistrarVenta);
         cargarClientes();
@@ -987,6 +992,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblDescripcionProductos;
     private javax.swing.JLabel lblDniEmpleados;
     private javax.swing.JLabel lblDocumentoClientes;
+    private javax.swing.JLabel lblIDSesion;
     private javax.swing.JLabel lblIdDocRegistrarVenta;
     private javax.swing.JLabel lblMetodoPagoRegistrarVenta;
     private javax.swing.JLabel lblNombreClientes;

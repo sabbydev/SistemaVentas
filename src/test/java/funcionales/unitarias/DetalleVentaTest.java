@@ -1,9 +1,10 @@
-package modelo;
+package funcionales.unitarias;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+import modelo.DetalleVenta;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

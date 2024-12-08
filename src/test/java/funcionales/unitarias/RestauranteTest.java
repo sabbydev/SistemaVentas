@@ -1,4 +1,4 @@
-package modelo;
+package funcionales.unitarias;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
@@ -6,6 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import modelo.Cliente;
+import modelo.Empleado;
+import modelo.Producto;
+import modelo.Restaurante;
+import modelo.Venta;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

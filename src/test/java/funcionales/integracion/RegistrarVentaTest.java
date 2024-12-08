@@ -1,4 +1,4 @@
-package controlador;
+package funcionales.integracion;
 
 import java.time.LocalDateTime;
 import modelo.DetalleVenta;
