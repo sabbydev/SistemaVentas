@@ -1,4 +1,4 @@
-package noFuncionales.seguridad;
+package seguridad;
 
 import modelo.dto.EmpleadoDTO;
 import org.junit.jupiter.api.Test;

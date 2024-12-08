@@ -1,4 +1,4 @@
-package noFuncionales.seguridad;
+package seguridad;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
