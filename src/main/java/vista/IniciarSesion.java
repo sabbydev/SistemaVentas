@@ -4,12 +4,16 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelo.dto.EmpleadoDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class IniciarSesion extends javax.swing.JFrame {
-
+    private static final Logger logger = LogManager.getLogger(IniciarSesion.class);
+     
     public IniciarSesion() {
         initComponents();
         initMethod();
+        logger.info("Interfaz gráfica cargada y lista.");
     }
 
     @SuppressWarnings("unchecked")
@@ -159,11 +163,17 @@ public class IniciarSesion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        EmpleadoDTO eDTO = controlador.ControladorSesion.autenticarUsuario(txtCorreo.getText(), new String(pfPassword.getPassword()));
-        if(eDTO != null) {
+        String correo = txtCorreo.getText();
+        String password = new String(pfPassword.getPassword());
+        logger.info("Intentando iniciar sesión con correo: {}", correo);
+
+        EmpleadoDTO eDTO = controlador.ControladorSesion.autenticarUsuario(correo, password);
+        if (eDTO != null) {
+            logger.info("Autenticación exitosa para el correo: {}", correo);
             new Principal(eDTO).setVisible(true);
             this.dispose();
         } else {
+            logger.error("Error de autenticación: correo o contraseña incorrectos para el correo: {}", correo);
             JOptionPane.showMessageDialog(null, "Correo o contraseña incorrectos.", "Error de autenticación", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
@@ -174,11 +184,17 @@ public class IniciarSesion extends javax.swing.JFrame {
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null, null, null);
-        if (opcionSeleccionada == 0) System.exit(0);
+        if (opcionSeleccionada == 0) {
+            logger.info("El usuario ha cerrado la sesión.");
+            System.exit(0);
+        } else {
+            logger.info("El usuario ha cancelado la salida.");
+        }
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void txtCorreoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB) {
+            logger.debug("Usuario presionó ENTER o TAB en el campo correo.");
             pfPassword.setText("");
             pfPassword.setForeground(Color.BLACK);
             pfPassword.requestFocus();
@@ -187,6 +203,7 @@ public class IniciarSesion extends javax.swing.JFrame {
 
     private void pfPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pfPasswordKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER || evt.getKeyCode() == KeyEvent.VK_TAB) {
+            logger.debug("Usuario presionó ENTER o TAB en el campo contraseña.");
             btnIngresarActionPerformed(null);
         }
     }//GEN-LAST:event_pfPasswordKeyPressed
@@ -208,11 +225,13 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_pfPasswordMousePressed
 
     private void lblOcultarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblOcultarMouseClicked
+        logger.debug("Ocultando la contraseña.");
         lblOcultar.setVisible(false);
         lblMostrar.setVisible(true);
     }//GEN-LAST:event_lblOcultarMouseClicked
 
     private void lblMostrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblMostrarMouseClicked
+        logger.debug("Mostrando la contraseña.");
         lblMostrar.setVisible(false);
         lblOcultar.setVisible(true);
         pfPassword.setEchoChar((char)0);
@@ -230,6 +249,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCorreoMousePressed
 
     public static void main(String args[]) {
+        logger.info("Iniciando la aplicación de inicio de sesión.");
         java.awt.EventQueue.invokeLater(() -> {
             new IniciarSesion().setVisible(true);
         });
@@ -237,6 +257,7 @@ public class IniciarSesion extends javax.swing.JFrame {
     
     private void initMethod() {
         try {
+            logger.info("Configurando Look and Feel.");
             for (var info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -244,12 +265,12 @@ public class IniciarSesion extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IniciarSesion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            logger.error("Error al configurar Look and Feel: ", ex);
         }
-        
+
         lblOcultar.setVisible(false);
         lblMostrar.setVisible(false);
-        pfPassword.setEchoChar((char)0);
+        pfPassword.setEchoChar((char) 0);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Appender de archivo para guardar los logs en un archivo local -->
+        <File name="FileAppender" fileName="logs/app.log">
+            <PatternLayout>
+                <!-- Define el formato del log: fecha, nivel, nombre del hilo, clase, línea, y el mensaje -->
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5p [%t] %c{1}:%L - %m%n</Pattern>
+            </PatternLayout>
+        </File>
+    </Appenders>
+    <Loggers>
+        <!-- Logger raíz que almacena todos los logs en el archivo -->
+        <Root level="info">
+            <AppenderRef ref="FileAppender"/>
+        </Root>
+    </Loggers>
+</Configuration>

@@ -7,8 +7,8 @@ import java.io.FileOutputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import javax.swing.JOptionPane;
 import modelo.Cliente;
 import modelo.Empleado;
@@ -26,6 +26,7 @@ public class Principal extends javax.swing.JFrame {
     DecimalFormat df = new DecimalFormat("#,###.00");
     private final long idEmpleadoSesion;
     private final String rolSesion;
+    private static final Logger logger = LogManager.getLogger(Principal.class);
     
     public Principal(EmpleadoDTO eDTO) {
         this.idEmpleadoSesion = eDTO.getId();
@@ -621,10 +622,14 @@ public class Principal extends javax.swing.JFrame {
     private void btnRegistrarRegistrarVentaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarRegistrarVentaActionPerformed
         if (!datosClienteRegistrarVentaValidos()) {
             mostrarAdvertencia("Los datos del cliente no son válidos.");
+            logger.warn("Intento de registrar una venta con datos de cliente inválidos.");
             return;
         }
 
         try {
+            logger.info("Iniciando registro de venta para el cliente...");
+
+            // Obtener o insertar cliente
             long idCliente = controlador.ControladorCliente.obtenerOInsertarClienteId(
                 new ClienteDTO(
                         txtIdDocRegistrarVenta.getText(),
@@ -633,15 +638,25 @@ public class Principal extends javax.swing.JFrame {
                         txtTelefonoRegistrarVenta.getText()
                 )
             );
+
+            logger.info("Cliente registrado o encontrado con éxito. ID Cliente: " + idCliente);
+
+            // Obtener productos seleccionados
             List<Long> listaIdProducto = vista.utilidadesVista.GestorTablas.obtenerColumnaLong(tblRegistrarVenta, 1);
+            logger.info("Productos seleccionados para la venta: " + listaIdProducto);
+
+            // Registrar las ventas
             boolean errorEnVenta = registrarVentas(listaIdProducto, idCliente);
 
             if (errorEnVenta) {
                 mostrarAdvertencia("Algunas ventas no se pudieron registrar. Verifique los errores en la consola.");
+                logger.error("Error al registrar algunas ventas para el cliente ID: " + idCliente);
             } else {
                 mostrarExito("Todas las ventas se han registrado con éxito para el cliente ID: " + idCliente);
+                logger.info("Todas las ventas registradas con éxito para el cliente ID: " + idCliente);
             }
 
+            // Limpiar datos de la interfaz
             vista.utilidadesVista.GestorTablas.vaciarTabla(tblRegistrarVenta);
             vista.utilidadesVista.GestorEntradasUsuario.limpiarCampos(
                     txtCantidadRegistrarVenta,
@@ -651,28 +666,28 @@ public class Principal extends javax.swing.JFrame {
                     txtTelefonoRegistrarVenta
             );
             vista.utilidadesVista.GestorEntradasUsuario.reiniciarSeleccion(cbProductoRegistrarVenta, cbMetodoPagoRegistrarVenta);
+
         } catch (Exception ex) {
             mostrarError("Error al registrar la venta: " + ex.getMessage());
+            logger.error("Error al registrar la venta: ", ex);  // Registrar el error con el stack trace
         }
+
         lblTotalRegistrarVenta.setText("Total a Pagar: ");
     }//GEN-LAST:event_btnRegistrarRegistrarVentaActionPerformed
 
     private void btnVerVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerVentasActionPerformed
         try {
+            logger.info("Generando el reporte de ventas...");
+
             List<Object[]> data = controlador.ControladorVenta.obtenerVentasConDetalles();
+            if (data.isEmpty()) {
+                logger.warn("No se encontraron ventas para exportar.");
+            }
+
             String[] headers = {
-                "id_venta",
-                "id_cliente",
-                "nombre_cliente",
-                "id_empleado",
-                "nombre_empleado",
-                "id_producto",
-                "nombre_producto",
-                "precio_unitario", 
-                "cantidad", 
-                "monto_total", 
-                "fecha_hora",
-                "id_metodo_pago"
+                "id_venta", "id_cliente", "nombre_cliente", "id_empleado", "nombre_empleado",
+                "id_producto", "nombre_producto", "precio_unitario", "cantidad", "monto_total", 
+                "fecha_hora", "id_metodo_pago"
             };
 
             Workbook workbook = new XSSFWorkbook();
@@ -697,7 +712,6 @@ public class Principal extends javax.swing.JFrame {
                 Object[] rowData = data.get(i);
                 for (int j = 0; j < rowData.length; j++) {
                     Cell cell = row.createCell(j);
-                    // Agrega los valores
                     if (rowData[j] != null) {
                         if (rowData[j] instanceof Number) {
                             cell.setCellValue(((Number) rowData[j]).doubleValue());
@@ -720,6 +734,9 @@ public class Principal extends javax.swing.JFrame {
             }
             workbook.close();
 
+            // Registrar éxito al generar el archivo
+            logger.info("Reporte de ventas generado exitosamente.");
+
             // Abre el archivo con la aplicación predeterminada del sistema
             if (Desktop.isDesktopSupported()) {
                 Desktop.getDesktop().open(tempFile);
@@ -731,6 +748,8 @@ public class Principal extends javax.swing.JFrame {
             tempFile.deleteOnExit();
 
         } catch (Exception e) {
+            // Registrar el error
+            logger.error("Error al generar el archivo Excel.", e);
             // Manejo de excepciones
             e.printStackTrace();
             javax.swing.JOptionPane.showMessageDialog(this, "Error al generar el archivo Excel: " + e.getMessage(), "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
@@ -738,19 +757,31 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnVerVentasActionPerformed
 
     private void btnAgregarEmpleadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarEmpleadosActionPerformed
-        if(datosEmpleadoValidos()) {
-            Empleado e = new Empleado(0, txtDniEmpleados.getText(), txtNombreEmpleados.getText(), txtCorreoEmpleados.getText(), cbCargoEmpleados.getSelectedItem().toString(), Double.parseDouble(txtSalarioEmpleados.getText()));
+        if (datosEmpleadoValidos()) {
+            Empleado e = new Empleado(0, txtDniEmpleados.getText(), txtNombreEmpleados.getText(), 
+                                      txtCorreoEmpleados.getText(), cbCargoEmpleados.getSelectedItem().toString(), 
+                                      Double.parseDouble(txtSalarioEmpleados.getText()));
             try {
                 controlador.ControladorEmpleado.agregarEmpleado(e);
                 cargarEmpleados();
+                // Registrar evento exitoso
+                logger.info("Empleado agregado exitosamente: {}", e.getNombre());
             } catch (Exception ex) {
-                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                // Registrar error
+                logger.error("Error al agregar el empleado: {}", e.getNombre(), ex);
             }
+        } else {
+            // Registrar cuando los datos del empleado no son válidos
+            logger.warn("Intento de agregar un empleado con datos inválidos.");
         }
     }//GEN-LAST:event_btnAgregarEmpleadosActionPerformed
 
     private void initMethods() {
+        // Registrar la ejecución del método
+        logger.info("Inicializando el sistema...");
+
         try {
+            // Configuración del Look and Feel
             for (var info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
@@ -758,17 +789,30 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            // Registrar error en caso de excepción
+            logger.error("Error al configurar el Look and Feel Nimbus.", ex);
         }
-        tbdpnlSistema.setUI(null);
-        enfocarBotonNavegacion(btnRegistrarVenta);
-        vista.utilidadesVista.GestorTablas.deshabilitarEdicion(tblRegistrarVenta);
-        lblIDSesion.setText("ID Sesión: " + idEmpleadoSesion);
-        cargarProductos(cbProductoRegistrarVenta);
-        cargarMetodosPago(cbMetodoPagoRegistrarVenta);
-        cargarClientes();
-        cargarEmpleados();
-        cargarCargos();
+
+        // Deshabilitar edición en la tabla y otras configuraciones
+        try {
+            tbdpnlSistema.setUI(null);
+            enfocarBotonNavegacion(btnRegistrarVenta);
+            vista.utilidadesVista.GestorTablas.deshabilitarEdicion(tblRegistrarVenta);
+            lblIDSesion.setText("ID Sesión: " + idEmpleadoSesion);
+            
+            // Registrar los eventos de carga de datos
+            cargarProductos(cbProductoRegistrarVenta);
+            cargarMetodosPago(cbMetodoPagoRegistrarVenta);
+            cargarClientes();
+            cargarEmpleados();
+            cargarCargos();
+            
+            // Registrar éxito en la inicialización
+            logger.info("Sistema inicializado exitosamente.");
+        } catch (Exception ex) {
+            // Registrar error en caso de excepción
+            logger.error("Error al inicializar algunos datos en el sistema.", ex);
+        }
     }
     
     private void desenfocarBotonesNavegacion() {
