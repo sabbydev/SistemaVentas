@@ -182,7 +182,7 @@ public class IniciarSesion extends javax.swing.JFrame {
         int opcionSeleccionada = JOptionPane.showOptionDialog(this, "¿Estas seguro de salir?",
                 "Mensaje de Confirmación",
                 JOptionPane.YES_NO_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
+                JOptionPane.OK_CANCEL_OPTION,
                 null, null, null);
         if (opcionSeleccionada == 0) {
             logger.info("El usuario ha cerrado la sesión.");

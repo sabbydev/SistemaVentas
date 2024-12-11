@@ -2,8 +2,13 @@ package vista;
 
 import java.awt.Color;
 import java.awt.Desktop;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -200,6 +205,7 @@ public class Principal extends javax.swing.JFrame {
         pnlNavBar.add(btnEmpleados, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 458, 188, 62));
 
         btnVerVentas.setBackground(new java.awt.Color(0, 204, 0));
+        btnVerVentas.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVerVentas.setForeground(new java.awt.Color(0, 0, 0));
         btnVerVentas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/excel.png"))); // NOI18N
         btnVerVentas.setText("VENTAS");
@@ -211,11 +217,19 @@ public class Principal extends javax.swing.JFrame {
         pnlNavBar.add(btnVerVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 540, 180, 60));
 
         btnVerLogs.setBackground(new java.awt.Color(153, 153, 153));
+        btnVerLogs.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btnVerLogs.setForeground(new java.awt.Color(0, 0, 0));
         btnVerLogs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/logs.png"))); // NOI18N
         btnVerLogs.setText("LOGS");
+        btnVerLogs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerLogsActionPerformed(evt);
+            }
+        });
         pnlNavBar.add(btnVerLogs, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 610, 180, 60));
 
+        lblIDSesion.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblIDSesion.setForeground(new java.awt.Color(255, 255, 255));
         lblIDSesion.setText("ID Sesión:");
         pnlNavBar.add(lblIDSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 690, -1, -1));
 
@@ -578,7 +592,7 @@ public class Principal extends javax.swing.JFrame {
         int opcionSeleccionada = JOptionPane.showOptionDialog(this, "¿Estas seguro de salir?",
             "Mensaje de Confirmación",
             JOptionPane.YES_NO_OPTION,
-            JOptionPane.QUESTION_MESSAGE,
+            JOptionPane.OK_CANCEL_OPTION,
             null, null, null);
         if (opcionSeleccionada == 0) System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
@@ -775,6 +789,36 @@ public class Principal extends javax.swing.JFrame {
             logger.warn("Intento de agregar un empleado con datos inválidos.");
         }
     }//GEN-LAST:event_btnAgregarEmpleadosActionPerformed
+
+    private void btnVerLogsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerLogsActionPerformed
+        int opcion = JOptionPane.showConfirmDialog(null, "¿Deseas abrir el archivo en Bloc de Notas?", "Abrir archivo", JOptionPane.YES_NO_OPTION);
+        boolean abrirEnBlocNotas = (opcion == JOptionPane.YES_OPTION);
+
+        try {
+            Path path = Paths.get("logs/app.log").toAbsolutePath();
+            File archivo = path.toFile();
+
+            if (!archivo.exists()) {
+                System.out.println("El archivo no existe: " + archivo.getAbsolutePath());
+                return;
+            }
+
+            if (abrirEnBlocNotas) {
+                String comando = "notepad.exe " + archivo.getAbsolutePath();
+                Runtime.getRuntime().exec(comando);
+                return;
+            }
+
+            BufferedReader br = new BufferedReader(new FileReader(archivo));
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                System.out.println(linea);
+            }
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_btnVerLogsActionPerformed
 
     private void initMethods() {
         // Registrar la ejecución del método
